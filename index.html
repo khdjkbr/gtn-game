@@ -838,6 +838,227 @@
     .btn-game-exit:active {
       transform: scale(0.95);
     }
+    
+    .guess-player-avatar {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: #ffffff;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      flex-shrink: 0;
+    }
+    .guess-player-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .player-half.opponent .guess-player-avatar {
+      border-color: rgba(244, 63, 94, 0.45);
+      background: linear-gradient(135deg, #f43f5e, #8b5cf6);
+    }
+    [data-theme="light"] .guess-player-avatar {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      border: 2px solid rgba(14, 165, 233, 0.5);
+    }
+    [data-theme="light"] .player-half.opponent .guess-player-avatar {
+      border: 2px solid rgba(244, 63, 94, 0.5);
+    }
+
+    
+    /* Шкала сужения диапазона игрока */
+    .range-track-wrapper {
+      position: absolute;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      max-width: 85%;
+      height: 6px;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .range-track-bar {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 4px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    .range-track-active {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0%;
+      width: 100%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+      transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Стилизованные поля ввода с поддержкой тем */
+    .styled-form-input {
+      padding: 13px 15px;
+      background: rgba(2, 6, 23, 0.75);
+      border: 1px solid var(--glass-border);
+      color: #ffffff;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .styled-form-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+    }
+    [data-theme="light"] .styled-form-input {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid rgba(148, 163, 184, 0.5) !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    [data-theme="light"] .styled-form-input:focus {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2) !important;
+    }
+
+    /* Всеобъемлющая адаптация Светлой темы */
+    [data-theme="light"] .range-track-bar {
+      background: #e2e8f0 !important;
+      border-color: rgba(148, 163, 184, 0.5) !important;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    [data-theme="light"] .range-track-active {
+      background: linear-gradient(90deg, #0284c7, #6366f1) !important;
+      box-shadow: 0 1px 6px rgba(2, 132, 199, 0.35) !important;
+    }
+
+    [data-theme="light"] .player-half {
+      background: rgba(255, 255, 255, 0.5) !important;
+    }
+    [data-theme="light"] .player-half.opponent {
+      border-bottom: 2px dashed rgba(148, 163, 184, 0.4) !important;
+      background: rgba(254, 242, 242, 0.45) !important;
+    }
+
+    [data-theme="light"] .center-number {
+      background: linear-gradient(180deg, #0f172a 30%, #334155 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+    }
+
+    [data-theme="light"] .player-range.opp-range-badge {
+      background: #ffe4e6 !important;
+      border-color: rgba(244, 63, 94, 0.4) !important;
+      color: #be123c !important;
+      box-shadow: 0 2px 8px rgba(244, 63, 94, 0.12) !important;
+    }
+    [data-theme="light"] .player-range.opp-range-badge .range-val {
+      color: #9f1239 !important;
+    }
+
+    [data-theme="light"] .player-range.my-range-badge {
+      background: #e0f2fe !important;
+      border-color: rgba(14, 165, 233, 0.4) !important;
+      color: #0369a1 !important;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.12) !important;
+    }
+    [data-theme="light"] .player-range.my-range-badge .range-val {
+      color: #0284c7 !important;
+    }
+
+    [data-theme="light"] .my-secret-badge {
+      background: #e0f2fe !important;
+      color: #0369a1 !important;
+      border: 1px solid rgba(14, 165, 233, 0.3) !important;
+    }
+
+    [data-theme="light"] .btn-game-exit {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.4) !important;
+      color: #475569 !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    [data-theme="light"] .btn-game-exit:hover {
+      background: #ffe4e6 !important;
+      border-color: #f43f5e !important;
+      color: #e11d48 !important;
+    }
+
+    [data-theme="light"] .secret-range-badge {
+      background: #e0f2fe !important;
+      border-color: rgba(14, 165, 233, 0.4) !important;
+      color: #0284c7 !important;
+    }
+
+    [data-theme="light"] .room-code-badge {
+      color: #0284c7 !important;
+      text-shadow: 0 0 10px rgba(2, 132, 199, 0.2) !important;
+    }
+
+    [data-theme="light"] .waiting-box, [data-theme="light"] .dice-screen-wrap {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.35) !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] .dice-box {
+      background: #f8fafc !important;
+      border-color: rgba(148, 163, 184, 0.35) !important;
+    }
+    [data-theme="light"] .dice-val {
+      background: #ffffff !important;
+      border-color: rgba(148, 163, 184, 0.4) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    }
+
+        /* Модальное окно победы/поражения в Светлой теме */
+    [data-theme="light"] .modal-secret-info {
+      background: #f1f5f9 !important;
+      border: 1px solid rgba(148, 163, 184, 0.4) !important;
+      color: #334155 !important;
+    }
+    [data-theme="light"] .modal-secret-info span {
+      color: #0284c7 !important;
+    }
+    [data-theme="light"] .modal-content {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.4) !important;
+      color: #0f172a !important;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15) !important;
+    }
+    [data-theme="light"] .modal-content h2, [data-theme="light"] .modal-content h3 {
+      color: #0f172a !important;
+    }
+
+    [data-theme="light"] .legal-content-box {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.35) !important;
+      color: #334155 !important;
+    }
+    [data-theme="light"] .legal-content-box h3, [data-theme="light"] .legal-content-box strong {
+      color: #0f172a !important;
+    }
+
     .center-guess-box { display: flex; align-items: center; justify-content: center; gap: 14px; }
     .center-number {
       font-size: 2.8rem;
@@ -1012,11 +1233,166 @@
       padding: 24px;
     }
     .modal-overlay.active { display: flex; animation: fadeSlideIn 0.3s ease; }
-    [data-theme="light"] .modal-content {
+    [data-theme="light"] 
+    /* === Специфика Светлой темы: клавиатура, инпуты, бейджи и тексты === */
+    [data-theme="light"] {
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+    }
+    [data-theme="light"] .key-btn {
       background: #ffffff !important;
       border: 1px solid rgba(148, 163, 184, 0.4) !important;
-      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06);
     }
+    [data-theme="light"] .key-btn:active:not(:disabled) {
+      background: #e2e8f0 !important;
+      transform: scale(0.95);
+    }
+    [data-theme="light"] .backspace-tall-btn {
+      background: #ffe4e6 !important;
+      border: 1.5px solid #f43f5e !important;
+      color: #e11d48 !important;
+    }
+    [data-theme="light"] .submit-btn {
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    }
+    [data-theme="light"] .number-display {
+      background: #ffffff !important;
+      border: 1.5px solid rgba(148, 163, 184, 0.45) !important;
+      color: #0f172a !important;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+    [data-theme="light"] .secret-input-card, [data-theme="light"] .game-card {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.35) !important;
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .secret-digit-box {
+      background: #f1f5f9 !important;
+      border: 1.5px solid rgba(148, 163, 184, 0.5) !important;
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .secret-digit-box.filled {
+      background: #ffffff !important;
+      border-color: #0284c7 !important;
+      color: #0284c7 !important;
+    }
+    [data-theme="light"] .account-hero-name, [data-theme="light"] .page-title, [data-theme="light"] .menu-title {
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .leader-row {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.35) !important;
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .leader-row.current-player {
+      background: rgba(14, 165, 233, 0.08) !important;
+      border-color: rgba(14, 165, 233, 0.5) !important;
+    }
+    [data-theme="light"] .leader-row span {
+      color: #0f172a;
+    }
+    [data-theme="light"] .leader-row span[style*="color: #38bdf8"],
+    [data-theme="light"] .leader-row span[style*="color: rgb(56, 189, 248)"] {
+      color: #0284c7 !important;
+    }
+    [data-theme="light"] .tabs-segmented {
+      background: rgba(0, 0, 0, 0.06) !important;
+    }
+    [data-theme="light"] .tab-segment {
+      color: #64748b !important;
+    }
+    [data-theme="light"] .tab-segment.active {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="light"] .preset-card {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.35) !important;
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .preset-card.active {
+      border-color: #0284c7 !important;
+      background: rgba(14, 165, 233, 0.06) !important;
+    }
+    [data-theme="light"] .game-error-msg {
+      text-shadow: none !important;
+    }
+    [data-theme="light"] #countrySearchInput, [data-theme="light"] #joinDirectCodeInput {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid rgba(148, 163, 184, 0.45) !important;
+    }
+    [data-theme="light"] .dice-sub, [data-theme="light"] .menu-sub, [data-theme="light"] .auth-label {
+      color: #475569 !important;
+    }
+    [data-theme="light"] .history-col-title {
+      color: #64748b !important;
+    }
+    [data-theme="light"] .dice-player-card {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.35) !important;
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .dice-cube {
+      background: #ffffff !important;
+      border: 2px solid #0284c7 !important;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.2) !important;
+    }
+    [data-theme="light"] .dice-dot {
+      background: #0284c7 !important;
+    }
+    [data-theme="light"] .account-details-card {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.35) !important;
+    }
+    [data-theme="light"] .account-card-header {
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .account-details-grid span {
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .section-title {
+      color: #475569 !important;
+    }
+
+    
+    .secret-exit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .secret-exit-btn:hover, .secret-exit-btn:active {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: rgba(244, 63, 94, 0.4);
+      color: #f43f5e;
+      transform: scale(0.96);
+    }
+    [data-theme="light"] .secret-exit-btn {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.4) !important;
+      color: #475569 !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    [data-theme="light"] .secret-exit-btn:hover, [data-theme="light"] .secret-exit-btn:active {
+      background: #ffe4e6 !important;
+      border-color: #f43f5e !important;
+      color: #e11d48 !important;
+    }
+
+    
     [data-theme="light"] input, [data-theme="light"] .input-digit {
       background: rgba(241, 245, 249, 0.9) !important;
       color: #0f172a !important;
@@ -1130,12 +1506,14 @@
         <div class="auth-center-box">
           <div class="auth-label" data-i18n="loginWith">Войти с помощью:</div>
           
-          <button class="btn btn-tg" onclick="handleTelegramAuth()">
+          <button class="btn btn-tg" id="btnTelegramNative" onclick="handleTelegramAuth()">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" fill="#ffffff"/>
             </svg>
             <span>Telegram</span>
           </button>
+          <!-- Официальный Telegram Login Widget для браузерной версии -->
+          <div id="telegramWidgetContainer" style="display: none; justify-content: center; margin: 4px 0 10px;"></div>
 
           <button class="btn btn-google btn-disabled" onclick="handleProviderAuthOrLink('google')">
             <span class="soon-badge" data-i18n="soonBadge">Скоро</span>
@@ -1181,7 +1559,7 @@
       <h2 class="page-title" data-i18n="selectCountryTitle">Выберите вашу страну</h2>
       <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;" data-i18n="selectCountrySub">Страна привязывается к вашему Game ID и будет отображаться в рейтингах.</p>
 
-      <input type="text" id="countrySearchInput" oninput="filterCountriesList()" placeholder="🔍 Поиск страны..." style="width: 100%; padding: 12px 14px; background: rgba(2, 6, 23, 0.8); border: 1px solid var(--glass-border); color: white; border-radius: 12px; font-size: 0.95rem; font-weight: 600; outline: none; margin-bottom: 14px;">
+      <input type="text" id="countrySearchInput" oninput="filterCountriesList()" placeholder="🔍 Поиск страны..." class="styled-form-input" style="width: 100%; margin-bottom: 14px;">
 
       <div class="preset-list" id="countrySelectionList" style="flex: 1; overflow-y: auto;"></div>
     </section>
@@ -1609,7 +1987,7 @@
       <h2 class="page-title" data-i18n="availableRooms">Доступные комнаты</h2>
 
       <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-        <input type="number" id="joinDirectCodeInput" placeholder="Код (например, 4821)" style="flex: 1; padding: 14px; background: rgba(2, 6, 23, 0.8); border: 1px solid var(--glass-border); color: white; border-radius: 12px; font-size: 1rem; font-weight: 700; outline: none;">
+        <input type="number" id="joinDirectCodeInput" placeholder="Код (например, 4821)" class="styled-form-input" style="flex: 1;">
         <button class="btn btn-primary" style="width: auto; padding: 0 20px; margin-bottom: 0;" onclick="joinRoomByDirectCode()" data-i18n="joinBtn">Войти</button>
       </div>
 
@@ -1635,7 +2013,13 @@
     </section>
 
     <!-- Тайное загадывание числа -->
-    <section id="screenSecretInput" class="screen">
+    <section id="screenSecretInput" class="screen" style="position: relative;">
+      <div style="position: absolute; top: 14px; right: 16px; z-index: 20;">
+        <button class="secret-exit-btn" id="btnSecretExit" onclick="exitSecretInputToMenu()" title="Выйти в меню">
+          <span style="font-size: 1rem; font-weight: 800;">✕</span>
+          <span data-i18n="exitGame" style="font-weight: 700; font-size: 0.82rem;">Выйти</span>
+        </button>
+      </div>
       <div class="secret-wrap">
         <div style="font-size: 3.5rem; margin-bottom: 8px;">🔒</div>
         <h2 style="font-size: 1.45rem; margin-bottom: 6px;" data-i18n="secretTitle">Загадайте своё число</h2>
@@ -1709,6 +2093,7 @@
             </button>
           </div>
           <div class="center-guess-box">
+            <div class="guess-player-avatar" id="oppGuessAvatar">🤖</div>
             <span class="center-number" id="oppLastNumber">---</span>
             <span class="indicator" id="oppIndicator"></span>
           </div>
@@ -1725,8 +2110,15 @@
             <span class="my-secret-badge" id="mySecretBadge"></span>
           </div>
           <div class="center-guess-box">
+            <div class="guess-player-avatar" id="myGuessAvatar"></div>
             <span class="center-number" id="myLastNumber">---</span>
             <span class="indicator" id="myIndicator"></span>
+          </div>
+          <!-- Визуальная шкала сужения диапазона -->
+          <div class="range-track-wrapper" id="myRangeTrackWrapper">
+            <div class="range-track-bar" id="myRangeTrackBar">
+              <div class="range-track-active" id="myRangeTrackActive"></div>
+            </div>
           </div>
           <div class="player-range my-range-badge">
             <span class="range-dot my-dot"></span>
@@ -1884,15 +2276,26 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Сохранение профиля по основному идентификатору GameID
+    // Сохранение профиля по основному идентификатору GameID (ТОЛЬКО для авторизованных игроков)
     function syncProfileToFirebase() {
       if (!playerProfile.gameId) return;
+      
+      // БЛОКИРОВКА ДЛЯ ГОСТЕЙ И ПРЕВЬЮ:
+      // В облачную базу Firebase попадают ТОЛЬКО реально авторизованные пользователи (Telegram).
+      // Гостевые сессии и тестовые запуски из превью остаются исключительно локальными.
+      const hasAuth = !!(playerProfile.linkedAccounts && playerProfile.linkedAccounts.telegram);
+      const isGuestName = !playerProfile.name || playerProfile.name.startsWith("Guest_") || playerProfile.name === "Player";
+      
+      if (!hasAuth || isGuestName) {
+        return; // Ничего не отправляем в Firebase, профиль живет только в localStorage
+      }
+
       db.ref('users/' + playerProfile.gameId).update({
         gameId: playerProfile.gameId,
         name: playerProfile.name,
         photoUrl: playerProfile.photoUrl,
         country: playerProfile.country || null,
-        isAuthenticated: !!playerProfile.isAuthenticated,
+        isAuthenticated: true,
         statsPvp: playerProfile.statsPvp,
         statsBot: playerProfile.statsBot,
         linkedAccounts: playerProfile.linkedAccounts,
@@ -1970,6 +2373,80 @@
           setTimeout(onComplete, 350);
         }
       }, 45);
+    }
+
+    
+    // Callback для официального Telegram Login Widget (веб-версия в браузере)
+    window.onTelegramAuth = function(user) {
+      if (!user || !user.id) return;
+      triggerHaptic("success");
+      const tgId = user.id.toString();
+
+      // Проверяем, есть ли уже Game ID для данного Telegram аккаунта
+      db.ref("auth_mappings/telegram/" + tgId).once("value", snapshot => {
+        const linkedGameId = snapshot.val();
+        if (linkedGameId) {
+          loadProfileFromCloud(linkedGameId, () => {
+            playerProfile.isAuthenticated = true;
+            playerProfile.linkedAccounts.telegram = tgId;
+            if (user.first_name || user.username) {
+              playerProfile.name = user.first_name || user.username;
+            }
+            if (user.photo_url) {
+              playerProfile.photoUrl = user.photo_url;
+            }
+            localStorage.setItem("gtn_profile", JSON.stringify(playerProfile));
+            syncProfileToFirebase();
+            renderUserProfile();
+            if (!playerProfile.country) showCountrySelectionScreen();
+            else showScreen("screenMenu");
+          });
+        } else {
+          // Создаем новый привязанный профиль
+          if (!playerProfile.gameId || playerProfile.gameId.startsWith("Guest_")) {
+            playerProfile.gameId = "GTN-" + Math.floor(100000 + Math.random() * 900000);
+          }
+          playerProfile.isAuthenticated = true;
+          playerProfile.linkedAccounts.telegram = tgId;
+          playerProfile.name = user.first_name || user.username || "Player";
+          playerProfile.photoUrl = user.photo_url || null;
+
+          localStorage.setItem("gtn_game_id", playerProfile.gameId);
+          localStorage.setItem("gtn_profile", JSON.stringify(playerProfile));
+
+          saveAuthMapping("telegram", tgId, playerProfile.gameId);
+          syncProfileToFirebase();
+          renderUserProfile();
+          if (!playerProfile.country) showCountrySelectionScreen();
+          else showScreen("screenMenu");
+        }
+      }, err => {
+        console.warn("Telegram widget auth check failed:", err);
+      });
+    };
+
+    function initTelegramWebWidget() {
+      const container = document.getElementById("telegramWidgetContainer");
+      if (!container) return;
+
+      // Если мы открыты ВНУТРИ Telegram WebApp, виджет не нужен (авторизация происходит по initData)
+      if (tg && tgUser && tgUser.id) {
+        container.style.display = "none";
+        return;
+      }
+
+      // В обычном браузере показываем официальный виджет Telegram
+      container.style.display = "flex";
+      container.innerHTML = "";
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://telegram.org/js/telegram-widget.js?22";
+      script.setAttribute("data-telegram-login", TELEGRAM_BOT_USERNAME);
+      script.setAttribute("data-size", "large");
+      script.setAttribute("data-radius", "12");
+      script.setAttribute("data-onauth", "onTelegramAuth(user)");
+      script.setAttribute("data-request-access", "write");
+      container.appendChild(script);
     }
 
     function handleTelegramAuth() {
@@ -2376,6 +2853,7 @@
         playVsAi: "Играть против ИИ",
         leaderboard: "Рейтинг",
         settings: "Настройки",
+        exitGame: "Выйти",
         themeTitle: "Тема оформления",
         selectThemeTitle: "Выберите тему",
         themeDark: "Тёмная",
@@ -2472,6 +2950,7 @@
         playVsAi: "AI ga qarshi o'ynash",
         leaderboard: "Reyting",
         settings: "Sozlamalar",
+        exitGame: "Chiqish",
         themeTitle: "Mavzu dizayni",
         selectThemeTitle: "Mavzuni tanlang",
         themeDark: "Qorong'i",
@@ -2568,6 +3047,7 @@
         playVsAi: "Play vs AI",
         leaderboard: "Leaderboard",
         settings: "Settings",
+        exitGame: "Exit",
         themeTitle: "Appearance Theme",
         selectThemeTitle: "Choose Theme",
         themeDark: "Dark",
@@ -2993,6 +3473,7 @@
         status: 'waiting',
         hostGameId: playerProfile.gameId,
         hostName: playerProfile.name,
+        hostPhotoUrl: playerProfile.photoUrl || null,
         guestGameId: null,
         guestName: null,
         hostSecret: null,
@@ -3073,6 +3554,7 @@
           roomRef.update({
             guestGameId: playerProfile.gameId,
             guestName: playerProfile.name,
+            guestPhotoUrl: playerProfile.photoUrl || null,
             status: 'secret'
           });
 
@@ -3136,6 +3618,30 @@
       triggerHaptic('light');
       secretInputString = secretInputString.slice(0, -1);
       document.getElementById('secretDisplay').textContent = secretInputString ? parseInt(secretInputString).toLocaleString() : "";
+    }
+
+    
+    function exitSecretInputToMenu() {
+      triggerHaptic("light");
+      secretInputString = "";
+      document.getElementById("secretDisplay").textContent = "";
+      document.getElementById("secretStatusText").textContent = "";
+
+      // Если сетевая игра — отменяем комнату или выходим
+      if (!isVsAI && roomRef) {
+        try {
+          if (isRoomHost) {
+            roomRef.update({ status: "cancelled" });
+          } else {
+            roomRef.update({ guestId: null, guestName: null, guestSecret: null });
+          }
+          roomRef.off();
+        } catch(e) {
+          console.warn("Room exit cleanup error:", e);
+        }
+      }
+
+      showScreen("screenMenu");
     }
 
     function confirmSecretNumber() {
@@ -3283,6 +3789,37 @@
       document.getElementById('oppIndicator').textContent = "";
 
       const oppLabel = isVsAI ? `${i18n[currentLang].botOpponent} (${selectedAiLevel.toUpperCase()})` : i18n[currentLang].opponent;
+            // Устанавливаем аватарку текущего игрока (слева от своего числа)
+      const myAvEl = document.getElementById("myGuessAvatar");
+      if (myAvEl) {
+        if (playerProfile.photoUrl) {
+          myAvEl.innerHTML = `<img src="${playerProfile.photoUrl}" alt="me" onerror="this.outerHTML='${(playerProfile.name || "Я").charAt(0).toUpperCase()}'">`;
+        } else {
+          myAvEl.textContent = (playerProfile.name || "Я").charAt(0).toUpperCase();
+        }
+      }
+
+      // Устанавливаем аватарку соперника (слева от числа соперника)
+      const oppAvEl = document.getElementById("oppGuessAvatar");
+      if (oppAvEl) {
+        if (isVsAI) {
+          oppAvEl.innerHTML = "🤖";
+        } else if (roomRef) {
+          // Получаем данные комнаты для сетевого соперника
+          roomRef.once("value", s => {
+            const rd = s.val();
+            if (!rd) return;
+            const oppPhoto = isRoomHost ? rd.guestPhotoUrl : rd.hostPhotoUrl;
+            const oppName = isRoomHost ? (rd.guestName || "Игрок") : (rd.hostName || "Игрок");
+            if (oppPhoto) {
+              oppAvEl.innerHTML = `<img src="${oppPhoto}" alt="opp" onerror="this.outerHTML='${oppName.charAt(0).toUpperCase()}'">`;
+            } else {
+              oppAvEl.textContent = oppName.charAt(0).toUpperCase();
+            }
+          });
+        }
+      }
+
       document.getElementById('gameOppTag').textContent = oppLabel;
       document.getElementById('mySecretBadge').textContent = `${i18n[currentLang].yourSecretBadge} ${mySecretNumber.toLocaleString()}`;
 
@@ -3383,8 +3920,22 @@
     function updateRangesDisplay() {
       const myEl = document.getElementById('myRange');
       const oppEl = document.getElementById('oppRange');
-      if (myEl) myEl.textContent = `${myCurrentMin.toLocaleString()} — ${myCurrentMax.toLocaleString()}`;
-      if (oppEl) oppEl.textContent = `${oppCurrentMin.toLocaleString()} — ${oppCurrentMax.toLocaleString()}`;
+      if (myEl) myEl.textContent = myCurrentMin.toLocaleString() + ' — ' + myCurrentMax.toLocaleString();
+      if (oppEl) oppEl.textContent = oppCurrentMin.toLocaleString() + ' — ' + oppCurrentMax.toLocaleString();
+
+      // Динамическое обновление шкалы сужения диапазона с двух сторон
+      const trackActive = document.getElementById('myRangeTrackActive');
+      if (trackActive) {
+        const totalSpan = Math.max(1, (gameMax - gameMin));
+        const clampedMin = Math.max(gameMin, Math.min(gameMax, myCurrentMin));
+        const clampedMax = Math.max(clampedMin, Math.min(gameMax, myCurrentMax));
+
+        const leftPercent = Math.max(0, Math.min(100, ((clampedMin - gameMin) / totalSpan) * 100));
+        const widthPercent = Math.max(2, Math.min(100 - leftPercent, ((clampedMax - clampedMin) / totalSpan) * 100));
+
+        trackActive.style.left = leftPercent.toFixed(2) + '%';
+        trackActive.style.width = widthPercent.toFixed(2) + '%';
+      }
     }
 
     function setTurn(myTurn) {
@@ -3619,36 +4170,80 @@
       db.ref('users').once('value', snapshot => {
         const usersData = snapshot.val() || {};
         const playersMap = {};
+        const myTg = (playerProfile.linkedAccounts && playerProfile.linkedAccounts.telegram) ? String(playerProfile.linkedAccounts.telegram) : null;
+        const tgToGameId = {};
 
         // Собираем всех реальных игроков из Firebase
         Object.keys(usersData).forEach(uid => {
           const u = usersData[uid];
           if (!u) return;
+
+          // В рейтинге учитываются ТОЛЬКО авторизованные игроки с Telegram ID
+          const tgId = (u.linkedAccounts && u.linkedAccounts.telegram) ? String(u.linkedAccounts.telegram) : null;
+          if (!tgId) return;
+
+          // Исключаем гостей по маске имени, если вдруг попали
+          if (u.name && u.name.startsWith("Guest_")) return;
+
+          // Учитываются СТРОГО только победы в PvP матчах (statsPvp)
           const wins = (u.statsPvp && typeof u.statsPvp.wins === 'number') ? u.statsPvp.wins : 0;
           const matches = (u.statsPvp && typeof u.statsPvp.matches === 'number') ? u.statsPvp.matches : 0;
           const countryCode = (u.country && u.country.code) ? u.country.code : null;
+          const gId = u.gameId || uid;
 
-          playersMap[u.gameId || uid] = {
-            gameId: u.gameId || uid,
-            name: u.name || ("Игрок " + (u.gameId || uid).slice(-4)),
+          const isMe = (gId === playerProfile.gameId) || (myTg && tgId === myTg);
+
+          // Дедупликация по Telegram ID
+          if (tgToGameId[tgId]) {
+            const prevGId = tgToGameId[tgId];
+            const prev = playersMap[prevGId];
+            if (prev) {
+              prev.wins = Math.max(prev.wins, wins);
+              prev.matches = Math.max(prev.matches, matches);
+              if (isMe) prev.isCurrent = true;
+              if (!prev.countryCode && countryCode) prev.countryCode = countryCode;
+              if (!prev.name || prev.name.startsWith("Игрок ")) prev.name = u.name;
+              return;
+            }
+          } else {
+            tgToGameId[tgId] = gId;
+          }
+
+          playersMap[gId] = {
+            gameId: gId,
+            telegramId: tgId,
+            name: u.name || ("Игрок " + gId.slice(-4)),
             wins: wins,
             matches: matches,
             countryCode: countryCode,
-            isCurrent: (u.gameId === playerProfile.gameId)
+            isCurrent: isMe
           };
         });
 
-        // Гарантируем присутствие текущего профиля со свежими локальными данными
-        const myPvp = playerProfile.statsPvp || { wins: 0, matches: 0 };
-        playersMap[playerProfile.gameId] = {
-          gameId: playerProfile.gameId,
-          name: playerProfile.name || "Вы",
-          wins: myPvp.wins || 0,
-          matches: myPvp.matches || 0,
-          countryCode: playerProfile.country ? playerProfile.country.code : null,
-          isCurrent: true
-        };
+        // Текущий профиль добавляется в рейтинг ТОЛЬКО если он авторизован через Telegram
+        const isCurrentAuth = !!(playerProfile.linkedAccounts && playerProfile.linkedAccounts.telegram);
+        if (isCurrentAuth && myTg) {
+          const myPvp = playerProfile.statsPvp || { wins: 0, matches: 0 };
+          const myEffectiveGId = tgToGameId[myTg] || playerProfile.gameId;
 
+          if (playersMap[myEffectiveGId]) {
+            playersMap[myEffectiveGId].name = playerProfile.name || playersMap[myEffectiveGId].name || "Вы";
+            playersMap[myEffectiveGId].wins = Math.max(playersMap[myEffectiveGId].wins, myPvp.wins || 0);
+            playersMap[myEffectiveGId].matches = Math.max(playersMap[myEffectiveGId].matches, myPvp.matches || 0);
+            if (playerProfile.country) playersMap[myEffectiveGId].countryCode = playerProfile.country.code;
+            playersMap[myEffectiveGId].isCurrent = true;
+          } else {
+            playersMap[myEffectiveGId] = {
+              gameId: myEffectiveGId,
+              telegramId: myTg,
+              name: playerProfile.name || "Вы",
+              wins: myPvp.wins || 0,
+              matches: myPvp.matches || 0,
+              countryCode: playerProfile.country ? playerProfile.country.code : null,
+              isCurrent: true
+            };
+          }
+        }
         let allPlayers = Object.values(playersMap);
 
         // Фильтруем по вкладке
@@ -3754,6 +4349,7 @@
     }
 
     function finishStartup() {
+      initTelegramWebWidget();
       updateCountryTabLabel();
       runFakeLoading(() => {
         document.getElementById('screenSplash').classList.remove('active');
