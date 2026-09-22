@@ -876,16 +876,28 @@
     }
 
     
-    /* Шкала сужения диапазона игрока */
-    .range-track-wrapper {
+    /* Блок диапазона игрока со шкалой */
+    .my-range-group {
       position: absolute;
-      bottom: 44px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 220px;
-      max-width: 85%;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      z-index: 5;
+    }
+    .my-range-group .player-range.my-range-badge {
+      position: static;
+      transform: none;
+      bottom: auto;
+      left: auto;
+    }
+    /* Шкала сужения диапазона игрока: ровно 75% от ширины бейджика */
+    .range-track-wrapper {
+      width: 75%;
       height: 6px;
-      z-index: 6;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2114,16 +2126,18 @@
             <span class="center-number" id="myLastNumber">---</span>
             <span class="indicator" id="myIndicator"></span>
           </div>
-          <!-- Визуальная шкала сужения диапазона -->
-          <div class="range-track-wrapper" id="myRangeTrackWrapper">
-            <div class="range-track-bar" id="myRangeTrackBar">
-              <div class="range-track-active" id="myRangeTrackActive"></div>
+          <!-- Блок диапазона игрока со шкалой сужения -->
+          <div class="my-range-group">
+            <div class="range-track-wrapper" id="myRangeTrackWrapper">
+              <div class="range-track-bar" id="myRangeTrackBar">
+                <div class="range-track-active" id="myRangeTrackActive"></div>
+              </div>
             </div>
-          </div>
-          <div class="player-range my-range-badge">
-            <span class="range-dot my-dot"></span>
-            <span class="range-label" data-i18n="myRangeLabel">Ваш диапазон:</span>
-            <span class="range-val" id="myRange">0 — 100</span>
+            <div class="player-range my-range-badge" id="myRangeBadgeEl">
+              <span class="range-dot my-dot"></span>
+              <span class="range-label" data-i18n="myRangeLabel">Ваш диапазон:</span>
+              <span class="range-val" id="myRange">0 — 100</span>
+            </div>
           </div>
         </div>
       </div>
