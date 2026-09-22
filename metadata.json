@@ -1,0 +1,6 @@
+{
+  "name": "GTN — Guess The Number",
+  "description": "Многопользовательская игра 'Угадай число' (GTN) для Telegram Mini Apps и браузера с ботом, PvP-мультиплеером и статистикой.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
