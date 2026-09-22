@@ -1071,6 +1071,284 @@
       color: #0f172a !important;
     }
 
+    
+    /* Единый фиксированный размер и стиль всех флагов в игре */
+    .flag-icon {
+      width: 28px !important;
+      min-width: 28px !important;
+      max-width: 28px !important;
+      height: 19px !important;
+      min-height: 19px !important;
+      max-height: 19px !important;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+      object-fit: cover;
+      box-sizing: border-box;
+    }
+    img.flag-icon {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    [data-theme="light"] img.flag-icon {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Логотип GTN и подпись GUESS THE NUMBER (100% ширины, идеальное оптическое центрирование впритык) */
+    .splash-logo-box, .menu-title-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .splash-logo {
+      margin-bottom: 0 !important;
+      line-height: 0.92 !important;
+      letter-spacing: 4px;
+      padding-left: 4px; /* компенсирует letter-spacing для строгого оптического центра */
+    }
+    .menu-title {
+      margin-bottom: 0 !important;
+      line-height: 0.92 !important;
+      letter-spacing: 4px;
+      padding-left: 4px; /* компенсирует letter-spacing для строгого оптического центра */
+    }
+    .logo-sub-title {
+      display: block;
+      width: 100%;
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 2.6px;
+      padding-left: 2.6px; /* компенсирует letter-spacing последнего символа */
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 2px;
+      margin-bottom: 6px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      /* В тёмной теме цвет в точности совпадает с GTN */
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #e2e8f0;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+    }
+    .splash-logo-box .logo-sub-title {
+      font-size: 0.64rem;
+      letter-spacing: 3.2px;
+      padding-left: 3.2px;
+      margin-top: 2px;
+      margin-bottom: 24px;
+    }
+    [data-theme="light"] .logo-sub-title {
+      /* В светлой теме цвет в точности совпадает с GTN (#0f172a) */
+      background: none !important;
+      -webkit-text-fill-color: #0f172a !important;
+      color: #0f172a !important;
+      text-shadow: none !important;
+      filter: none !important;
+    }
+
+    /* Верхняя панель меню: Онлайн слева, Аватарка справа */
+    .menu-top-bar {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      right: 20px;
+      z-index: 25;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: auto;
+    }
+    .menu-online-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 13px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: all 0.2s ease;
+    }
+    .menu-online-pill:active { transform: scale(0.95); }
+    .online-pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseOnline 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulseOnline {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    [data-theme="light"] .menu-online-pill {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.45) !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    /* Блок общей статистики */
+    .stats-overview-block {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    .stats-metric-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .stats-metric-icon {
+      font-size: 1.6rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .stats-metric-info {
+      flex: 1;
+    }
+    .stats-metric-num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+    .stats-metric-num.text-cyan {
+      color: #38bdf8;
+    }
+    .stats-metric-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .stats-metric-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      width: 100%;
+    }
+    [data-theme="light"] .stats-overview-block {
+      background: #ffffff !important;
+      border-color: rgba(148, 163, 184, 0.4) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    }
+    [data-theme="light"] .stats-metric-icon {
+      background: #f1f5f9 !important;
+      border-color: rgba(148, 163, 184, 0.3) !important;
+    }
+    [data-theme="light"] .stats-metric-num {
+      color: #0f172a !important;
+    }
+    [data-theme="light"] .stats-metric-num.text-cyan {
+      color: #0284c7 !important;
+    }
+    [data-theme="light"] .stats-metric-divider {
+      background: #e2e8f0 !important;
+    }
+
+    /* Блок статистики по странам */
+    .stats-countries-wrapper {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      max-height: 250px;
+      overflow-y: auto;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    [data-theme="light"] .stats-countries-wrapper {
+      background: #ffffff !important;
+      border-color: rgba(148, 163, 184, 0.4) !important;
+    }
+    .stats-country-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.2s ease;
+    }
+    .stats-country-item:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+    [data-theme="light"] .stats-country-item {
+      background: #f8fafc !important;
+      border-color: rgba(148, 163, 184, 0.3) !important;
+    }
+    [data-theme="light"] .stats-country-item:hover {
+      background: #f1f5f9 !important;
+    }
+    .stats-country-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .stats-country-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #e2e8f0;
+    }
+    [data-theme="light"] .stats-country-name {
+      color: #0f172a !important;
+    }
+    .stats-country-badge {
+      padding: 4px 10px;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+      font-size: 0.8rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    [data-theme="light"] .stats-country-badge {
+      background: #e0f2fe !important;
+      border-color: rgba(14, 165, 233, 0.35) !important;
+      color: #0284c7 !important;
+    }
+
     .center-guess-box { display: flex; align-items: center; justify-content: center; gap: 14px; }
     .center-number {
       font-size: 2.8rem;
@@ -1291,9 +1569,21 @@
       border-color: #0284c7 !important;
       color: #0284c7 !important;
     }
-    [data-theme="light"] .account-hero-name, [data-theme="light"] .page-title, [data-theme="light"] .menu-title {
+    [data-theme="light"] .account-hero-name, [data-theme="light"] .page-title, [data-theme="light"] .menu-title, [data-theme="light"] .splash-logo {
+      background: none !important;
+      -webkit-text-fill-color: #0f172a !important;
       color: #0f172a !important;
+      filter: none !important;
     }
+    [data-theme="light"] .control-panel {
+      background: rgba(248, 250, 252, 0.94) !important;
+      border-top: 1px solid rgba(148, 163, 184, 0.35) !important;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05) !important;
+    }
+    [data-theme="light"] .keyboard-container-flex {
+      background: transparent !important;
+    }
+
     [data-theme="light"] .leader-row {
       background: #ffffff !important;
       border: 1px solid rgba(148, 163, 184, 0.35) !important;
@@ -1488,6 +1778,25 @@
       text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
     }
   </style>
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem("gtn_theme") || "system";
+        var eff = savedTheme;
+        if (eff === "system") {
+          if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.colorScheme) {
+            eff = window.Telegram.WebApp.colorScheme === "light" ? "light" : "dark";
+          } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+            eff = "light";
+          } else {
+            eff = "dark";
+          }
+        }
+        document.documentElement.setAttribute("data-theme", eff);
+        if (document.body) document.body.setAttribute("data-theme", eff);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
 
@@ -1498,7 +1807,10 @@
     <!-- Сплэш-экран загрузки -->
     <section id="screenSplash" class="screen active">
       <div class="splash-wrap">
-        <div class="splash-logo">GTN</div>
+        <div class="splash-logo-box">
+          <div class="splash-logo">GTN</div>
+          <div class="logo-sub-title">GUESS THE NUMBER</div>
+        </div>
         <div class="progress-bar-container">
           <div class="progress-bar-fill" id="splashProgressFill"></div>
         </div>
@@ -1579,6 +1891,10 @@
     <!-- Главное меню -->
     <section id="screenMenu" class="screen">
       <div class="menu-top-bar">
+        <div class="menu-online-pill" id="menuOnlinePill" onclick="openStatsScreen()" title="Онлайн игроки">
+          <span class="online-pulse-dot"></span>
+          <span id="menuOnlineCount">1 онлайн</span>
+        </div>
         <div class="menu-avatar-btn" onclick="openAccountScreen()">
           <div id="topMenuAvatarContainer"></div>
         </div>
@@ -1586,7 +1902,10 @@
 
       <div class="menu-wrap">
         <div class="menu-header">
-          <h1 class="menu-title">GTN</h1>
+          <div class="menu-title-box">
+            <h1 class="menu-title">GTN</h1>
+            <div class="logo-sub-title">GUESS THE NUMBER</div>
+          </div>
           <p class="menu-sub" data-i18n="tagline">Брось вызов разуму и логике</p>
         </div>
 
@@ -1608,7 +1927,53 @@
           </button>
         </div>
 
-        <div class="app-version-label" id="appVersionDisplay">v1.9.2 beta</div>
+        <div class="app-version-label" id="appVersionDisplay">v2.0.0</div>
+      </div>
+    </section>
+
+    <!-- Экран "Статистика игры" -->
+    <section id="screenStats" class="screen">
+      <h2 class="page-title" data-i18n="gameStatsTitle">Статистика игры</h2>
+      
+      <!-- Блок 1: Общая глобальная статистика -->
+      <div class="section-title" data-i18n="statsGlobalBlockTitle" style="margin-top: 4px;">🌐 Общие показатели</div>
+      <div class="stats-overview-block">
+        <div class="stats-metric-card">
+          <div class="stats-metric-icon">👥</div>
+          <div class="stats-metric-info">
+            <div class="stats-metric-num" id="statGlobalRegistered">...</div>
+            <div class="stats-metric-label" data-i18n="statRegisteredPlayers">Зарегистрировано игроков</div>
+          </div>
+        </div>
+        <div class="stats-metric-divider"></div>
+        <div class="stats-metric-card">
+          <div class="stats-metric-icon">🟢</div>
+          <div class="stats-metric-info">
+            <div class="stats-metric-num text-cyan" id="statGlobalOnline">...</div>
+            <div class="stats-metric-label" data-i18n="statOnlinePlayers">Онлайн сейчас</div>
+          </div>
+        </div>
+        <div class="stats-metric-divider"></div>
+        <div class="stats-metric-card">
+          <div class="stats-metric-icon">🎮</div>
+          <div class="stats-metric-info">
+            <div class="stats-metric-num" id="statGlobalTotalGames">...</div>
+            <div class="stats-metric-label" data-i18n="statTotalGamesPlayed">Всего сыграно игр</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Блок 2: Игроки по странам -->
+      <div class="section-title" data-i18n="statsCountryBlockTitle" style="margin-top: 20px;">🌍 Игроки по странам</div>
+      <div class="stats-countries-wrapper" id="statsCountriesList">
+        <div class="leaderboard-empty" style="padding: 24px 10px;">
+          <div class="spinner" style="margin: 0 auto 10px; width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.1); border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+          <div data-i18n="loadingStats">Загрузка статистики стран...</div>
+        </div>
+      </div>
+
+      <div style="margin-top: auto; padding-top: 14px;">
+        <button class="btn btn-secondary" onclick="showScreen('screenSettings')" data-i18n="back">Назад</button>
       </div>
     </section>
 
@@ -1641,6 +2006,16 @@
             <span data-i18n="changeLanguage">Сменить язык</span>
           </div>
           <span style="color: var(--cyan-glow); font-weight: 700;" id="currentLangLabel">Русский</span>
+        </div>
+        <div class="preset-card" onclick="openStatsScreen()">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.25rem;">📊</span>
+            <div>
+              <div style="font-weight: 700;" data-i18n="gameStatsTitle">Статистика игры</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);" data-i18n="gameStatsSub">Игроки, онлайн и статистика матчей</div>
+            </div>
+          </div>
+          <span style="color: var(--text-muted);">➔</span>
         </div>
 
         <div class="preset-card" onclick="showScreen('screenPrivacy')">
@@ -2204,25 +2579,81 @@
   </div>
 
   <script>
-    const APP_VERSION = "v1.9.2 beta";
+    function applyActiveThemeEarly() {
+      try {
+        const theme = localStorage.getItem("gtn_theme") || "system";
+        let eff = theme;
+        if (eff === "system") {
+          if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.colorScheme) {
+            eff = window.Telegram.WebApp.colorScheme === "light" ? "light" : "dark";
+          } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+            eff = "light";
+          } else {
+            eff = "dark";
+          }
+        }
+        document.documentElement.setAttribute("data-theme", eff);
+        if (document.body) document.body.setAttribute("data-theme", eff);
+      } catch (e) {}
+    }
+    const APP_VERSION = "v2.0.0";
     document.getElementById('appVersionDisplay').textContent = APP_VERSION;
 
     const TELEGRAM_BOT_USERNAME = "gtnguessthenumber_bot";
 
+    // Универсальная база флагов (векторные SVG без внешних зависимостей)
     const SVG_FLAGS = {
       UZ: `<svg class="flag-icon" viewBox="0 0 500 250"><rect width="500" height="80" fill="#0099b5"/><rect y="80" width="500" height="5" fill="#ce1126"/><rect y="85" width="500" height="80" fill="#ffffff"/><rect y="165" width="500" height="5" fill="#ce1126"/><rect y="170" width="500" height="80" fill="#1eb53a"/><circle cx="70" cy="40" r="30" fill="#ffffff"/><circle cx="80" cy="40" r="30" fill="#0099b5"/><g fill="#ffffff"><circle cx="120" cy="20" r="4"/><circle cx="140" cy="20" r="4"/><circle cx="160" cy="20" r="4"/><circle cx="100" cy="35" r="4"/><circle cx="120" cy="35" r="4"/><circle cx="140" cy="35" r="4"/><circle cx="160" cy="35" r="4"/><circle cx="80" cy="50" r="4"/><circle cx="100" cy="50" r="4"/><circle cx="120" cy="50" r="4"/><circle cx="140" cy="50" r="4"/><circle cx="160" cy="50" r="4"/></g></svg>`,
       RU: `<svg class="flag-icon" viewBox="0 0 640 480"><path fill="#fff" d="M0 0h640v160H0z"/><path fill="#0039a6" d="M0 160h640v160H0z"/><path fill="#d52b1e" d="M0 320h640v160H0z"/></svg>`,
-      GB: `<svg class="flag-icon" viewBox="0 0 60 30"><clipPath id="s_gb"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t_gb"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s_gb)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t_gb)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>`,
       KZ: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="320" fill="#00afca"/><circle cx="320" cy="160" r="64" fill="#fec50c"/><path d="M320 70 L325 105 L360 105 L330 125 L345 160 L320 135 L295 160 L310 125 L280 105 L315 105 Z" fill="#00afca"/></svg>`,
       KG: `<svg class="flag-icon" viewBox="0 0 640 384"><rect width="640" height="384" fill="#e8112d"/><circle cx="320" cy="192" r="60" fill="#ffe600"/><circle cx="320" cy="192" r="46" fill="#e8112d"/></svg>`,
       TJ: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="114" fill="#cc0000"/><rect y="114" width="640" height="92" fill="#ffffff"/><rect y="206" width="640" height="114" fill="#009900"/><circle cx="320" cy="160" r="26" fill="#d4af37"/></svg>`,
       TM: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#2d8249"/><rect x="40" width="80" height="426" fill="#a52a2a"/><circle cx="210" cy="90" r="36" fill="#ffffff"/><circle cx="222" cy="90" r="34" fill="#2d8249"/></svg>`,
+      AZ: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="106" fill="#00b5e2"/><rect y="106" width="640" height="108" fill="#ef3340"/><rect y="214" width="640" height="106" fill="#509e2f"/><circle cx="300" cy="160" r="34" fill="#ffffff"/><circle cx="308" cy="160" r="28" fill="#ef3340"/><polygon points="334,160 342,163 338,171 346,168 348,176 352,169 360,172 355,164 363,160 355,156 360,148 352,151 348,144 346,152 338,149 342,157" fill="#ffffff"/></svg>`,
+      AM: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="106" fill="#d90012"/><rect y="106" width="640" height="108" fill="#0033a0"/><rect y="214" width="640" height="106" fill="#f2a800"/></svg>`,
+      GE: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#ffffff"/><rect x="270" width="100" height="426" fill="#ff0000"/><rect y="163" width="640" height="100" fill="#ff0000"/></svg>`,
+      BY: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="213" fill="#c8313e"/><rect y="213" width="640" height="107" fill="#4aa657"/><rect width="80" height="320" fill="#ffffff"/></svg>`,
+      UA: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="213" fill="#0057b8"/><rect y="213" width="640" height="213" fill="#ffd700"/></svg>`,
+      MD: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="213" height="320" fill="#003da5"/><rect x="213" width="214" height="320" fill="#ffdd00"/><rect x="427" width="213" height="320" fill="#c8102e"/><circle cx="320" cy="160" r="30" fill="#a0522d"/></svg>`,
       TR: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#e30a17"/><circle cx="260" cy="213" r="100" fill="#ffffff"/><circle cx="285" cy="213" r="80" fill="#e30a17"/></svg>`,
       US: `<svg class="flag-icon" viewBox="0 0 640 336"><rect width="640" height="336" fill="#b22234"/><path d="M0,26h640M0,78h640M0,129h640M0,181h640M0,233h640M0,284h640" stroke="#fff" stroke-width="26"/><rect width="256" height="181" fill="#3c3b6e"/></svg>`,
+      GB: `<svg class="flag-icon" viewBox="0 0 60 30"><clipPath id="s_gb"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t_gb"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s_gb)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t_gb)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>`,
       DE: `<svg class="flag-icon" viewBox="0 0 640 384"><rect width="640" height="128" fill="#000"/><rect y="128" width="640" height="128" fill="#d00"/><rect y="256" width="640" height="128" fill="#ffce00"/></svg>`,
+      FR: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="213" height="426" fill="#002395"/><rect x="213" width="214" height="426" fill="#ffffff"/><rect x="427" width="213" height="426" fill="#ed2939"/></svg>`,
+      IT: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="213" height="426" fill="#009246"/><rect x="213" width="214" height="426" fill="#ffffff"/><rect x="427" width="213" height="426" fill="#ce2b37"/></svg>`,
+      ES: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="106" fill="#aa151b"/><rect y="106" width="640" height="214" fill="#f1bf00"/><rect y="320" width="640" height="106" fill="#aa151b"/></svg>`,
+      PL: `<svg class="flag-icon" viewBox="0 0 640 400"><rect width="640" height="200" fill="#ffffff"/><rect y="200" width="640" height="200" fill="#dc143c"/></svg>`,
       KR: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#ffffff"/><circle cx="320" cy="213" r="70" fill="#cd2e3a"/><path d="M250,213 a70,70 0 0,0 140,0 a35,35 0 0,1 -70,0 a35,35 0 0,0 -70,0" fill="#0047a0"/></svg>`,
-      AE: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="106" fill="#00732f"/><rect y="106" width="640" height="108" fill="#ffffff"/><rect y="214" width="640" height="106" fill="#000000"/><rect width="160" height="320" fill="#ff0000"/></svg>`
+      JP: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#ffffff"/><circle cx="320" cy="213" r="80" fill="#bc002d"/></svg>`,
+      CN: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#de2910"/><polygon points="80,50 92,85 60,62 100,62 68,85" fill="#ffde00"/></svg>`,
+      IN: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="142" fill="#ff9933"/><rect y="142" width="640" height="142" fill="#ffffff"/><rect y="284" width="640" height="142" fill="#138808"/><circle cx="320" cy="213" r="36" fill="#000080"/></svg>`,
+      AE: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="106" fill="#00732f"/><rect y="106" width="640" height="108" fill="#ffffff"/><rect y="214" width="640" height="106" fill="#000000"/><rect width="160" height="320" fill="#ff0000"/></svg>`,
+      SA: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#006c35"/><rect x="150" y="270" width="340" height="14" fill="#ffffff"/><polygon points="150,277 170,265 170,289" fill="#ffffff"/></svg>`,
+      QA: `<svg class="flag-icon" viewBox="0 0 640 256"><rect width="640" height="256" fill="#8d1b3d"/><rect width="180" height="256" fill="#ffffff"/></svg>`,
+      EG: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="142" fill="#ce1126"/><rect y="142" width="640" height="142" fill="#ffffff"/><rect y="284" width="640" height="142" fill="#000000"/><circle cx="320" cy="213" r="24" fill="#c09300"/></svg>`,
+      CA: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="160" height="320" fill="#ff0000"/><rect x="160" width="320" height="320" fill="#ffffff"/><rect x="480" width="160" height="320" fill="#ff0000"/><polygon points="320,80 340,160 380,150 350,190 370,240 320,220 270,240 290,190 260,150 300,160" fill="#ff0000"/></svg>`,
+      BR: `<svg class="flag-icon" viewBox="0 0 640 448"><rect width="640" height="448" fill="#009b3a"/><polygon points="320,32 608,224 320,416 32,224" fill="#fedf00"/><circle cx="320" cy="224" r="90" fill="#002776"/></svg>`,
+      AR: `<svg class="flag-icon" viewBox="0 0 640 400"><rect width="640" height="133" fill="#74acdf"/><rect y="133" width="640" height="134" fill="#ffffff"/><rect y="267" width="640" height="133" fill="#74acdf"/><circle cx="320" cy="200" r="26" fill="#f6b40e"/></svg>`,
+      IL: `<svg class="flag-icon" viewBox="0 0 640 465"><rect width="640" height="465" fill="#ffffff"/><rect y="45" width="640" height="60" fill="#0038b8"/><rect y="360" width="640" height="60" fill="#0038b8"/><polygon points="320,160 370,240 270,240" stroke="#0038b8" stroke-width="8" fill="none"/><polygon points="320,280 370,200 270,200" stroke="#0038b8" stroke-width="8" fill="none"/></svg>`,
+      ID: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="213" fill="#ff0000"/><rect y="213" width="640" height="213" fill="#ffffff"/></svg>`,
+      MY: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="640" height="320" fill="#cc0000"/><rect width="320" height="180" fill="#000066"/><circle cx="160" cy="90" r="45" fill="#ffcc00"/><circle cx="175" cy="90" r="38" fill="#000066"/></svg>`,
+      SG: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="213" fill="#ed2939"/><rect y="213" width="640" height="213" fill="#ffffff"/><circle cx="120" cy="106" r="50" fill="#ffffff"/><circle cx="140" cy="106" r="44" fill="#ed2939"/></svg>`,
+      TH: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="71" fill="#ed1c24"/><rect y="71" width="640" height="71" fill="#ffffff"/><rect y="142" width="640" height="142" fill="#241d4f"/><rect y="284" width="640" height="71" fill="#ffffff"/><rect y="355" width="640" height="71" fill="#ed1c24"/></svg>`,
+      VN: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#da251d"/><polygon points="320,110 348,198 424,198 362,242 386,330 320,282 254,330 278,242 216,198 292,198" fill="#ffff00"/></svg>`,
+      PK: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="640" height="426" fill="#01411c"/><rect width="160" height="426" fill="#ffffff"/><circle cx="400" cy="213" r="85" fill="#ffffff"/><circle cx="425" cy="200" r="80" fill="#01411c"/></svg>`,
+      IR: `<svg class="flag-icon" viewBox="0 0 640 366"><rect width="640" height="122" fill="#239f40"/><rect y="122" width="640" height="122" fill="#ffffff"/><rect y="244" width="640" height="122" fill="#da0000"/><circle cx="320" cy="183" r="30" fill="#da0000"/></svg>`,
+      AF: `<svg class="flag-icon" viewBox="0 0 640 426"><rect width="213" height="426" fill="#000000"/><rect x="213" width="214" height="426" fill="#d32011"/><rect x="427" width="213" height="426" fill="#007a36"/><circle cx="320" cy="213" r="45" fill="#ffffff"/></svg>`,
+      MN: `<svg class="flag-icon" viewBox="0 0 640 320"><rect width="213" height="320" fill="#c4272f"/><rect x="213" width="214" height="320" fill="#0066b2"/><rect x="427" width="213" height="320" fill="#c4272f"/><circle cx="106" cy="160" r="30" fill="#f8c300"/></svg>`
     };
+
+    // Функция универсального рендера флага (SVG или чистый CDN-фоллбек без сбоев)
+    function renderFlag(code) {
+      if (!code) return '';
+      const c = String(code).toUpperCase();
+      if (SVG_FLAGS[c]) return SVG_FLAGS[c];
+      const lower = c.toLowerCase();
+      return `<img src="https://flagcdn.com/28x21/${lower}.png" class="flag-icon" alt="${c}" onerror="this.outerHTML='<span style=\'font-size:1.15rem;display:inline-block;vertical-align:middle;\'>🌍</span>'">`;
+    }
 
     const COUNTRIES_DATA = [
       { code: "UZ", nameRu: "Узбекистан", nameUz: "O'zbekiston", nameEn: "Uzbekistan" },
@@ -2231,13 +2662,43 @@
       { code: "KG", nameRu: "Кыргызстан", nameUz: "Qirg'iziston", nameEn: "Kyrgyzstan" },
       { code: "TJ", nameRu: "Таджикистан", nameUz: "Tojikiston", nameEn: "Tajikistan" },
       { code: "TM", nameRu: "Туркменистан", nameUz: "Turkmaniston", nameEn: "Turkmenistan" },
+      { code: "AZ", nameRu: "Азербайджан", nameUz: "Ozarbayjon", nameEn: "Azerbaijan" },
+      { code: "AM", nameRu: "Армения", nameUz: "Armaniston", nameEn: "Armenia" },
+      { code: "GE", nameRu: "Грузия", nameUz: "Gruziya", nameEn: "Georgia" },
+      { code: "BY", nameRu: "Беларусь", nameUz: "Belarussiya", nameEn: "Belarus" },
+      { code: "UA", nameRu: "Украина", nameUz: "Ukraina", nameEn: "Ukraine" },
+      { code: "MD", nameRu: "Молдова", nameUz: "Moldova", nameEn: "Moldova" },
       { code: "TR", nameRu: "Турция", nameUz: "Turkiya", nameEn: "Turkey" },
       { code: "US", nameRu: "США", nameUz: "AQSH", nameEn: "United States" },
       { code: "GB", nameRu: "Великобритания", nameUz: "Buyuk Britaniya", nameEn: "United Kingdom" },
       { code: "DE", nameRu: "Германия", nameUz: "Germaniya", nameEn: "Germany" },
+      { code: "FR", nameRu: "Франция", nameUz: "Fransiya", nameEn: "France" },
+      { code: "IT", nameRu: "Италия", nameUz: "Italiya", nameEn: "Italy" },
+      { code: "ES", nameRu: "Испания", nameUz: "Ispaniya", nameEn: "Spain" },
+      { code: "PL", nameRu: "Польша", nameUz: "Polsha", nameEn: "Poland" },
       { code: "KR", nameRu: "Южная Корея", nameUz: "Janubiy Koreya", nameEn: "South Korea" },
-      { code: "AE", nameRu: "ОАЭ", nameUz: "BAA", nameEn: "UAE" }
+      { code: "JP", nameRu: "Япония", nameUz: "Yaponiya", nameEn: "Japan" },
+      { code: "CN", nameRu: "Китай", nameUz: "Xitoy", nameEn: "China" },
+      { code: "IN", nameRu: "Индия", nameUz: "Hindiston", nameEn: "India" },
+      { code: "AE", nameRu: "ОАЭ", nameUz: "BAA", nameEn: "UAE" },
+      { code: "SA", nameRu: "Саудовская Аравия", nameUz: "Saudiya Arabistoni", nameEn: "Saudi Arabia" },
+      { code: "QA", nameRu: "Катар", nameUz: "Qatar", nameEn: "Qatar" },
+      { code: "EG", nameRu: "Египет", nameUz: "Misr", nameEn: "Egypt" },
+      { code: "CA", nameRu: "Канада", nameUz: "Kanada", nameEn: "Canada" },
+      { code: "BR", nameRu: "Бразилия", nameUz: "Braziliya", nameEn: "Brazil" },
+      { code: "AR", nameRu: "Аргентина", nameUz: "Argentina", nameEn: "Argentina" },
+      { code: "IL", nameRu: "Израиль", nameUz: "Isroil", nameEn: "Israel" },
+      { code: "ID", nameRu: "Индонезия", nameUz: "Indoneziya", nameEn: "Indonesia" },
+      { code: "MY", nameRu: "Малайзия", nameUz: "Malayziya", nameEn: "Malaysia" },
+      { code: "SG", nameRu: "Сингапур", nameUz: "Singapur", nameEn: "Singapore" },
+      { code: "TH", nameRu: "Таиланд", nameUz: "Tailand", nameEn: "Thailand" },
+      { code: "VN", nameRu: "Вьетнам", nameUz: "Vyetnam", nameEn: "Vietnam" },
+      { code: "PK", nameRu: "Пакистан", nameUz: "Pokiston", nameEn: "Pakistan" },
+      { code: "IR", nameRu: "Иран", nameUz: "Eron", nameEn: "Iran" },
+      { code: "AF", nameRu: "Афганистан", nameUz: "Afg'oniston", nameEn: "Afghanistan" },
+      { code: "MN", nameRu: "Монголия", nameUz: "Mongoliya", nameEn: "Mongolia" }
     ];
+
 
     const tg = window.Telegram ? window.Telegram.WebApp : null;
     let tgUser = null;
@@ -2289,6 +2750,8 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
+    initFirebasePresenceAndStats();
+
 
     // Сохранение профиля по основному идентификатору GameID (ТОЛЬКО для авторизованных игроков)
     function syncProfileToFirebase() {
@@ -2350,6 +2813,171 @@
     function saveAuthMapping(provider, providerId, gameId) {
       if (!provider || !providerId || !gameId) return;
       return db.ref(`auth_mappings/${provider}/${providerId}`).set(gameId);
+    }
+
+
+    // --- Управление Presence (Онлайн) и Глобальной статистикой ---
+    let currentGlobalOnlineCount = 1;
+
+    function initFirebasePresenceAndStats() {
+      if (!db || !playerProfile || !playerProfile.gameId) return;
+
+      const myStatusRef = db.ref('status/' + playerProfile.gameId);
+      const connectedRef = db.ref('.info/connected');
+
+      connectedRef.on('value', snap => {
+        if (snap.val() === true) {
+          myStatusRef.onDisconnect().remove();
+          myStatusRef.set({
+            gameId: playerProfile.gameId,
+            name: playerProfile.name || 'Player',
+            countryCode: (playerProfile.country && playerProfile.country.code) ? playerProfile.country.code : null,
+            lastSeen: firebase.database.ServerValue.TIMESTAMP
+          });
+        }
+      });
+
+      // Отслеживание общего количества онлайн игроков
+      db.ref('status').on('value', snap => {
+        const statuses = snap.val() || {};
+        const onlineCount = Math.max(1, Object.keys(statuses).length);
+        currentGlobalOnlineCount = onlineCount;
+
+        const menuOnlineCountEl = document.getElementById('menuOnlineCount');
+        if (menuOnlineCountEl) {
+          const suffix = (i18n[currentLang] && i18n[currentLang].onlineCountSuffix) ? i18n[currentLang].onlineCountSuffix : 'онлайн';
+          menuOnlineCountEl.textContent = `${onlineCount} ${suffix}`;
+        }
+        const statOnlineEl = document.getElementById('statGlobalOnline');
+        if (statOnlineEl) {
+          statOnlineEl.textContent = onlineCount.toLocaleString();
+        }
+      });
+    }
+
+    // Инкремент счетчика всех завершенных игр в Firebase
+    function incrementGlobalGamesCount() {
+      if (!db) return;
+      const globalGamesRef = db.ref('global_metrics/totalGames');
+      globalGamesRef.transaction(current => (current || 0) + 1).catch(err => {
+        console.warn("Global games count increment error:", err);
+      });
+    }
+
+    // Открытие экрана статистики
+    function openStatsScreen() {
+      triggerHaptic('light');
+      showScreen('screenStats');
+      loadAndRenderGameStats();
+    }
+
+    // Загрузка и рендеринг статистики
+    function loadAndRenderGameStats() {
+      const regEl = document.getElementById('statGlobalRegistered');
+      const onlineEl = document.getElementById('statGlobalOnline');
+      const totalGamesEl = document.getElementById('statGlobalTotalGames');
+      const countriesListEl = document.getElementById('statsCountriesList');
+
+      if (onlineEl) onlineEl.textContent = currentGlobalOnlineCount.toLocaleString();
+
+      if (!db) {
+        if (regEl) regEl.textContent = "1";
+        if (totalGamesEl) totalGamesEl.textContent = "0";
+        if (countriesListEl) countriesListEl.innerHTML = `<div class="leaderboard-empty">${i18n[currentLang].noCountryStats}</div>`;
+        return;
+      }
+
+      // 1. Загрузка общего количества игр из global_metrics
+      db.ref('global_metrics/totalGames').once('value', snap => {
+        let count = snap.val();
+        if (count === null || count === undefined) {
+          count = 0;
+        }
+        if (totalGamesEl) totalGamesEl.textContent = Number(count).toLocaleString();
+      });
+
+      // 2. Загрузка пользователей для подсчета зарегистрированных и группировки по странам
+      db.ref('users').once('value', snapshot => {
+        const users = snapshot.val() || {};
+        const countryCounts = {};
+        let registeredCount = 0;
+
+        Object.keys(users).forEach(uid => {
+          const u = users[uid];
+          if (!u) return;
+          // Считаем зарегистрированных авторизованных игроков
+          if (u.isAuthenticated || (u.linkedAccounts && u.linkedAccounts.telegram)) {
+            registeredCount++;
+          }
+          if (u.country && u.country.code) {
+            const cCode = u.country.code.toUpperCase();
+            if (!countryCounts[cCode]) {
+              countryCounts[cCode] = {
+                code: cCode,
+                nameRu: u.country.nameRu || cCode,
+                nameUz: u.country.nameUz || u.country.nameRu || cCode,
+                nameEn: u.country.nameEn || u.country.nameRu || cCode,
+                count: 0
+              };
+            }
+            countryCounts[cCode].count++;
+          }
+        });
+
+        // Если текущий игрок выбрал страну и еще не синхронизировался, учитываем его
+        if (playerProfile.country && playerProfile.country.code) {
+          const myCode = playerProfile.country.code.toUpperCase();
+          if (!countryCounts[myCode]) {
+            countryCounts[myCode] = {
+              code: myCode,
+              nameRu: playerProfile.country.nameRu,
+              nameUz: playerProfile.country.nameUz,
+              nameEn: playerProfile.country.nameEn,
+              count: 1
+            };
+          }
+        }
+        if (registeredCount === 0) registeredCount = 1;
+
+        if (regEl) regEl.textContent = registeredCount.toLocaleString();
+
+        // Сортировка стран по количеству игроков
+        const sortedCountries = Object.values(countryCounts).sort((a, b) => b.count - a.count);
+
+        if (!countriesListEl) return;
+        countriesListEl.innerHTML = '';
+
+        if (sortedCountries.length === 0) {
+          countriesListEl.innerHTML = `
+            <div class="leaderboard-empty" style="padding: 24px 10px;">
+              <span style="font-size: 1.8rem; display: block; margin-bottom: 6px;">🌍</span>
+              <div>${i18n[currentLang].noCountryStats || "Пока нет игроков с выбранной страной"}</div>
+            </div>
+          `;
+          return;
+        }
+
+        sortedCountries.forEach(c => {
+          const countryName = currentLang === 'uz' ? c.nameUz : (currentLang === 'en' ? c.nameEn : c.nameRu);
+          const flagHtml = renderFlag(c.code);
+          const row = document.createElement('div');
+          row.className = 'stats-country-item';
+          row.innerHTML = `
+            <div class="stats-country-left">
+              ${flagHtml}
+              <span class="stats-country-name">${countryName}</span>
+            </div>
+            <div class="stats-country-badge">${c.count.toLocaleString()}</div>
+          `;
+          countriesListEl.appendChild(row);
+        });
+      }, err => {
+        console.warn("Error loading game stats:", err);
+        if (regEl) regEl.textContent = "1";
+        if (countriesListEl) {
+          countriesListEl.innerHTML = `<div class="leaderboard-empty">${i18n[currentLang].noCountryStats || "Пока нет данных"}</div>`;
+        }
+      });
     }
 
     function renderUserProfile() {
@@ -2551,7 +3179,7 @@
 
       list.forEach(c => {
         const name = currentLang === 'uz' ? c.nameUz : (currentLang === 'en' ? c.nameEn : c.nameRu);
-        const flagSvg = SVG_FLAGS[c.code] || '🌍';
+        const flagSvg = renderFlag(c.code) || '🌍';
 
         const div = document.createElement('div');
         div.className = 'preset-card';
@@ -2599,7 +3227,7 @@
 
       if (playerProfile.country) {
         const cName = currentLang === 'uz' ? playerProfile.country.nameUz : (currentLang === 'en' ? playerProfile.country.nameEn : playerProfile.country.nameRu);
-        const flagSvg = SVG_FLAGS[playerProfile.country.code] || '';
+        const flagSvg = renderFlag(playerProfile.country.code) || '';
         countryEl.innerHTML = `${flagSvg} ${cName}`;
         countryEl.style.display = 'inline-flex';
       } else {
@@ -2857,6 +3485,16 @@
     const i18n = {
       ru: {
         tagline: "Брось вызов разуму и логике",
+        gameStatsTitle: "Статистика игры",
+        gameStatsSub: "Игроки, онлайн и статистика матчей",
+        statsGlobalBlockTitle: "🌐 Общие показатели",
+        statsCountryBlockTitle: "🌍 Игроки по странам",
+        statRegisteredPlayers: "Зарегистрировано игроков",
+        statOnlinePlayers: "Онлайн сейчас",
+        statTotalGamesPlayed: "Всего сыграно игр",
+        loadingStats: "Загрузка статистики...",
+        noCountryStats: "Пока нет игроков с выбранной страной",
+        onlineCountSuffix: "онлайн",
         loginWith: "Войти с помощью:",
         soonBadge: "Скоро",
         authDisclaimer: "Выбирая способ входа и Авторизуясь в игре, вы соглашаетесь на передачу идентификационных данных и подтверждаете согласие с Политикой конфиденциальности и Условиями сервиса.",
@@ -3271,7 +3909,7 @@
       const labels = { ru: "Русский", uz: "O'zbekcha", en: "English" };
       document.getElementById('currentLangLabel').textContent = labels[lang];
 
-      document.getElementById('settingsCurrentFlag').innerHTML = lang === 'uz' ? SVG_FLAGS.UZ : (lang === 'en' ? SVG_FLAGS.GB : SVG_FLAGS.RU);
+      document.getElementById('settingsCurrentFlag').innerHTML = lang === 'uz' ? renderFlag('UZ') : (lang === 'en' ? renderFlag('GB') : renderFlag('RU'));
 
       updateThemeUI();
       document.querySelectorAll('[data-i18n]').forEach(elem => {
@@ -3299,6 +3937,7 @@
 
     function showScreen(screenId) {
       triggerHaptic('light');
+      applyActiveTheme();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       const target = document.getElementById(screenId);
       if (target) target.classList.add('active');
@@ -4101,6 +4740,7 @@
 
       const isAgainstBot = isVsAI;
       recordGameStats(iWon, myMovesCount, isAgainstBot);
+      incrementGlobalGamesCount();
 
       revealBox.innerHTML = `${i18n[currentLang].opponentSecretWas} <span>${(oppSecretNumber !== null && oppSecretNumber !== undefined ? oppSecretNumber : '---').toLocaleString()}</span>`;
       iconBox.className = 'modal-icon';
@@ -4155,7 +4795,7 @@
         fullCountryName = fullCountryName.substring(0, 10) + ".";
       }
 
-      const flagSvg = SVG_FLAGS[countryObj.code] || '';
+      const flagSvg = renderFlag(countryObj.code) || '';
       tabCountryEl.innerHTML = `<span style="display:inline-flex; align-items:center; gap:6px;">${flagSvg} <span>${fullCountryName}</span></span>`;
     }
 
@@ -4288,7 +4928,7 @@
         allPlayers.forEach((player, idx) => {
           const rank = idx + 1;
           const rankClass = rank === 1 ? 'top-1' : (rank === 2 ? 'top-2' : (rank === 3 ? 'top-3' : ''));
-          const flagSvg = (player.countryCode && SVG_FLAGS[player.countryCode]) ? SVG_FLAGS[player.countryCode] : '';
+          const flagSvg = player.countryCode ? renderFlag(player.countryCode) : '';
           const isMe = player.isCurrent;
           const displayName = isMe ? `${player.name} (${i18n[currentLang].leaderboardPlayerTag || "Вы"})` : player.name;
 
@@ -4309,7 +4949,7 @@
         // Резервный вывод локального игрока при сетевой ошибке
         list.innerHTML = '';
         const myWins = (playerProfile.statsPvp && playerProfile.statsPvp.wins) || 0;
-        const flagSvg = (playerProfile.country && SVG_FLAGS[playerProfile.country.code]) ? SVG_FLAGS[playerProfile.country.code] : '';
+        const flagSvg = playerProfile.country ? renderFlag(playerProfile.country.code) : '';
         const row = document.createElement('div');
         row.className = 'leader-row current-player';
         row.innerHTML = `
@@ -4374,6 +5014,7 @@
           showCountrySelectionScreen();
         } else {
           renderUserProfile();
+          applyActiveTheme();
           updateCountryTabLabel();
           document.getElementById('screenMenu').classList.add('active');
         }
