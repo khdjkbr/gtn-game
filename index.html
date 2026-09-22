@@ -16,7 +16,8 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <style>
-    :root {
+    :root, [data-theme="dark"] {
+      --bg-body: #020617;
       --bg-gradient: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 60%, #020617 100%);
       --glass-bg: rgba(255, 255, 255, 0.04);
       --glass-bg-hover: rgba(255, 255, 255, 0.08);
@@ -30,10 +31,37 @@
 
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --card-bg-subtle: rgba(255, 255, 255, 0.03);
+      --input-bg: rgba(15, 23, 42, 0.7);
       --cyan-glow: #38bdf8;
       --success: #10b981;
       --danger: #f43f5e;
       --gold: #f59e0b;
+      --container-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #e2e8f0;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%);
+      --glass-bg: rgba(255, 255, 255, 0.82);
+      --glass-bg-hover: rgba(255, 255, 255, 0.96);
+      --glass-border: rgba(148, 163, 184, 0.35);
+      --glass-border-focus: rgba(14, 165, 233, 0.6);
+      
+      --accent-gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
+      --accent-gradient-hover: linear-gradient(135deg, #0369a1 0%, #4338ca 100%);
+      --secondary-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
+      --tg-gradient: linear-gradient(135deg, #2aabee 0%, #229ed9 100%);
+
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --card-bg-subtle: rgba(0, 0, 0, 0.03);
+      --input-bg: rgba(255, 255, 255, 0.95);
+      --cyan-glow: #0284c7;
+      --success: #059669;
+      --danger: #e11d48;
+      --gold: #d97706;
+      --container-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15);
     }
 
     * {
@@ -46,7 +74,7 @@
     }
 
     body {
-      background-color: #020617;
+      background-color: var(--bg-body); transition: background-color 0.25s ease;
       color: var(--text-main);
       display: flex;
       justify-content: center;
@@ -65,7 +93,7 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      box-shadow: var(--container-shadow), 0 0 0 1px var(--glass-border); transition: background 0.3s ease, color 0.3s ease;
       border-radius: 28px;
     }
 
@@ -984,6 +1012,42 @@
       padding: 24px;
     }
     .modal-overlay.active { display: flex; animation: fadeSlideIn 0.3s ease; }
+    [data-theme="light"] .modal-content {
+      background: #ffffff !important;
+      border: 1px solid rgba(148, 163, 184, 0.4) !important;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+    }
+    [data-theme="light"] input, [data-theme="light"] .input-digit {
+      background: rgba(241, 245, 249, 0.9) !important;
+      color: #0f172a !important;
+      border-color: rgba(148, 163, 184, 0.4) !important;
+    }
+    [data-theme="light"] .history-table {
+      background: rgba(255, 255, 255, 0.6) !important;
+      border-color: rgba(148, 163, 184, 0.3) !important;
+    }
+    [data-theme="light"] .history-row {
+      border-bottom-color: rgba(148, 163, 184, 0.2) !important;
+    }
+    [data-theme="light"] .game-top-bar, [data-theme="light"] .game-tab-bar {
+      background: rgba(255, 255, 255, 0.85) !important;
+      border-color: rgba(148, 163, 184, 0.3) !important;
+    }
+    [data-theme="light"] .game-log-item {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-color: rgba(148, 163, 184, 0.25) !important;
+    }
+    [data-theme="light"] .preset-card {
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+    [data-theme="light"] .btn-secondary {
+      background: rgba(0, 0, 0, 0.05) !important;
+      color: #334155 !important;
+      border-color: rgba(148, 163, 184, 0.35) !important;
+    }
+    [data-theme="light"] .glow-orb-1, [data-theme="light"] .glow-orb-2 {
+      opacity: 0.15;
+    }
     .modal-content {
       background: rgba(15, 23, 42, 0.95);
       border: 1px solid var(--glass-border);
@@ -1174,12 +1238,19 @@
           <span style="color: var(--text-muted);">➔</span>
         </div>
 
+        <div class="preset-card" onclick="showScreen('screenTheme')">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.25rem;" id="settingsThemeIcon">🌓</span>
+            <span data-i18n="themeTitle">Тема оформления</span>
+          </div>
+          <span style="color: var(--cyan-glow); font-weight: 700;" id="currentThemeLabel">Тёмная</span>
+        </div>
         <div class="preset-card" onclick="showScreen('screenLanguage')">
           <div style="display: flex; align-items: center; gap: 12px;">
             <span id="settingsCurrentFlag"></span>
             <span data-i18n="changeLanguage">Сменить язык</span>
           </div>
-          <span style="color: #38bdf8; font-weight: 700;" id="currentLangLabel">Русский</span>
+          <span style="color: var(--cyan-glow); font-weight: 700;" id="currentLangLabel">Русский</span>
         </div>
 
         <div class="preset-card" onclick="showScreen('screenPrivacy')">
@@ -1397,6 +1468,46 @@
         </div>
       </div>
 
+      <div style="margin-top: auto; padding-top: 12px;">
+        <button class="btn btn-secondary" onclick="showScreen('screenSettings')" data-i18n="back">Назад</button>
+      </div>
+    </section>
+
+    <!-- Экран выбора темы оформления -->
+    <section id="screenTheme" class="screen">
+      <h2 class="page-title" data-i18n="selectThemeTitle">Тема оформления</h2>
+      <div class="preset-list">
+        <div class="preset-card active" id="themeCardDark" onclick="selectAppTheme('dark')">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="font-size: 1.4rem;">🌙</span>
+            <div>
+              <div style="font-weight: 700;" data-i18n="themeDark">Тёмная</div>
+              <div style="font-size: 0.76rem; color: var(--text-muted);" data-i18n="themeDarkSub">Глубокие неоновые тона</div>
+            </div>
+          </div>
+          <span class="lang-check" id="checkThemeDark">✓</span>
+        </div>
+        <div class="preset-card" id="themeCardLight" onclick="selectAppTheme('light')">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="font-size: 1.4rem;">☀️</span>
+            <div>
+              <div style="font-weight: 700;" data-i18n="themeLight">Светлая</div>
+              <div style="font-size: 0.76rem; color: var(--text-muted);" data-i18n="themeLightSub">Мягкие светлые оттенки</div>
+            </div>
+          </div>
+          <span class="lang-check" id="checkThemeLight"></span>
+        </div>
+        <div class="preset-card" id="themeCardSystem" onclick="selectAppTheme('system')">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="font-size: 1.4rem;">⚙️</span>
+            <div>
+              <div style="font-weight: 700;" data-i18n="themeSystem">Как в системе</div>
+              <div style="font-size: 0.76rem; color: var(--text-muted);" data-i18n="themeSystemSub">Автоматически по настройкам устройства</div>
+            </div>
+          </div>
+          <span class="lang-check" id="checkThemeSystem"></span>
+        </div>
+      </div>
       <div style="margin-top: auto; padding-top: 12px;">
         <button class="btn btn-secondary" onclick="showScreen('screenSettings')" data-i18n="back">Назад</button>
       </div>
@@ -2265,6 +2376,14 @@
         playVsAi: "Играть против ИИ",
         leaderboard: "Рейтинг",
         settings: "Настройки",
+        themeTitle: "Тема оформления",
+        selectThemeTitle: "Выберите тему",
+        themeDark: "Тёмная",
+        themeDarkSub: "Глубокие неоновые тона",
+        themeLight: "Светлая",
+        themeLightSub: "Мягкие светлые оттенки",
+        themeSystem: "Как в системе",
+        themeSystemSub: "Автоматически по настройкам устройства",
         accountTitle: "Аккаунт",
         defaultProfileName: "Профиль игрока",
         linkedServicesTitle: "Привязанные сервисы",
@@ -2353,6 +2472,14 @@
         playVsAi: "AI ga qarshi o'ynash",
         leaderboard: "Reyting",
         settings: "Sozlamalar",
+        themeTitle: "Mavzu dizayni",
+        selectThemeTitle: "Mavzuni tanlang",
+        themeDark: "Qorong'i",
+        themeDarkSub: "Chuqur neon ranglar",
+        themeLight: "Yorug'",
+        themeLightSub: "Yumshoq yorug' ranglar",
+        themeSystem: "Tizim kabi",
+        themeSystemSub: "Qurilma sozlamalariga moslashadi",
         accountTitle: "Hisob",
         defaultProfileName: "O'yinchi profili",
         linkedServicesTitle: "Ulangan xizmatlar",
@@ -2441,6 +2568,14 @@
         playVsAi: "Play vs AI",
         leaderboard: "Leaderboard",
         settings: "Settings",
+        themeTitle: "Appearance Theme",
+        selectThemeTitle: "Choose Theme",
+        themeDark: "Dark",
+        themeDarkSub: "Deep neon contrast",
+        themeLight: "Light",
+        themeLightSub: "Clean light shades",
+        themeSystem: "System Default",
+        themeSystemSub: "Follows device appearance",
         accountTitle: "Account",
         defaultProfileName: "Player Profile",
         linkedServicesTitle: "Linked Services",
@@ -2531,6 +2666,102 @@
       else currentLang = 'ru';
     }
 
+    
+    // ====== ЛОГИКА ТЕМ ОФОРМЛЕНИЯ ======
+    let currentThemeSetting = localStorage.getItem("gtn_theme") || "system";
+
+    function getSystemTheme() {
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.colorScheme) {
+        return window.Telegram.WebApp.colorScheme === "light" ? "light" : "dark";
+      }
+      return (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+
+    function applyActiveTheme() {
+      const effectiveTheme = currentThemeSetting === "system" ? getSystemTheme() : currentThemeSetting;
+      document.documentElement.setAttribute("data-theme", effectiveTheme);
+      document.body.setAttribute("data-theme", effectiveTheme);
+
+      // Обновляем мета-тег цвета шапки Telegram / браузера
+      let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (!themeColorMeta) {
+        themeColorMeta = document.createElement("meta");
+        themeColorMeta.name = "theme-color";
+        document.head.appendChild(themeColorMeta);
+      }
+      themeColorMeta.content = effectiveTheme === "light" ? "#f1f5f9" : "#020617";
+
+      if (window.Telegram && window.Telegram.WebApp) {
+        try {
+          if (window.Telegram.WebApp.setHeaderColor) {
+            window.Telegram.WebApp.setHeaderColor(effectiveTheme === "light" ? "#f1f5f9" : "#020617");
+          }
+          if (window.Telegram.WebApp.setBackgroundColor) {
+            window.Telegram.WebApp.setBackgroundColor(effectiveTheme === "light" ? "#f1f5f9" : "#020617");
+          }
+        } catch(e) {}
+      }
+
+      updateThemeUI();
+    }
+
+    function updateThemeUI() {
+      const darkCard = document.getElementById("themeCardDark");
+      const lightCard = document.getElementById("themeCardLight");
+      const sysCard = document.getElementById("themeCardSystem");
+      const checkDark = document.getElementById("checkThemeDark");
+      const checkLight = document.getElementById("checkThemeLight");
+      const checkSys = document.getElementById("checkThemeSystem");
+      const label = document.getElementById("currentThemeLabel");
+      const icon = document.getElementById("settingsThemeIcon");
+
+      if (!darkCard || !lightCard || !sysCard) return;
+
+      darkCard.classList.toggle("active", currentThemeSetting === "dark");
+      lightCard.classList.toggle("active", currentThemeSetting === "light");
+      sysCard.classList.toggle("active", currentThemeSetting === "system");
+
+      if (checkDark) checkDark.textContent = currentThemeSetting === "dark" ? "✓" : "";
+      if (checkLight) checkLight.textContent = currentThemeSetting === "light" ? "✓" : "";
+      if (checkSys) checkSys.textContent = currentThemeSetting === "system" ? "✓" : "";
+
+      const themeLabels = {
+        ru: { dark: "Тёмная", light: "Светлая", system: "Как в системе" },
+        uz: { dark: "Qorong'i", light: "Yorug'", system: "Tizim kabi" },
+        en: { dark: "Dark", light: "Light", system: "System" }
+      };
+
+      const langMap = themeLabels[currentLang] || themeLabels.ru;
+      if (label) label.textContent = langMap[currentThemeSetting] || langMap.system;
+
+      if (icon) {
+        if (currentThemeSetting === "dark") icon.textContent = "🌙";
+        else if (currentThemeSetting === "light") icon.textContent = "☀️";
+        else icon.textContent = "⚙️";
+      }
+    }
+
+    function selectAppTheme(theme) {
+      currentThemeSetting = theme;
+      localStorage.setItem("gtn_theme", theme);
+      triggerHaptic("light");
+      applyActiveTheme();
+    }
+
+    // Слушатель системной смены темы (Android / iOS / Windows / macOS)
+    if (window.matchMedia) {
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        if (currentThemeSetting === "system") applyActiveTheme();
+      });
+    }
+
+    // Слушатель Telegram смены темы
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.onEvent) {
+      window.Telegram.WebApp.onEvent("themeChanged", () => {
+        if (currentThemeSetting === "system") applyActiveTheme();
+      });
+    }
+
     function selectAppLanguage(lang) {
       currentLang = lang;
       triggerHaptic('light');
@@ -2548,6 +2779,7 @@
 
       document.getElementById('settingsCurrentFlag').innerHTML = lang === 'uz' ? SVG_FLAGS.UZ : (lang === 'en' ? SVG_FLAGS.GB : SVG_FLAGS.RU);
 
+      updateThemeUI();
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (i18n[lang][key]) elem.textContent = i18n[lang][key];
