@@ -4602,18 +4602,92 @@
         winnerRoyaleSub: "Вы остались единственным выжившим в битве!",
 
         privacy: `
-          <h3>1. Общие положения</h3>
-          <p>Настоящая Политика конфиденциальности описывает порядок сбора, использования и защиты персональной информации пользователей игры «GTN: Guess The Number».</p>
-          <h3>2. Внутриигровой ID и внешние аккаунты</h3>
-          <p>Игра создает уникальный внутриигровой идентификатор (Game ID). При входе через внешние сервисы идентификаторы этих платформ безопасно связываются с вашим внутриигровым профилем. Мы не собираем личные сообщения, номера телефонов или платежные данные.</p>
-          <h3>3. Использование информации</h3>
-          <p>Собранные данные используются исключительно для персонализации игрового профиля, сохранения побед и формирования таблицы рейтинга.</p>
+          <h3>1. Общие положения и оператор</h3>
+          <p>Настоящая Политика конфиденциальности определяет порядок обработки, хранения и защиты информации пользователей интеллектуальной логической игры «GTN: Guess The Number» (далее — «Игра» или «Сервис»), доступной в веб-браузерах, мобильных устройствах, в формате PWA и через Telegram Mini Apps.</p>
+          <p>Мы придерживаемся принципа минимизации данных (Data Minimization): Сервис собирает исключительно ту техническую и игровую информацию, которая строго необходима для работы мультиплеера в реальном времени, сохранения прогресса и честного расчёта рейтинга.</p>
+
+          <h3>2. Категории обрабатываемых данных</h3>
+          <p>В процессе использования Сервиса обрабатываются следующие категории данных:</p>
+          <ul>
+            <li><strong>Игровой идентификатор (Game ID):</strong> Уникальный случайный анонимный UUID, автоматически генерируемый на вашем устройстве при первом запуске и используемый для идентификации игрового профиля.</li>
+            <li><strong>Данные профиля и кастомизации:</strong> Выбранный псевдоним (никнейм), эмодзи-аватар и выбранная страна с флагом для отображения в игровых лобби и национальном рейтинге.</li>
+            <li><strong>Игровая статистика:</strong> Количество сыгранных матчей, победы, поражения, текущие и рекордные серии побед (винстрики), процент точности сужения диапазона и соревновательный рейтинг (ELO).</li>
+            <li><strong>Внешние платформы (Telegram):</strong> При запуске через Telegram Mini App с вашего согласия связываются только общедоступный Telegram ID и username для синхронизации профиля между устройствами. Мы <strong>никогда</strong> не запрашиваем и не храним личные сообщения, телефонную книгу или пароли.</li>
+            <li><strong>Данные активных игровых сессий:</strong> Временные параметры текущей комнаты (выбранный диапазон, загаданные секретные числа раунда, догадки, текущий процент сужения диапазона и оставшееся время таймера). Эти данные являются временными и автоматически удаляются по завершении матча.</li>
+            <li><strong>Пользовательские настройки:</strong> Выбранный язык интерфейса (Русский, Узбекский, Английский), визуальная тема оформления (светлая/тёмная), состояние звуковых эффектов и тактильной вибрации (haptic feedback).</li>
+          </ul>
+          <p><strong>Мы НЕ собираем:</strong> платежные реквизиты, номера банковских карт, паспортные данные, номера телефонов и данные геолокации (GPS).</p>
+
+          <h3>3. Цели обработки информации</h3>
+          <p>Собранные данные используются исключительно для:</p>
+          <ul>
+            <li>Обеспечения стабильной работы игровых режимов («Дуэль 1v1», «Взлом Сейфа», «Кольцо охотников»);</li>
+            <li>Мгновенной сетевой синхронизации ходов и состояния комнат через безопасные веб-сокеты и облачную базу данных;</li>
+            <li>Ведения прозрачных и честных таблиц рекордов (Глобальный рейтинг, Топ по странам, Зал славы);</li>
+            <li>Сохранения пользовательских настроек и прогресса между игровыми сессиями;</li>
+            <li>Предотвращения мошенничества, бот-атак, флуда и защиты честной соревновательной среды.</li>
+          </ul>
+
+          <h3>4. Хранение данных и безопасность</h3>
+          <p>Локальные настройки и кэш профиля хранятся непосредственно в безопасном хранилище вашего браузера (LocalStorage). Передача сетевых данных защищена современными протоколами шифрования (HTTPS, WSS, TLS 1.3).</p>
+          <p>Секретные числа игроков и код сейфа надёжно маскируются в игровой сессии и не передаются другим участникам до момента легитимного разгадывания или завершения раунда.</p>
+
+          <h3>5. Файлы Cookie и локальное хранилище</h3>
+          <p>Сервис не использует рекламные или трекинговые cookie-файлы сторонних маркетинговых сетей. Применяется только стандартное хранилище браузера (LocalStorage) для сохранения параметров интерфейса и обеспечения автономного режима тренировки против Бота.</p>
+
+          <h3>6. Права пользователя и управление данными</h3>
+          <p>Каждый пользователь обладает полным контролем над своими данными:</p>
+          <ul>
+            <li>Вы можете в любой момент изменить никнейм, аватар, страну или язык в меню настроек;</li>
+            <li>Вы можете полностью стереть локальные данные игры, очистив кэш и данные сайта в настройках своего браузера;</li>
+            <li>Вы можете обратиться к разработчикам для отвязки аккаунта или удаления записей из рейтинга.</li>
+          </ul>
+
+          <h3>7. Обновление политики и контакты</h3>
+          <p>Политика конфиденциальности может актуализироваться по мере добавления новых режимов и возможностей. Актуальная версия всегда доступна в меню настроек Сервиса. Вопросы по защите данных можно направить через сообщество проекта.</p>
         `,
         terms: `
           <h3>1. Принятие условий</h3>
-          <p>Используя игру «GTN», вы подтверждаете свое согласие с данными Условиями предоставления услуг.</p>
-          <h3>2. Правила честной игры</h3>
-          <p>В сетевом режиме запрещено использование программ автоматизации, кликеров или эксплойтов, перехватывающих сетевые пакеты комнат.</p>
+          <p>Настоящие Условия предоставления услуг (далее — «Условия») регулируют использование веб-игры «GTN: Guess The Number» (далее — «Сервис»). Запуск игры, создание профиля, создание комнат или подключение к сетевым матчам означает ваше полное и безоговорочное согласие со всеми положениями настоящих Условий.</p>
+
+          <h3>2. Описание Сервиса и режимов игры</h3>
+          <p>«GTN: Guess The Number» является бесплатной интеллектуально-развлекательной платформой логических игр, включающей следующие режимы:</p>
+          <ul>
+            <li><strong>Одиночная игра против Бота:</strong> тренировочные партии против адаптивного алгоритма с 3 уровнями сложности (Новичок, Мастер, Гроссмейстер);</li>
+            <li><strong>Сетевая Дуэль (1v1):</strong> состязание двух игроков с броском кубиков (🎲) на право первого хода, пошаговыми догадками и сужением диапазона;</li>
+            <li><strong>Взлом Сейфа (3–6 игроков):</strong> одновременная скоростная Королевская битва с общим кодом сейфа, таймером раунда и выбыванием участника с наименьшим прогрессом сужения;</li>
+            <li><strong>Кольцо охотников (3–6 игроков):</strong> круговая пошаговая тактическая битва с индивидуальными целями до последнего выжившего игрока;</li>
+            <li><strong>Публичные и приватные лобби:</strong> возможность открытого поиска соперников или создания закрытых комнат с защитой 3-значным PIN-кодом.</li>
+          </ul>
+
+          <h3>3. Правила честной игры (Fair Play)</h3>
+          <p>Для поддержания честной соревновательной атмосферы всем участникам строго запрещается:</p>
+          <ul>
+            <li>Применять стороннее программное обеспечение, скрипты автоматизации, кликеры, ботов или макросы в сетевых матчах с реальными игроками;</li>
+            <li>Пытаться декомпилировать клиентский код, перехватывать или анализировать сетевые пакеты, манипулировать памятью браузера для досрочного вскрытия секретных чисел соперников или кода сейфа;</li>
+            <li>Умышленно эксплуатировать программные сбои (баги) для получения неспортивного преимущества или накрутки рейтинга;</li>
+            <li>Намеренно саботировать матчи (затягивать время ходов, осуществлять спам-запросы к комнатам);</li>
+            <li>Устанавливать никнеймы, содержащие нецензурную брань, угрозы, оскорбления, разжигание розни или дискриминацию.</li>
+          </ul>
+
+          <h3>4. Интеллектуальная собственность</h3>
+          <p>Все права на графический дизайн, программный код, игровую логику, звуковое оформление, анимации и товарные знаки «GTN: Guess The Number» принадлежат разработчикам проекта.</p>
+          <p>Пользователю предоставляется персональная, неисключительная лицензия на использование Сервиса исключительно в личных некоммерческих целях. Запрещается несанкционированное копирование, распространение или модификация компонентов Сервиса.</p>
+
+          <h3>5. Отказ от гарантий и ограничение ответственности</h3>
+          <p>Сервис предоставляется на условиях <strong>«КАК ЕСТЬ» («AS IS»)</strong> и <strong>«ПО МЕРЕ ДОСТУПНОСТИ» («AS AVAILABLE»)</strong>. Разработчики не гарантируют абсолютную бесперебойность серверов или отсутствие сетевых задержек.</p>
+          <p>Разработчики не несут ответственности за перебои интернет-соединения, лаги, технические проблемы провайдеров или утрату локального прогресса вследствие очистки данных браузера пользователем.</p>
+
+          <h3>6. Санкции при нарушениях</h3>
+          <p>При выявлении фактов читерства, вмешательства в сетевой протокол или грубого нарушения правил администрация оставляет за собой право:</p>
+          <ul>
+            <li>Аннулировать результаты матчей и сбросить соревновательный рейтинг игрока;</li>
+            <li>Временно ограничить или бессрочно заблокировать Game ID нарушителя в сетевых режимах;</li>
+            <li>Сбросить некорректный или оскорбительный псевдоним игрока.</li>
+          </ul>
+
+          <h3>7. Изменения условий</h3>
+          <p>Разработчики оставляют за собой право вносить изменения в настоящие Условия и параметры игрового баланса. Актуальная редакция соглашения всегда доступна в меню настроек Игры.</p>
         `
       },
       uz: {
@@ -4647,16 +4721,92 @@
         winnerRoyaleSub: "Siz jangda yagona g'olib bo'lib qoldingiz!",
 
         privacy: `
-          <h3>1. Umumiy qoidalar</h3>
-          <p>Ushbu Maxfiylik siyosati «GTN: Guess The Number» o'yini foydalanuvchilarining ma'lumotlarini to'plash, ulardan foydalanish va himoya qilish tartibini belgilaydi.</p>
-          <h3>2. O'yin ID va tashqi hisoblar</h3>
-          <p>Tizim har bir foydalanuvchiga mustaqil Game ID yaratadi. Tashqi xizmatlar orqali kirilganda ushbu platformalar ID-raqamlari o'yin hisobingizga xavfsiz bog'lanadi.</p>
+          <h3>1. Umumiy qoidalar va ma'lumotlar operatori</h3>
+          <p>Ushbu Maxfiylik siyosati «GTN: Guess The Number» (keyingi o'rinlarda — «O'yin» yoki «Xizmat») intellektual mantiqiy o'yinida foydalanuvchilar ma'lumotlarini to'plash, qayta ishlash va himoya qilish tartibini belgilaydi. O'yin veb-brauzer, mobil qurilmalar, PWA formati va Telegram Mini Apps platformalarida ishlaydi.</p>
+          <p>Biz ma'lumotlarni minimallashtirish (Data Minimization) tamoyiliga qat'iy rioya qilamiz: biz faqat onlayn multiplayer, natijalarni sinxronlashtirish va shaffof reyting tizimi uchun qat'iy zarur bo'lgan texnik ma'lumotlarni qayta ishlaymiz.</p>
+
+          <h3>2. To'planadigan ma'lumotlar toifalari</h3>
+          <p>Xizmatdan foydalanish jarayonida quyidagi ma'lumotlar qayta ishlanishi mumkin:</p>
+          <ul>
+            <li><strong>O'yin identifikatori (Game ID):</strong> O'yin birinchi marta ishga tushirilganda qurilmangizda avtomatik ravishda yaratiladigan anonim unikal identifikator.</li>
+            <li><strong>Profil va sozlamalar:</strong> Foydalanuvchi tanlagan taxallus (nikneym), emodzi-avatar hamda umumiy va milliy reytingda aks etadigan mamlakat va davlat bayrog'i.</li>
+            <li><strong>O'yin statistikasi:</strong> O'ynalgan o'yinlar soni, g'alabalar, mag'lubiyatlar, g'alabali seriyalar (vinstrik), oraliqni toraytirish aniqligi foizi va reyting ballari (ELO).</li>
+            <li><strong>Tashqi platformalar (Telegram):</strong> Telegram Mini App orqali kirilganda profilingizni qurilmalararo xavfsiz saqlash uchun faqat ommaviy Telegram ID va username ishlatiladi. Biz <strong>hech qachon</strong> shaxsiy xabarlaringiz, telefon kontaktlaringiz yoki parollaringizga kirish huquqiga ega bo'lmaymiz.</li>
+            <li><strong>Faol o'yin sessiyasi ma'lumotlari:</strong> Joriy xona parametrlari (tanlangan oraliq, maxfiy sonlar, taxminlar, oraliq qisqarish foizlari va raund taymeri). Bu ma'lumotlar faqat o'yin vaqtida saqlanadi va match tugagach o'chiriladi.</li>
+            <li><strong>Foydalanuvchi interfeysi sozlamalari:</strong> Tanlangan til (O'zbekcha, Ruscha, Inglizcha), dizayn mavzusi (yorug'/qorong'i), ovoz effektlari va tebranish (haptic feedback) parametrlari.</li>
+          </ul>
+          <p><strong>Biz quyidagilarni YIG'MAYMIZ:</strong> to'lov rekvizitlari, bank kartalari raqamlari, pasport ma'lumotlari, telefon raqamlari va aniq geolokatsiya (GPS).</p>
+
+          <h3>3. Ma'lumotlarni qayta ishlash maqsadlari</h3>
+          <p>To'plangan ma'lumotlar faqat quyidagi maqsadlarda ishlatiladi:</p>
+          <ul>
+            <li>O'yin rejimlarining («1v1 Duel», «Seyfni buzish», «Ovchilar halqasi») to'liq va barqaror ishlashini ta'minlash;</li>
+            <li>Veb-soketlar va xavfsiz bulutli baza orqali raqiblar harakatlarini real vaqtda uzatish;</li>
+            <li>Adolatli global va milliy yetakchilar jadvalini (Shon-sharaf zali) yuritish;</li>
+            <li>Foydalanuvchi sozlamalari va yutuqlarini keyingi o'yinlar uchun saqlab qolish;</li>
+            <li>Tarmoq xurujlari, fishing, botlar va adolatsiz o'yinlardan (cheat) himoyalanish.</li>
+          </ul>
+
+          <h3>4. Ma'lumotlarni saqlash va xavfsizlik</h3>
+          <p>Lokal sozlamalar va profil ma'lumotlari to'g'ridan-to'g'ri brauzeringizning xavfsiz xotirasida (LocalStorage) saqlanadi. Tarmoq trafigi zamonaviy xavfsizlik protokollari (HTTPS, WSS, TLS 1.3) orqali shifrlanadi.</p>
+          <p>O'yinchilarning yashirin sonlari va seyf kodi raund davomida himoyalangan holatda bo'ladi va raqib tomonidan qonuniy topilmaguncha begona qurilmalarga ko'rsatilmaydi.</p>
+
+          <h3>5. Cookie-fayllar va mahalliy xotira</h3>
+          <p>O'yin uchinchi tomon reklama yoki marketing cookie-fayllaridan foydalanmaydi. Faqat sozlamalarni saqlash va Botga qarshi oflayn rejimni ta'minlash uchun standart LocalStorage texnologiyasi ishlatiladi.</p>
+
+          <h3>6. Foydalanuvchi huquqlari</h3>
+          <p>Siz o'z ma'lumotlaringiz ustidan to'liq nazoratga egasiz:</p>
+          <ul>
+            <li>Istalgan vaqtda profil sozlamalarida ismingiz, avataringiz, mamlakat yoki tilni yangilashingiz mumkin;</li>
+            <li>Brauzer keshini tozalash orqali barcha lokal o'yin ma'lumotlaringizni butunlay o'chirib tashlashingiz mumkin;</li>
+            <li>Reytingdagi ma'lumotlarni o'chirish yoki yangilash uchun ishlab chiquvchilarga murojaat qilishingiz mumkin.</li>
+          </ul>
+
+          <h3>7. Siyosatdagi o'zgarishlar</h3>
+          <p>O'yin rivojlanishi va yangi imkoniyatlar qo'shilishi bilan ushbu Siyosat yangilanishi mumkin. Amaldagi tahrir doimo o'yin sozlamalari menyusida ochiq bo'ladi.</p>
         `,
         terms: `
           <h3>1. Shartlarni qabul qilish</h3>
-          <p>«GTN» o'yinidan foydalanish orqali siz ushbu Xizmat ko'rsatish shartlariga to'liq rozilik bildirasiz.</p>
-          <h3>2. Halol o'yin qoidalari</h3>
-          <p>Tarmoq orqali o'ynashda har qanday avtomatlashtirilgan vositalardan foydalanish taqiqlanadi.</p>
+          <p>Ushbu Xizmat ko'rsatish shartlari (keyingi o'rinlarda — «Shartlar») «GTN: Guess The Number» (keyingi o'rinlarda — «Xizmat») o'yinidan foydalanish tartibini belgilaydi. O'yinni ishga tushirish, profil yaratish yoki o'yin xonalariga ulanish ushbu Shartlarga to'liq va so'zsiz rozilik bildirishni anglatadi.</p>
+
+          <h3>2. Xizmat va o'yin formatlari tavsifi</h3>
+          <p>«GTN: Guess The Number» quyidagi rejimlarni o'z ichiga olgan bepul intellektual mantiqiy o'yin platformasidir:</p>
+          <ul>
+            <li><strong>Bot bilan yakkama-yakka:</strong> Sun'iy intellektga qarshi 3 ta qiyinlik darajasidagi (Boshlang'ich, Usta, Grossmeyster) mashg'ulot o'yinlari;</li>
+            <li><strong>Tarmoqdagi 1 ga 1 Duel:</strong> Zarlar tashlash orqali birinchi yurishni aniqlaydigan va navbatma-navbat o'ynaladigan klassik intellektual jang;</li>
+            <li><strong>Seyfni buzish (3–6 nafar o'yinchi):</strong> Umumiy maxfiy kod, raund taymeri va oraliqni eng kam toraytirgan ishtirokchini chetlatishga asoslangan Qirollik jangi;</li>
+            <li><strong>Ovchilar halqasi (3–6 nafar o'yinchi):</strong> Oxirgi tirik qolgan g'olibgacha davom etadigan yopiq halqadagi taktik aylanma ov;</li>
+            <li><strong>Maxfiy va ommaviy xonalar:</strong> Ochiq qidiruv yoki 3 ta raqamli PIN-kod bilan himoyalangan maxsus xonalar ochish imkoniyati.</li>
+          </ul>
+
+          <h3>3. Halol o'yin qoidalari (Fair Play)</h3>
+          <p>Barcha o'yinchilar uchun teng va adolatli muhitni ta'minlash maqsadida quyidagilar qat'iyan man etiladi:</p>
+          <ul>
+            <li>Jonli o'yinchilar bilan tarmoq janglarida avtomatlashtirish vositalari, botlar, klikerlar yoki yordamchi skriptlardan foydalanish;</li>
+            <li>Raqibning yashirin sonini yoki seyf kodini noqonuniy bilib olish maqsadida tarmoq paketlarini tahlil qilish (sniffing), kodni buzish yoki manipulyatsiya qilish;</li>
+            <li>Reyting ballarini sun'iy oshirish uchun tizim xatoliklaridan (bug) qasddan foydalanish;</li>
+            <li>O'yin jarayonini ataylab buzish (yurish vaqtini behuda cho'zish, soxta harakatlar, serverga spam yuborish);</li>
+            <li>Profilda haqoratomuz, behayo, adovat qo'zg'atuvchi yoki qonunchilikka zid taxalluslardan (nikneym) foydalanish.</li>
+          </ul>
+
+          <h3>4. Intellektual mulk</h3>
+          <p>O'yin interfeysi dizayni, dasturiy kodi, grafik elementlari, animatsiyalari, ovozlari va mexanikasi to'liq «GTN: Guess The Number» mualliflariga tegishlidir.</p>
+          <p>Foydalanuvchiga faqat shaxsiy, notijorat maqsadlarda o'ynash uchun cheklangan litsenziya beriladi. O'yin elementlarini muallifning yozma ruxsatisiz nusxalash yoki tijoriy maqsadlarda tarqatish taqiqlanadi.</p>
+
+          <h3>5. Kafolatlar va javobgarlikni cheklash</h3>
+          <p>Xizmat <strong>«BORICHA» («AS IS»)</strong> va <strong>«MAVJUD BO'LGANICHA» («AS AVAILABLE»)</strong> tarzida taqdim etiladi. Ishlab chiquvchilar serverlarning uzluksiz ishlashiga mutlaq kafolat bermaydi.</p>
+          <p>Foydalanuvchi tomonidagi internet sifati, aloqadagi uzilishlar, yuqori ping yoki brauzer keshini tozalash oqibatida yo'qotilgan yutuqlar uchun ishlab chiquvchilar javobgar bo'lmaydi.</p>
+
+          <h3>6. Qoidabuzarliklar uchun choralar</h3>
+          <p>Noqonuniy vositalardan foydalanish yoki qoidalarni buzish holatlari aniqlanganda ma'muriyat quyidagi huquqlarni o'zida saqlab qoladi:</p>
+          <ul>
+            <li>Noqonuniy to'plangan reyting ballarini bekor qilish va o'yinchini yetakchilar ro'yxatidan chiqarish;</li>
+            <li>Qoidabuzar o'yinchining onlayn multiplayerga kirishini vaqtincha yoki butunlay cheklash;</li>
+            <li>Qoidalarga zid taxalluslarni tizimli standart nomlarga majburiy o'zgartirish.</li>
+          </ul>
+
+          <h3>7. Shartlarning yangilanishi</h3>
+          <p>Ishlab chiquvchilar o'yin balansini yaxshilash maqsadida ushbu Shartlarga o'zgartirish kiritish huquqiga ega. O'zgarishlar kiritilgandan so'ng o'yinni davom ettirish yangi Shartlarga rozilikni bildiradi.</p>
         `
       },
       en: {
@@ -4690,16 +4840,92 @@
         winnerRoyaleSub: "You are the last surviving mastermind!",
 
         privacy: `
-          <h3>1. General Provisions</h3>
-          <p>This Privacy Policy explains how «GTN: Guess The Number» collects, processes, and protects your information.</p>
-          <h3>2. In-Game ID & External Accounts</h3>
-          <p>The game generates an internal Game ID. External provider IDs are safely mapped to your in-game profile.</p>
+          <h3>1. General Provisions & Data Controller</h3>
+          <p>This Privacy Policy explains how «GTN: Guess The Number» (hereinafter referred to as the "Game" or "Service") collects, stores, processes, and protects your information across web browsers, mobile devices, PWA installations, and Telegram Mini Apps.</p>
+          <p>We strictly adhere to the principle of Data Minimization: we only collect the minimum technical and gameplay data strictly necessary to deliver real-time multiplayer functionality, maintain session state, and compute transparent competitive leaderboards.</p>
+
+          <h3>2. Categories of Processed Data</h3>
+          <p>While using our Service, the following categories of data may be processed:</p>
+          <ul>
+            <li><strong>Internal Game ID:</strong> A randomly generated, unique anonymous UUID generated on your device upon initial launch to identify and persist your player profile.</li>
+            <li><strong>Profile Customization:</strong> Your chosen nickname, avatar emoji, and country flag displayed across game rooms and global/national leaderboards.</li>
+            <li><strong>Gameplay Statistics:</strong> Total matches played, wins, losses, win streaks, range narrowing accuracy percentages, and competitive rating points (ELO).</li>
+            <li><strong>External Provider Data (Telegram):</strong> When launching via Telegram Mini Apps, only your public Telegram ID and username are mapped with your consent to synchronize your profile across devices. We <strong>never</strong> access your private chats, contact lists, or account passwords.</li>
+            <li><strong>Active Session Data:</strong> Real-time match data including selected ranges, round secret numbers, submitted guesses, range narrowing indicators, and round countdown timers. This data is ephemeral and cleared upon match completion.</li>
+            <li><strong>User Preferences:</strong> Interface language (English, Russian, Uzbek), visual color theme (dark/light), sound effects, and haptic vibration feedback.</li>
+          </ul>
+          <p><strong>We DO NOT collect:</strong> payment card details, billing credentials, government identification, phone numbers, or GPS location data.</p>
+
+          <h3>3. Purposes of Data Processing</h3>
+          <p>Collected information is used exclusively to:</p>
+          <ul>
+            <li>Deliver and maintain all game modes («1v1 Duel», «Vault Royale», «Circle Hunt»);</li>
+            <li>Synchronize moves, range narrowing progress, and room state in real-time via secure WebSockets and cloud database infrastructure;</li>
+            <li>Compute competitive ELO ratings and update global and country-based Hall of Fame rankings;</li>
+            <li>Persist your custom theme, sound, and language preferences across sessions;</li>
+            <li>Prevent automated bot exploits, network flooding, and preserve a fair competitive environment.</li>
+          </ul>
+
+          <h3>4. Data Storage & Security</h3>
+          <p>Local preferences and cached player stats are stored directly in your browser's LocalStorage. All network communications are encrypted in transit using industry-standard protocols (HTTPS, WSS, TLS 1.3).</p>
+          <p>Round secrets and vault passcodes are securely masked on the server/session level and are never transmitted to opposing players' devices until legitimately deciphered or revealed upon round conclusion.</p>
+
+          <h3>5. Cookies & Local Storage</h3>
+          <p>We do not use third-party advertising, analytics, or behavioral tracking cookies. Only standard browser LocalStorage is utilized to retain game settings and enable offline solo practice against the Bot.</p>
+
+          <h3>6. User Rights & Data Control</h3>
+          <p>You maintain full control over your information:</p>
+          <ul>
+            <li>You may modify your nickname, avatar, country, or language at any time in the settings menu;</li>
+            <li>You can erase all local game data by clearing your browser cache and site data;</li>
+            <li>You may request profile dissociation or leaderboard record removal by contacting our development team.</li>
+          </ul>
+
+          <h3>7. Policy Amendments & Contact</h3>
+          <p>This Privacy Policy may be updated periodically to reflect new features and game modes. The latest revision is always accessible within the game settings. If you have any inquiries regarding data protection, please contact the development team.</p>
         `,
         terms: `
-          <h3>1. Terms Acceptance</h3>
-          <p>By launching and playing «GTN», you agree to be bound by these Terms of Service.</p>
-          <h3>2. Fair Play</h3>
-          <p>Cheating, using automated bots, or manipulating network packets is strictly prohibited.</p>
+          <h3>1. Acceptance of Terms</h3>
+          <p>These Terms of Service (hereinafter referred to as the "Terms") govern your access to and use of «GTN: Guess The Number» (the "Service"). By launching the game, creating a player profile, hosting a room, or joining any match, you explicitly acknowledge and agree to comply with all provisions of these Terms.</p>
+
+          <h3>2. Service Description & Game Modes</h3>
+          <p>«GTN: Guess The Number» is a free-to-play intellectual deduction and logic platform offering the following game formats:</p>
+          <ul>
+            <li><strong>Solo Bot Matches:</strong> Single-player training against adaptive artificial intelligence featuring 3 distinct difficulty tiers (Novice, Master, Grandmaster);</li>
+            <li><strong>Online 1v1 Duel:</strong> Classic head-to-head turn-based competition with an opening dice roll (🎲) determining the first mover, accompanied by step-by-step range narrowing;</li>
+            <li><strong>Vault Royale (3–6 Players):</strong> High-speed simultaneous elimination party mode where all participants decipher a shared vault code under round time limits;</li>
+            <li><strong>Circle Hunt (3–6 Players):</strong> Turn-based tactical ring elimination where each participant hunts an assigned target until the last survivor remains;</li>
+            <li><strong>Public & Private Rooms:</strong> Options for open matchmaking or protected custom rooms secured by a 3-digit PIN code.</li>
+          </ul>
+
+          <h3>3. Fair Play & Prohibited Conduct</h3>
+          <p>To preserve integrity and equal competitive conditions for all participants, the following actions are strictly prohibited:</p>
+          <ul>
+            <li>Using any automated third-party software, bots, macros, auto-clickers, or cheating scripts in online matches with real players;</li>
+            <li>Reverse engineering, packet sniffing, network interception, or memory manipulation intended to reveal secret numbers prematurely;</li>
+            <li>Exploiting known bugs, glitches, or unintended vulnerabilities to artificially boost rankings or disrupt games;</li>
+            <li>Intentional griefing, disruptive AFK stalling, or spamming network endpoints;</li>
+            <li>Using offensive, vulgar, harassing, defamatory, or hateful nicknames in player profiles.</li>
+          </ul>
+
+          <h3>4. Intellectual Property</h3>
+          <p>All visual interfaces, source code, game mechanics, graphics, animations, sound design, and branding are the proprietary intellectual property of «GTN: Guess The Number».</p>
+          <p>Users are granted a limited, personal, non-exclusive, non-transferable license to access the game solely for personal, non-commercial entertainment. Any unauthorized reproduction, redistribution, or modification of game assets is strictly forbidden.</p>
+
+          <h3>5. Disclaimer of Warranties & Limitation of Liability</h3>
+          <p>The Service is provided strictly on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind. We do not guarantee uninterrupted, lag-free, or error-free operation.</p>
+          <p>The developers shall not be liable for user internet connectivity disruptions, ping spikes, server maintenance downtime, or lost local progress resulting from browser cache clearing.</p>
+
+          <h3>6. Violations & Enforcement</h3>
+          <p>In the event of cheating, unauthorized automated play, abusive conduct, or breach of these Terms, the administration reserves the right to:</p>
+          <ul>
+            <li>Nullify illegitimate rating points and disqualify the user from leaderboards;</li>
+            <li>Temporarily or permanently suspend the player's Game ID from online matchmaking;</li>
+            <li>Reset offensive or inappropriate nicknames to generic default identifiers.</li>
+          </ul>
+
+          <h3>7. Modifications & Updates</h3>
+          <p>We reserve the right to amend these Terms or adjust game balance and rules at any time. Continued participation in the Service following any modifications constitutes full acceptance of the revised Terms.</p>
         `
       }
     };
