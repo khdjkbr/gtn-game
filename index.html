@@ -2447,6 +2447,39 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       z-index: 4;
     }
+    /* Статусы готовности игроков в режиме «Взлом сейфа» */
+    .party-status-pill {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      font-size: 0.52rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      z-index: 4;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    .party-status-ready {
+      background: #10b981;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .party-status-thinking {
+      background: rgba(245, 158, 11, 0.95);
+      color: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      animation: partyPulseThink 1.4s ease-in-out infinite;
+    }
+    .party-status-dead {
+      background: rgba(244, 63, 94, 0.85);
+      color: #ffffff;
+    }
+    @keyframes partyPulseThink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.96); }
+    }
     [data-theme="light"] .my-narrow-pill {
       background: #e0f2fe;
       color: #0284c7;
@@ -4747,7 +4780,15 @@
         narrowPercentLabel: "сужение",
         yourTurnNotice: "⚡ ВАШ ХОД! Назовите число",
         turnOfNotice: "⏳ Ходит {name}...",
-        vaultSimultaneousNotice: "🔓 Подберите код сейфа!",
+        vaultSimultaneousNotice: "Подберите код сейфа!",
+        vaultStepLabel: "Попытка {step}",
+        vaultWaitingOthers: "Ожидание остальных ({ready}/{total}) ⏳",
+        vaultYourGuessAccepted: "Ваш вариант принят!",
+        vaultPlayerReady: "ГОТОВ",
+        vaultPlayerThinking: "ДУМАЕТ...",
+        vaultTimeLeft: "{sec}с",
+        vaultAlreadySubmittedError: "Ваш вариант уже отправлен! Ожидайте завершения шага всеми игроками.",
+        eliminatedWord: "ВЫБЫЛ",
         yourTargetPill: "ЦЕЛЬ",
         roundEndedTitle: "завершен!",
         playerWord: "Игрок"
@@ -4904,7 +4945,15 @@
         narrowPercentLabel: "qisqarish",
         yourTurnNotice: "⚡ SIZNING NAVBATINGIZ! Son ayting",
         turnOfNotice: "⏳ {name} navbati...",
-        vaultSimultaneousNotice: "🔓 Seyf kodini toping!",
+        vaultSimultaneousNotice: "Seyf kodini toping!",
+        vaultStepLabel: "{step}-urinish",
+        vaultWaitingOthers: "Boshqalar kutilmoqda ({ready}/{total}) ⏳",
+        vaultYourGuessAccepted: "Variantingiz qabul qilindi!",
+        vaultPlayerReady: "TAYYOR",
+        vaultPlayerThinking: "O'YLANMOQDA...",
+        vaultTimeLeft: "{sec}s",
+        vaultAlreadySubmittedError: "Siz bu urinishda son kiritgansiz! Boshqa o'yinchilarni kuting.",
+        eliminatedWord: "CHIQDI",
         yourTargetPill: "MAQSAD",
         roundEndedTitle: "yakunlandi!",
         playerWord: "O'yinchi",
@@ -5071,7 +5120,15 @@
         narrowPercentLabel: "narrowed",
         yourTurnNotice: "⚡ YOUR TURN! Guess a number",
         turnOfNotice: "⏳ {name}'s turn...",
-        vaultSimultaneousNotice: "🔓 Crack the Vault code!",
+        vaultSimultaneousNotice: "Crack the Vault code!",
+        vaultStepLabel: "Attempt {step}",
+        vaultWaitingOthers: "Waiting for others ({ready}/{total}) ⏳",
+        vaultYourGuessAccepted: "Your guess is accepted!",
+        vaultPlayerReady: "READY",
+        vaultPlayerThinking: "THINKING...",
+        vaultTimeLeft: "{sec}s",
+        vaultAlreadySubmittedError: "You already made a guess for this step! Waiting for other players.",
+        eliminatedWord: "OUT",
         yourTargetPill: "TARGET",
         roundEndedTitle: "finished!",
         playerWord: "Player",
@@ -5892,6 +5949,7 @@
 
     function cancelPartyRoom() {
       triggerHaptic('light');
+      stopVaultTimer();
       if (partyRoomRef) {
         if (isPartyHost) {
           partyRoomRef.update({ status: 'cancelled' });
@@ -5919,7 +5977,7 @@
       const mode = currentPartyRoomData.mode;
 
       if (mode === 'vault') {
-        // Режим «Вскрытие сейфа»: система загадывает код, игроки одновременно соревнуются в сужении
+        // Режим «Вскрытие сейфа»: система загадывает код, игроки синхронно соревнуются по шагам
         const vaultSecret = Math.floor(Math.random() * (max - min + 1)) + min;
         const resetPlayers = {};
         playerIds.forEach(id => {
@@ -5928,13 +5986,21 @@
             narrowPercent: 0,
             guessesCount: 0,
             secretNumber: null,
-            hasSubmittedSecret: false
+            hasSubmittedSecret: false,
+            currentStepGuess: null,
+            stepStatus: 'waiting',
+            lastGuess: null,
+            lastHint: null,
+            min: min,
+            max: max
           });
         });
 
         partyRoomRef.update({
           vaultSecret: vaultSecret,
           round: 1,
+          step: 1,
+          stepDeadline: Date.now() + 25000,
           status: 'playing',
           players: resetPlayers,
           roundSummary: null,
@@ -6680,6 +6746,205 @@
     }
 
     let currentPartyRound = 1;
+    let vaultStepTimerInterval = null;
+    let vaultLastEvaluatedStep = 0;
+    let vaultStepEvaluating = false;
+
+    function startVaultTimer() {
+      if (vaultStepTimerInterval) clearInterval(vaultStepTimerInterval);
+      vaultStepTimerInterval = setInterval(() => {
+        if (!currentPartyRoomData || currentPartyRoomData.mode !== 'vault' || currentPartyRoomData.status !== 'playing') {
+          clearInterval(vaultStepTimerInterval);
+          vaultStepTimerInterval = null;
+          return;
+        }
+        updateVaultTurnStatusAndTimer();
+        checkAndResolveVaultStep(currentPartyRoomData);
+      }, 500);
+    }
+
+    function stopVaultTimer() {
+      if (vaultStepTimerInterval) {
+        clearInterval(vaultStepTimerInterval);
+        vaultStepTimerInterval = null;
+      }
+    }
+
+    function updateVaultTurnStatusAndTimer() {
+      if (!currentPartyRoomData || currentPartyRoomData.mode !== 'vault' || currentPartyRoomData.status !== 'playing') {
+        return;
+      }
+      const turnStatus = document.getElementById('partyTurnStatus');
+      if (!turnStatus) return;
+
+      const myId = playerProfile.gameId;
+      const players = currentPartyRoomData.players || {};
+      const alivePlayers = Object.values(players).filter(p => p.isAlive !== false);
+      const myPlayer = players[myId];
+      const isMeDead = myPlayer && myPlayer.isAlive === false;
+      const step = currentPartyRoomData.step || 1;
+      const round = currentPartyRoomData.round || 1;
+
+      const submittedPlayers = alivePlayers.filter(p => p.currentStepGuess !== null && p.currentStepGuess !== undefined);
+      const readyCount = submittedPlayers.length;
+      const totalCount = alivePlayers.length;
+
+      const now = Date.now();
+      const deadline = currentPartyRoomData.stepDeadline || now;
+      const secLeft = Math.max(0, Math.ceil((deadline - now) / 1000));
+
+      if (isMeDead) {
+        turnStatus.innerHTML = `<span class="party-turn-alert" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4);">💀 ${(i18n[currentLang]?.eliminatedWord || 'ВЫБЫЛ')} • ${(i18n[currentLang]?.roundWord || 'Раунд')} ${round}</span>`;
+        return;
+      }
+
+      const hasMyGuess = (myPlayer && myPlayer.currentStepGuess !== null && myPlayer.currentStepGuess !== undefined);
+
+      if (hasMyGuess) {
+        const waitNotice = (i18n[currentLang]?.vaultWaitingOthers || 'Ожидание остальных ({ready}/{total}) ⏳')
+          .replace('{ready}', readyCount)
+          .replace('{total}', totalCount);
+        turnStatus.innerHTML = `<span class="party-turn-alert" style="background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5);">✅ ${(i18n[currentLang]?.vaultYourGuessAccepted || 'Вариант принят!')} ${waitNotice} • ⏱️ ${secLeft}${(i18n[currentLang]?.vaultTimeLeft || '{sec}с').replace('{sec}', '')}</span>`;
+      } else {
+        const stepLabel = (i18n[currentLang]?.vaultStepLabel || 'Попытка {step}').replace('{step}', step);
+        const enterPrompt = (i18n[currentLang]?.vaultSimultaneousNotice || 'Подберите код сейфа!');
+        turnStatus.innerHTML = `<span class="party-turn-alert my-turn-pulse" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.6);">🔓 ${stepLabel} • ${enterPrompt} (${readyCount}/${totalCount}) • ⏱️ ${secLeft}${(i18n[currentLang]?.vaultTimeLeft || '{sec}с').replace('{sec}', '')}</span>`;
+      }
+    }
+
+    function checkAndResolveVaultStep(roomData) {
+      if (!roomData || roomData.mode !== 'vault' || roomData.status !== 'playing') return;
+
+      const players = roomData.players || {};
+      const alivePlayers = Object.values(players).filter(p => p.isAlive !== false);
+      if (alivePlayers.length === 0) return;
+
+      const myId = playerProfile.gameId;
+      const isHostAlive = alivePlayers.some(p => p.gameId === roomData.hostGameId);
+      const isAuthority = (isHostAlive && roomData.hostGameId === myId) || (!isHostAlive && alivePlayers[0].gameId === myId);
+      if (!isAuthority) return;
+      if (vaultStepEvaluating) return;
+
+      const currentStep = roomData.step || 1;
+      if (currentStep <= vaultLastEvaluatedStep) return;
+
+      const submittedPlayers = alivePlayers.filter(p => p.currentStepGuess !== null && p.currentStepGuess !== undefined);
+      const now = Date.now();
+      const deadline = roomData.stepDeadline || (now + 25000);
+      const isTimeOut = now >= deadline;
+      const allSubmitted = (submittedPlayers.length >= alivePlayers.length);
+
+      if (!allSubmitted && !isTimeOut) return;
+
+      vaultLastEvaluatedStep = currentStep;
+      vaultStepEvaluating = true;
+      executeVaultStepResolution(roomData, alivePlayers, currentStep);
+    }
+
+    function executeVaultStepResolution(roomData, alivePlayers, currentStep) {
+      const pRef = partyRoomRef || roomRef;
+      if (!pRef) {
+        vaultStepEvaluating = false;
+        return;
+      }
+
+      const vaultSecret = roomData.vaultSecret;
+      const gameMinVal = typeof roomData.min === 'number' ? roomData.min : 0;
+      const gameMaxVal = typeof roomData.max === 'number' && roomData.max > gameMinVal ? roomData.max : 100;
+
+      const crackers = [];
+      const updates = {};
+      const newPlayerPercents = {};
+
+      alivePlayers.forEach(p => {
+        const guess = p.currentStepGuess;
+        let pMin = typeof p.min === 'number' ? p.min : gameMinVal;
+        let pMax = typeof p.max === 'number' ? p.max : gameMaxVal;
+        let hint = null;
+        let narrowPct = typeof p.narrowPercent === 'number' ? p.narrowPercent : 0;
+
+        if (typeof guess === 'number') {
+          if (guess === vaultSecret) {
+            crackers.push(p);
+            hint = '🏆';
+            narrowPct = 100;
+          } else if (guess < vaultSecret) {
+            hint = '⬆️';
+            if (guess >= pMin) pMin = guess + 1;
+            narrowPct = calculateNarrowPercent(gameMinVal, gameMaxVal, pMin, pMax);
+          } else {
+            hint = '⬇️';
+            if (guess <= pMax) pMax = guess - 1;
+            narrowPct = calculateNarrowPercent(gameMinVal, gameMaxVal, pMin, pMax);
+          }
+        } else {
+          // Игрок не успел ввести число до дедлайна
+          hint = '⏱️';
+        }
+
+        newPlayerPercents[p.gameId] = (hint === '🏆') ? 100 : narrowPct;
+
+        updates[`players/${p.gameId}/currentStepGuess`] = null;
+        updates[`players/${p.gameId}/stepStatus`] = 'waiting';
+        updates[`players/${p.gameId}/lastGuess`] = (typeof guess === 'number') ? guess : null;
+        updates[`players/${p.gameId}/lastHint`] = hint;
+        updates[`players/${p.gameId}/min`] = pMin;
+        updates[`players/${p.gameId}/max`] = pMax;
+        updates[`players/${p.gameId}/narrowPercent`] = narrowPct;
+        updates[`players/${p.gameId}/guessesCount`] = (p.guessesCount || 0) + (typeof guess === 'number' ? 1 : 0);
+      });
+
+      if (crackers.length > 0) {
+        // Взлом произошел!
+        const minPercent = Math.min(...Object.values(newPlayerPercents));
+        const playersWithMin = alivePlayers.filter(p => newPlayerPercents[p.gameId] === minPercent);
+
+        let isDraw = false;
+        let eliminatedPlayer = null;
+
+        if (playersWithMin.length > 1) {
+          isDraw = true; // Ничья по наименьшему сужению — никто не выбывает в этом раунде
+        } else {
+          eliminatedPlayer = playersWithMin[0];
+          updates[`players/${eliminatedPlayer.gameId}/isAlive`] = false;
+        }
+
+        const surviving = alivePlayers.filter(p => isDraw || p.gameId !== eliminatedPlayer.gameId);
+
+        if (surviving.length <= 1) {
+          const winner = surviving[0] || crackers[0] || alivePlayers[0];
+          updates['status'] = 'finished';
+          updates['winner'] = winner.gameId;
+          updates['winnerName'] = winner.name;
+        } else {
+          const currentRound = roomData.round || 1;
+          const crackerNames = crackers.map(c => c.name || 'Игрок').join(', ');
+          updates['status'] = 'round_transition';
+          updates['roundSummary'] = {
+            mode: 'vault',
+            round: currentRound,
+            isDraw: isDraw,
+            minPercent: minPercent,
+            crackerName: crackerNames,
+            eliminatedName: eliminatedPlayer ? eliminatedPlayer.name : null,
+            survivorsCount: surviving.length,
+            timestamp: Date.now()
+          };
+        }
+      } else {
+        // Никто не угадал код — переходим к следующему синхронному шагу
+        updates['step'] = currentStep + 1;
+        updates['stepDeadline'] = Date.now() + 25000;
+        updates['lastStepResolvedAt'] = Date.now();
+      }
+
+      pRef.update(updates).then(() => {
+        setTimeout(() => { vaultStepEvaluating = false; }, 400);
+      }).catch(err => {
+        console.error("Error executing vault step resolution:", err);
+        vaultStepEvaluating = false;
+      });
+    }
 
     function openGameRoomParty(roomData) {
       currentPartyRoomData = roomData;
@@ -6718,10 +6983,13 @@
 
       // Управление клавиатурой
       if (roomData.mode === 'circle') {
+        stopVaultTimer();
         const isMyTurn = (roomData.currentTurn === myId) && partyIsAlive;
         setTurn(isMyTurn);
       } else if (roomData.mode === 'vault') {
-        setTurn(partyIsAlive);
+        const hasSubmitted = (myPlayer && myPlayer.currentStepGuess !== null && myPlayer.currentStepGuess !== undefined);
+        setTurn(partyIsAlive && !hasSubmitted);
+        startVaultTimer();
       }
 
       showScreen('screenGame');
@@ -6766,7 +7034,7 @@
       const turnStatus = document.getElementById('partyTurnStatus');
       if (turnStatus) {
         if (mode === 'vault') {
-          turnStatus.innerHTML = `<span class="party-turn-alert" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);">🔓 ${(i18n[currentLang]?.vaultSimultaneousNotice || 'Подберите код сейфа!')}</span>`;
+          updateVaultTurnStatusAndTimer();
         } else if (mode === 'circle') {
           const currentTurnUid = roomData.currentTurn;
           if (currentTurnUid === myId) {
@@ -6809,6 +7077,17 @@
         const isTurn = (mode === 'circle' && roomData.currentTurn === pId);
         const isTarget = (mode === 'circle' && roomData.targets && roomData.targets[myId] === pId);
 
+        let vaultStatusHtml = '';
+        if (mode === 'vault') {
+          if (isDead) {
+            vaultStatusHtml = `<span class="party-status-pill party-status-dead">💀 ${(i18n[currentLang]?.eliminatedWord || 'ВЫБЫЛ')}</span>`;
+          } else if (pData.currentStepGuess !== null && pData.currentStepGuess !== undefined) {
+            vaultStatusHtml = `<span class="party-status-pill party-status-ready">✔️ ${(i18n[currentLang]?.vaultPlayerReady || 'ГОТОВ')}</span>`;
+          } else {
+            vaultStatusHtml = `<span class="party-status-pill party-status-thinking">⏳ ${(i18n[currentLang]?.vaultPlayerThinking || 'ДУМАЕТ...')}</span>`;
+          }
+        }
+
         const card = document.createElement('div');
         card.className = 'party-opp-card' 
           + (isMe ? ' is-me' : '')
@@ -6831,6 +7110,7 @@
           <div class="party-vert-indicator" style="height: ${pct}%; background: ${playerColor};"></div>
           ${isMe ? `<span class="party-me-pill">${(i18n[currentLang]?.leaderboardPlayerTag || 'ВЫ')}</span>` : ''}
           ${isTarget ? `<span class="party-target-pill">🎯 ${(i18n[currentLang]?.yourTargetPill || 'ЦЕЛЬ')}</span>` : ''}
+          ${vaultStatusHtml}
           <div class="party-card-content">
             <div class="party-card-top-half">
               <div class="party-opp-avatar" style="border-color: ${playerColor};">
@@ -6892,6 +7172,7 @@
           // Проверяем, сменился ли раунд
           if (typeof d.round === 'number' && d.round !== currentPartyRound) {
             currentPartyRound = d.round;
+            vaultLastEvaluatedStep = 0;
             gameMin = typeof d.min === 'number' ? d.min : 0;
             gameMax = typeof d.max === 'number' ? d.max : 100;
             myCurrentMin = gameMin;
@@ -6905,74 +7186,91 @@
             }
           }
 
-          renderPartyOpponents(d);
-          updateRangesDisplay();
+          if (d.mode === 'vault') {
+            const myPlayer = d.players && d.players[playerProfile.gameId];
+            if (myPlayer) {
+              partyIsAlive = (myPlayer.isAlive !== false);
+              if (typeof myPlayer.min === 'number') myCurrentMin = myPlayer.min;
+              if (typeof myPlayer.max === 'number') myCurrentMax = myPlayer.max;
+              if (typeof myPlayer.narrowPercent === 'number') myCurrentNarrowPercent = myPlayer.narrowPercent;
 
-          if (d.mode === 'circle') {
+              if (typeof myPlayer.lastGuess === 'number') {
+                document.getElementById('myLastNumber').textContent = myPlayer.lastGuess.toLocaleString();
+              }
+              const ind = document.getElementById('myIndicator');
+              if (ind && myPlayer.lastHint) {
+                if (myPlayer.lastHint === '🏆') {
+                  ind.className = 'indicator';
+                  ind.textContent = "🏆";
+                } else if (myPlayer.lastHint === '⬆️') {
+                  ind.className = 'indicator up';
+                  ind.textContent = "⬆️";
+                } else if (myPlayer.lastHint === '⬇️') {
+                  ind.className = 'indicator down';
+                  ind.textContent = "⬇️";
+                } else if (myPlayer.lastHint === '⏱️') {
+                  ind.className = 'indicator';
+                  ind.textContent = "⏱️";
+                }
+              }
+
+              const hasSubmittedThisStep = (myPlayer.currentStepGuess !== null && myPlayer.currentStepGuess !== undefined);
+              setTurn(partyIsAlive && !hasSubmittedThisStep);
+            }
+
+            startVaultTimer();
+            updateVaultTurnStatusAndTimer();
+            checkAndResolveVaultStep(d);
+          } else if (d.mode === 'circle') {
+            stopVaultTimer();
             const myAlive = d.players && d.players[playerProfile.gameId] && d.players[playerProfile.gameId].isAlive !== false;
             const isMyTurnNow = (d.currentTurn === playerProfile.gameId) && myAlive;
             setTurn(isMyTurnNow);
-          } else if (d.mode === 'vault') {
-            const isAliveNow = d.players && d.players[playerProfile.gameId] && d.players[playerProfile.gameId].isAlive !== false;
-            setTurn(isAliveNow);
           }
+
+          renderPartyOpponents(d);
+          updateRangesDisplay();
         }
       });
     }
 
     function submitPartyGuess(guess) {
       if (gameEnded || !partyIsAlive || !currentPartyRoomData) return;
-      myMovesCount++;
-      triggerHaptic('light');
-
-      document.getElementById('gameErrorMsg').textContent = "";
-      document.getElementById('myLastNumber').textContent = guess.toLocaleString();
-      document.getElementById('inputValue').textContent = "";
-      currentInput = "";
-
-      const ind = document.getElementById('myIndicator');
-      const mode = currentPartyRoomData.mode;
       const myId = playerProfile.gameId;
       const pRef = partyRoomRef || roomRef;
+      const mode = currentPartyRoomData.mode;
 
       if (mode === 'vault') {
-        // === РЕЖИМ ВСКРЫТИЕ СЕЙФА ===
-        const vaultSecret = currentPartyRoomData.vaultSecret;
-        if (typeof vaultSecret !== 'number') return;
+        // === РЕЖИМ ВСКРЫТИЕ СЕЙФА (Синхронный пошаговый) ===
+        const myP = currentPartyRoomData.players ? currentPartyRoomData.players[myId] : null;
+        if (myP && myP.currentStepGuess !== null && myP.currentStepGuess !== undefined) return;
 
-        if (guess === vaultSecret) {
-          triggerHaptic('success');
-          ind.className = 'indicator';
-          ind.textContent = "🏆";
-          handleVaultCracked();
-        } else if (guess < vaultSecret) {
-          ind.className = 'indicator up';
-          ind.textContent = "⬆️";
-          if (guess >= myCurrentMin) myCurrentMin = guess + 1;
-          myCurrentNarrowPercent = calculateNarrowPercent(gameMin, gameMax, myCurrentMin, myCurrentMax);
-          updateRangesDisplay();
-          renderPartyOpponents(currentPartyRoomData);
-          if (pRef) {
-            pRef.child('players/' + myId).update({
-              narrowPercent: myCurrentNarrowPercent,
-              guessesCount: ((currentPartyRoomData.players[myId]?.guessesCount || 0) + 1)
+        myMovesCount++;
+        triggerHaptic('light');
+
+        // Блокируем клавиатуру до завершения всеми игроками шага
+        setTurn(false);
+        document.getElementById('gameErrorMsg').textContent = "";
+        document.getElementById('myLastNumber').textContent = guess.toLocaleString();
+        document.getElementById('inputValue').textContent = "";
+        currentInput = "";
+
+        if (pRef) {
+          pRef.child('players/' + myId).update({
+            currentStepGuess: guess,
+            stepStatus: 'submitted',
+            stepSubmittedAt: Date.now()
+          }).then(() => {
+            pRef.once('value', snap => {
+              const d = snap.val();
+              if (d) checkAndResolveVaultStep(d);
             });
-          }
-        } else {
-          ind.className = 'indicator down';
-          ind.textContent = "⬇️";
-          if (guess <= myCurrentMax) myCurrentMax = guess - 1;
-          myCurrentNarrowPercent = calculateNarrowPercent(gameMin, gameMax, myCurrentMin, myCurrentMax);
-          updateRangesDisplay();
-          renderPartyOpponents(currentPartyRoomData);
-          if (pRef) {
-            pRef.child('players/' + myId).update({
-              narrowPercent: myCurrentNarrowPercent,
-              guessesCount: ((currentPartyRoomData.players[myId]?.guessesCount || 0) + 1)
-            });
-          }
+          });
         }
-      } else if (mode === 'circle') {
+        updateVaultTurnStatusAndTimer();
+        renderPartyOpponents(currentPartyRoomData);
+        return;
+      }
         // === РЕЖИМ КОЛЬЦО ОХОТНИКОВ ===
         if (currentPartyRoomData.currentTurn !== myId) return;
 
@@ -7184,18 +7482,26 @@
               status: 'secret'
             });
           } else if (d.mode === 'vault') {
-            // Новый раунд Вскрытия сейфа: новый код сейфа и сброс сужений
+            // Новый раунд Вскрытия сейфа: новый код сейфа и сброс сужений для оставшихся участников
             const newVaultSecret = Math.floor(Math.random() * (max - min + 1)) + min;
             const updatedPlayers = Object.assign({}, players);
             aliveIds.forEach(id => {
               updatedPlayers[id] = Object.assign({}, updatedPlayers[id], {
                 narrowPercent: 0,
-                guessesCount: 0
+                guessesCount: 0,
+                min: min,
+                max: max,
+                currentStepGuess: null,
+                stepStatus: 'waiting',
+                lastGuess: null,
+                lastHint: null
               });
             });
 
             pRef.update({
               round: nextRound,
+              step: 1,
+              stepDeadline: Date.now() + 25000,
               vaultSecret: newVaultSecret,
               players: updatedPlayers,
               roundSummary: null,
@@ -7242,6 +7548,7 @@
     function finishPartyGame(iWon, winnerName) {
       if (gameEnded) return;
       gameEnded = true;
+      stopVaultTimer();
 
       const modal = document.getElementById('gameOverModal');
       const iconBox = document.getElementById('modalIconBox');
@@ -7455,6 +7762,7 @@
 
     function closeGameAndMenu() {
       triggerHaptic('light');
+      stopVaultTimer();
       gameEnded = false;
       partyIsAlive = true;
       document.getElementById('gameOverModal').classList.remove('active');
