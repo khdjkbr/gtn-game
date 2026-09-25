@@ -1360,9 +1360,30 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .indicator { font-size: 2.2rem; min-width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
-    .indicator.up { color: var(--success); filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5)); }
-    .indicator.down { color: var(--danger); filter: drop-shadow(0 0 10px rgba(244, 63, 94, 0.5)); }
+    .indicator { 
+      font-size: 2.2rem; 
+      min-width: 44px; 
+      height: 44px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .indicator.up { 
+      color: var(--success); 
+      filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.7)); 
+      animation: indPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .indicator.down { 
+      color: var(--danger); 
+      filter: drop-shadow(0 0 12px rgba(244, 63, 94, 0.7)); 
+      animation: indPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes indPop {
+      0% { transform: scale(0.3); opacity: 0; }
+      60% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
 
     @keyframes drumroll {
       0% { transform: scale(1) rotate(0deg); }
@@ -2395,6 +2416,37 @@
       color: #38bdf8;
       border: 1px solid rgba(56, 189, 248, 0.4);
     }
+    .opp-narrow-pill {
+      background: rgba(244, 63, 94, 0.18) !important;
+      color: #fda4af !important;
+      border: 1px solid rgba(244, 63, 94, 0.4) !important;
+    }
+    [data-theme="light"] .opp-narrow-pill {
+      background: #ffe4e6 !important;
+      color: #be123c !important;
+      border-color: rgba(190, 18, 60, 0.4) !important;
+    }
+    /* Стиль карточки текущего игрока в сетке пати-режима */
+    .party-opp-card.is-me {
+      border-color: #38bdf8 !important;
+      background: rgba(56, 189, 248, 0.1) !important;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
+    }
+    .party-me-pill {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      color: #ffffff;
+      font-size: 0.55rem;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      z-index: 4;
+    }
     [data-theme="light"] .my-narrow-pill {
       background: #e0f2fe;
       color: #0284c7;
@@ -3276,6 +3328,7 @@
             <span class="range-dot opp-dot"></span>
             <span class="range-label" data-i18n="oppRangeLabel">Диапазон соперника:</span>
             <span class="range-val" id="oppRange">0 — 100</span>
+            <span class="my-narrow-pill opp-narrow-pill" id="oppNarrowPercentBadge" style="display: none;">0%</span>
           </div>
         </div>
 
@@ -5763,6 +5816,7 @@
         }
 
         if (data.status === 'secret') {
+          partyRoomRef.off();
           if (data.mode === 'vault') {
             openGameRoomParty(data);
           } else {
@@ -5772,6 +5826,7 @@
         }
 
         if (data.status === 'playing') {
+          partyRoomRef.off();
           openGameRoomParty(data);
           return;
         }
@@ -6542,16 +6597,25 @@
         trackActive.style.width = widthPercent.toFixed(2) + '%';
       }
 
-      // Бейдж процента сужения игрока
+      // Бейдж процента сужения игрока (показывается во всех режимах)
       const narrowPill = document.getElementById('myNarrowPercentBadge');
       if (narrowPill) {
+        const pct = calculateNarrowPercent(gameMin, gameMax, myCurrentMin, myCurrentMax);
+        myCurrentNarrowPercent = pct;
+        narrowPill.style.display = 'inline-flex';
+        narrowPill.textContent = `${pct}%`;
+      }
+
+      // Бейдж процента сужения соперника (для дуэли 1 на 1 и игры с ботом)
+      const oppNarrowPill = document.getElementById('oppNarrowPercentBadge');
+      if (oppNarrowPill) {
         const isParty = (selectedGameSubMode === 'vault' || selectedGameSubMode === 'circle' || (currentPartyRoomData && (currentPartyRoomData.mode === 'vault' || currentPartyRoomData.mode === 'circle')));
-        if (isParty) {
-          narrowPill.style.display = 'inline-flex';
-          const pct = calculateNarrowPercent(gameMin, gameMax, myCurrentMin, myCurrentMax);
-          narrowPill.textContent = `${pct}%`;
+        if (!isParty) {
+          const oppPct = calculateNarrowPercent(gameMin, gameMax, oppCurrentMin, oppCurrentMax);
+          oppNarrowPill.style.display = 'inline-flex';
+          oppNarrowPill.textContent = `${oppPct}%`;
         } else {
-          narrowPill.style.display = 'none';
+          oppNarrowPill.style.display = 'none';
         }
       }
     }
@@ -6615,13 +6679,17 @@
       return a;
     }
 
+    let currentPartyRound = 1;
+
     function openGameRoomParty(roomData) {
       currentPartyRoomData = roomData;
       selectedGameSubMode = roomData.mode;
-      gameMin = roomData.min;
-      gameMax = roomData.max;
-      myCurrentMin = roomData.min;
-      myCurrentMax = roomData.max;
+      gameMin = typeof roomData.min === 'number' ? roomData.min : 0;
+      gameMax = typeof roomData.max === 'number' && roomData.max > gameMin ? roomData.max : 100;
+      myCurrentMin = gameMin;
+      myCurrentMax = gameMax;
+      myCurrentNarrowPercent = 0;
+      currentPartyRound = roomData.round || 1;
       currentInput = "";
       myMovesCount = 0;
       gameEnded = false;
@@ -6632,8 +6700,11 @@
 
       // Сбрасываем элементы ввода и индикаторов
       document.getElementById('myLastNumber').textContent = "---";
-      document.getElementById('myIndicator').className = 'indicator';
-      document.getElementById('myIndicator').textContent = "";
+      const ind = document.getElementById('myIndicator');
+      if (ind) {
+        ind.className = 'indicator';
+        ind.textContent = "";
+      }
       document.getElementById('inputValue').textContent = "";
       document.getElementById('gameErrorMsg').textContent = "";
 
@@ -6719,46 +6790,53 @@
         }
       }
 
-      // Рендерим сетку оппонентов с динамическим числом колонок (N - 1)
+      // Рендерим сетку всех участников (включая текущего игрока, чтобы он видел своё сужение и индикатор в общем строю)
       const grid = document.getElementById('partyOpponentsGrid');
       if (!grid) return;
       grid.innerHTML = '';
 
-      // Все оппоненты (кроме текущего игрока)
-      const opponents = allPlayersList.filter(p => p.gameId !== myId);
-      const cols = Math.max(1, opponents.length);
+      const partyPlayers = allPlayersList;
+      const cols = Math.max(1, partyPlayers.length);
       grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-      opponents.forEach(opp => {
-        const oppId = opp.gameId;
-        const colorIdx = allPlayersList.findIndex(p => p.gameId === oppId);
+      partyPlayers.forEach(pData => {
+        const pId = pData.gameId;
+        const isMe = (pId === myId);
+        const colorIdx = allPlayersList.findIndex(p => p.gameId === pId);
         const playerColor = PARTY_COLORS[colorIdx >= 0 ? (colorIdx % PARTY_COLORS.length) : 0];
 
-        const isDead = opp.isAlive === false;
-        const isTurn = (mode === 'circle' && roomData.currentTurn === oppId);
-        const isTarget = (mode === 'circle' && roomData.targets && roomData.targets[myId] === oppId);
+        const isDead = pData.isAlive === false;
+        const isTurn = (mode === 'circle' && roomData.currentTurn === pId);
+        const isTarget = (mode === 'circle' && roomData.targets && roomData.targets[myId] === pId);
 
         const card = document.createElement('div');
         card.className = 'party-opp-card' 
+          + (isMe ? ' is-me' : '')
           + (isTurn ? ' is-active-turn' : '') 
           + (isTarget ? ' is-target' : '') 
           + (isDead ? ' is-eliminated' : '');
 
-        const pct = Math.max(0, Math.min(100, opp.narrowPercent || 0));
-        const initial = (opp.name || 'И').charAt(0).toUpperCase();
-        const avatarHtml = opp.photoUrl 
-          ? `<img src="${opp.photoUrl}" alt="avatar" onerror="this.outerHTML='${initial}'">`
+        // Для текущего игрока отображаем актуальный процент
+        const pct = isMe 
+          ? Math.max(0, Math.min(100, (typeof myCurrentNarrowPercent === 'number' && myCurrentNarrowPercent > 0 ? myCurrentNarrowPercent : (pData.narrowPercent || 0))))
+          : Math.max(0, Math.min(100, pData.narrowPercent || 0));
+
+        const displayName = isMe ? `${pData.name || 'Вы'} (${i18n[currentLang]?.leaderboardPlayerTag || 'Вы'})` : (pData.name || 'Игрок');
+        const initial = (pData.name || 'И').charAt(0).toUpperCase();
+        const avatarHtml = pData.photoUrl 
+          ? `<img src="${pData.photoUrl}" alt="avatar" onerror="this.outerHTML='${initial}'">`
           : initial;
 
         card.innerHTML = `
           <div class="party-vert-indicator" style="height: ${pct}%; background: ${playerColor};"></div>
+          ${isMe ? `<span class="party-me-pill">${(i18n[currentLang]?.leaderboardPlayerTag || 'ВЫ')}</span>` : ''}
           ${isTarget ? `<span class="party-target-pill">🎯 ${(i18n[currentLang]?.yourTargetPill || 'ЦЕЛЬ')}</span>` : ''}
           <div class="party-card-content">
             <div class="party-card-top-half">
               <div class="party-opp-avatar" style="border-color: ${playerColor};">
                 ${avatarHtml}
               </div>
-              <div class="party-opp-name" title="${opp.name || 'Игрок'}">${opp.name || 'Игрок'}</div>
+              <div class="party-opp-name" title="${displayName}">${displayName}</div>
             </div>
             <div class="party-card-bottom-half">
               <div class="party-narrow-percent">${pct}%</div>
@@ -6774,6 +6852,7 @@
       const pRef = partyRoomRef || roomRef;
       if (!pRef) return;
 
+      pRef.off();
       pRef.on('value', snap => {
         const d = snap.val();
         if (!d || d.status === 'cancelled') return;
@@ -6809,7 +6888,25 @@
         // 4. Активный игровой раунд
         if (d.status === 'playing') {
           hideRoundTransitionModal();
+
+          // Проверяем, сменился ли раунд
+          if (typeof d.round === 'number' && d.round !== currentPartyRound) {
+            currentPartyRound = d.round;
+            gameMin = typeof d.min === 'number' ? d.min : 0;
+            gameMax = typeof d.max === 'number' ? d.max : 100;
+            myCurrentMin = gameMin;
+            myCurrentMax = gameMax;
+            myCurrentNarrowPercent = 0;
+            document.getElementById('myLastNumber').textContent = "---";
+            const ind = document.getElementById('myIndicator');
+            if (ind) {
+              ind.className = 'indicator';
+              ind.textContent = "";
+            }
+          }
+
           renderPartyOpponents(d);
+          updateRangesDisplay();
 
           if (d.mode === 'circle') {
             const myAlive = d.players && d.players[playerProfile.gameId] && d.players[playerProfile.gameId].isAlive !== false;
@@ -6854,6 +6951,7 @@
           if (guess >= myCurrentMin) myCurrentMin = guess + 1;
           myCurrentNarrowPercent = calculateNarrowPercent(gameMin, gameMax, myCurrentMin, myCurrentMax);
           updateRangesDisplay();
+          renderPartyOpponents(currentPartyRoomData);
           if (pRef) {
             pRef.child('players/' + myId).update({
               narrowPercent: myCurrentNarrowPercent,
@@ -6866,6 +6964,7 @@
           if (guess <= myCurrentMax) myCurrentMax = guess - 1;
           myCurrentNarrowPercent = calculateNarrowPercent(gameMin, gameMax, myCurrentMin, myCurrentMax);
           updateRangesDisplay();
+          renderPartyOpponents(currentPartyRoomData);
           if (pRef) {
             pRef.child('players/' + myId).update({
               narrowPercent: myCurrentNarrowPercent,
@@ -6902,6 +7001,7 @@
 
           myCurrentNarrowPercent = calculateNarrowPercent(gameMin, gameMax, myCurrentMin, myCurrentMax);
           updateRangesDisplay();
+          renderPartyOpponents(currentPartyRoomData);
 
           // Очередь переходит к следующему живому игроку
           const turnOrder = currentPartyRoomData.turnOrder || [];
@@ -7230,6 +7330,8 @@
         ind.className = 'indicator';
         ind.textContent = "🏆";
         resultType = 'win';
+        myCurrentNarrowPercent = 100;
+        updateRangesDisplay();
         finishGame(true);
       } else if (guess < oppSecretNumber) {
         ind.className = 'indicator up';
