@@ -7270,7 +7270,7 @@
         updateVaultTurnStatusAndTimer();
         renderPartyOpponents(currentPartyRoomData);
         return;
-      }
+      } else if (mode === 'circle') {
         // === РЕЖИМ КОЛЬЦО ОХОТНИКОВ ===
         if (currentPartyRoomData.currentTurn !== myId) return;
 
@@ -7281,19 +7281,35 @@
         if (!targetPlayer || typeof targetPlayer.secretNumber !== 'number') return;
         const targetSecret = targetPlayer.secretNumber;
 
+        myMovesCount++;
+        triggerHaptic('light');
+
+        document.getElementById('gameErrorMsg').textContent = "";
+        document.getElementById('myLastNumber').textContent = guess.toLocaleString();
+        document.getElementById('inputValue').textContent = "";
+        currentInput = "";
+
+        const ind = document.getElementById('myIndicator');
+
         if (guess === targetSecret) {
           triggerHaptic('success');
-          ind.className = 'indicator';
-          ind.textContent = "🏆";
+          if (ind) {
+            ind.className = 'indicator';
+            ind.textContent = "🏆";
+          }
           handleCircleTargetEliminated(targetId, targetPlayer);
         } else {
           if (guess < targetSecret) {
-            ind.className = 'indicator up';
-            ind.textContent = "⬆️";
+            if (ind) {
+              ind.className = 'indicator up';
+              ind.textContent = "⬆️";
+            }
             if (guess >= myCurrentMin) myCurrentMin = guess + 1;
           } else {
-            ind.className = 'indicator down';
-            ind.textContent = "⬇️";
+            if (ind) {
+              ind.className = 'indicator down';
+              ind.textContent = "⬇️";
+            }
             if (guess <= myCurrentMax) myCurrentMax = guess - 1;
           }
 
