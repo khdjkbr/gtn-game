@@ -746,22 +746,49 @@
     }
     .player-header-bar {
       position: absolute;
-      top: 14px;
-      left: 16px;
-      right: 16px;
+      top: 10px;
+      left: 12px;
+      right: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
+      height: 24px;
+      z-index: 10;
     }
-    .player-tag { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 800; }
+    .player-tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      padding: 2px 7px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
     .my-secret-badge {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       font-weight: 800;
       color: #38bdf8;
       background: rgba(56, 189, 248, 0.12);
-      padding: 4px 10px;
-      border-radius: 8px;
+      padding: 2px 7px;
+      border-radius: 9999px;
       border: 1px solid rgba(56, 189, 248, 0.3);
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .player-range {
       position: absolute;
@@ -819,16 +846,25 @@
       background: rgba(244, 63, 94, 0.14);
       border: 1px solid rgba(244, 63, 94, 0.38);
       color: #fb7185;
-      font-size: 0.76rem;
+      font-size: 0.65rem;
       font-weight: 800;
-      padding: 5px 12px;
-      border-radius: 8px;
+      padding: 2px 7px;
+      border-radius: 6px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      justify-content: center;
+      gap: 4px;
       transition: all 0.15s ease;
       z-index: 10;
+      height: 22px;
+      line-height: 1;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .btn-game-exit svg {
+      width: 10px;
+      height: 10px;
     }
     .btn-game-exit:hover {
       background: rgba(244, 63, 94, 0.28);
@@ -2164,49 +2200,88 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
-      min-height: 32px;
+      gap: 6px;
+      margin-bottom: 6px;
+      min-height: 24px;
+      height: 24px;
       flex-shrink: 0;
     }
 
     .party-round-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      gap: 4px;
       background: rgba(56, 189, 248, 0.14);
       border: 1px solid rgba(56, 189, 248, 0.35);
       color: #38bdf8;
-      padding: 4px 10px;
+      padding: 2px 7px;
       border-radius: 9999px;
-      font-size: 0.76rem;
+      font-size: 0.65rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       white-space: nowrap;
       flex-shrink: 0;
+      height: 22px;
+      line-height: 1;
     }
 
     .party-turn-status {
       flex: 1;
-      text-align: center;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--text-main);
+      min-width: 0;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      padding: 0 4px;
+      position: relative;
+      padding: 0 2px;
     }
 
     .party-turn-alert {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
+      justify-content: center;
+      gap: 4px;
+      padding: 2px 7px;
       border-radius: 9999px;
       font-weight: 800;
-      font-size: 0.74rem;
+      font-size: 0.65rem;
+      line-height: 1;
+      height: 22px;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: relative;
+      white-space: nowrap;
     }
+    .party-turn-alert.has-overflow {
+      mask-image: linear-gradient(90deg, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+    }
+
+    .party-turn-marquee-track {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      will-change: transform;
+    }
+    .party-turn-marquee-track.is-scrolling {
+      animation: marqueePingPong var(--marquee-duration, 5s) ease-in-out infinite;
+    }
+    @keyframes marqueePingPong {
+      0%, 18% {
+        transform: translateX(0);
+      }
+      50%, 68% {
+        transform: translateX(var(--marquee-dist, -40px));
+      }
+      92%, 100% {
+        transform: translateX(0);
+      }
+    }
+
     .party-turn-alert.my-turn-pulse {
       background: rgba(16, 185, 129, 0.22);
       border: 1px solid rgba(16, 185, 129, 0.7);
@@ -2215,7 +2290,7 @@
     }
     @keyframes pulseMyTurn {
       0%, 100% { box-shadow: 0 0 0 rgba(16, 185, 129, 0.3); transform: scale(1); }
-      50% { box-shadow: 0 0 14px rgba(16, 185, 129, 0.8); transform: scale(1.03); }
+      50% { box-shadow: 0 0 14px rgba(16, 185, 129, 0.8); transform: scale(1.02); }
     }
 
     .party-opponents-grid {
@@ -3344,8 +3419,9 @@
         <div class="player-half opponent" id="duelOpponentHalf">
           <div class="player-header-bar">
             <span class="player-tag" id="gameOppTag">Соперник</span>
+            <div class="party-turn-status duel-turn-status" id="duelTurnStatus" style="display: none;"></div>
             <button class="btn-game-exit" onclick="confirmSurrenderAndExit()" title="Выйти из игры">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -3373,7 +3449,7 @@
             </div>
             <div class="party-turn-status" id="partyTurnStatus"></div>
             <button class="btn-game-exit" onclick="confirmSurrenderAndExit()" title="Выйти из игры">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -6549,6 +6625,9 @@
       document.getElementById('gameOppTag').textContent = oppLabel;
       document.getElementById('mySecretBadge').textContent = `${i18n[currentLang].yourSecretBadge} ${mySecretNumber.toLocaleString()}`;
 
+      const duelStatus = document.getElementById('duelTurnStatus');
+      if (duelStatus) duelStatus.style.display = 'flex';
+
       updateRangesDisplay();
       showScreen('screenGame');
 
@@ -6691,6 +6770,22 @@
       document.querySelectorAll('#screenGame .key-btn, #screenGame .backspace-tall-btn').forEach(k => k.disabled = !myTurn);
       document.getElementById('btnSubmit').disabled = !myTurn;
       if (myTurn) document.getElementById('gameErrorMsg').textContent = "";
+
+      const duelStatus = document.getElementById('duelTurnStatus');
+      if (duelStatus) {
+        const isParty = (selectedGameSubMode === 'vault' || selectedGameSubMode === 'circle' || (currentPartyRoomData && (currentPartyRoomData.mode === 'vault' || currentPartyRoomData.mode === 'circle')));
+        if (!isParty) {
+          duelStatus.style.display = 'flex';
+          if (myTurn) {
+            setPartyTurnStatus('duelTurnStatus', `⚡ ${(i18n[currentLang]?.yourTurnNotice || 'ВАШ ХОД! Назовите число')}`, 'my-turn-pulse');
+          } else {
+            const oppName = isVsAI ? (i18n[currentLang]?.botName || 'Бот') : (i18n[currentLang]?.opponentWord || 'Соперник');
+            setPartyTurnStatus('duelTurnStatus', `⏳ ${(i18n[currentLang]?.turnOfNotice || 'Ходит {name}...').replace('{name}', oppName)}`, '', 'background: rgba(255, 255, 255, 0.08); color: var(--text-muted);');
+          }
+        } else {
+          duelStatus.style.display = 'none';
+        }
+      }
     }
 
     function pressDigit(d) {
@@ -6750,6 +6845,70 @@
     let vaultLastEvaluatedStep = 0;
     let vaultStepEvaluating = false;
 
+    function setPartyTurnStatus(containerId, htmlContent, customClass = '', customStyle = '') {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      let alertEl = container.querySelector('.party-turn-alert');
+      let trackEl = container.querySelector('.party-turn-marquee-track');
+
+      if (!alertEl || !trackEl) {
+        container.innerHTML = `
+          <span class="party-turn-alert ${customClass}" style="${customStyle}">
+            <span class="party-turn-marquee-track">${htmlContent}</span>
+          </span>
+        `;
+        alertEl = container.querySelector('.party-turn-alert');
+        trackEl = container.querySelector('.party-turn-marquee-track');
+      } else {
+        alertEl.className = 'party-turn-alert ' + customClass;
+        if (customStyle) alertEl.style.cssText = customStyle;
+        else alertEl.removeAttribute('style');
+        if (trackEl.innerHTML !== htmlContent) {
+          trackEl.innerHTML = htmlContent;
+        }
+      }
+
+      updateMarqueeMetrics(alertEl, trackEl);
+    }
+
+    function updateMarqueeMetrics(alertEl, trackEl) {
+      if (!alertEl || !trackEl) return;
+      const availableWidth = alertEl.clientWidth - 14;
+      const contentWidth = trackEl.scrollWidth;
+
+      if (contentWidth > availableWidth + 3 && availableWidth > 20) {
+        const overflow = contentWidth - availableWidth;
+        const dist = -(overflow + 6);
+        const duration = Math.max(4.0, (overflow / 30) + 3).toFixed(1);
+        trackEl.style.setProperty('--marquee-dist', dist + 'px');
+        trackEl.style.setProperty('--marquee-duration', duration + 's');
+        if (!trackEl.classList.contains('is-scrolling')) {
+          trackEl.classList.add('is-scrolling');
+        }
+        alertEl.classList.add('has-overflow');
+      } else {
+        if (trackEl.classList.contains('is-scrolling')) {
+          trackEl.classList.remove('is-scrolling');
+          trackEl.style.removeProperty('--marquee-dist');
+          trackEl.style.removeProperty('--marquee-duration');
+        }
+        alertEl.classList.remove('has-overflow');
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      ['partyTurnStatus', 'duelTurnStatus'].forEach(id => {
+        const container = document.getElementById(id);
+        if (!container) return;
+        const alertEl = container.querySelector('.party-turn-alert');
+        const trackEl = container.querySelector('.party-turn-marquee-track');
+        if (alertEl && trackEl) {
+          updateMarqueeMetrics(alertEl, trackEl);
+        }
+      });
+    });
+
     function startVaultTimer() {
       if (vaultStepTimerInterval) clearInterval(vaultStepTimerInterval);
       vaultStepTimerInterval = setInterval(() => {
@@ -6794,7 +6953,7 @@
       const secLeft = Math.max(0, Math.ceil((deadline - now) / 1000));
 
       if (isMeDead) {
-        turnStatus.innerHTML = `<span class="party-turn-alert" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4);">💀 ${(i18n[currentLang]?.eliminatedWord || 'ВЫБЫЛ')} • ${(i18n[currentLang]?.roundWord || 'Раунд')} ${round}</span>`;
+        setPartyTurnStatus('partyTurnStatus', `💀 ${(i18n[currentLang]?.eliminatedWord || 'ВЫБЫЛ')} • ${(i18n[currentLang]?.roundWord || 'Раунд')} ${round}`, '', 'background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4);');
         return;
       }
 
@@ -6804,11 +6963,11 @@
         const waitNotice = (i18n[currentLang]?.vaultWaitingOthers || 'Ожидание остальных ({ready}/{total}) ⏳')
           .replace('{ready}', readyCount)
           .replace('{total}', totalCount);
-        turnStatus.innerHTML = `<span class="party-turn-alert" style="background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5);">✅ ${(i18n[currentLang]?.vaultYourGuessAccepted || 'Вариант принят!')} ${waitNotice} • ⏱️ ${secLeft}${(i18n[currentLang]?.vaultTimeLeft || '{sec}с').replace('{sec}', '')}</span>`;
+        setPartyTurnStatus('partyTurnStatus', `✅ ${(i18n[currentLang]?.vaultYourGuessAccepted || 'Вариант принят!')} ${waitNotice} • ⏱️ ${secLeft}${(i18n[currentLang]?.vaultTimeLeft || '{sec}с').replace('{sec}', '')}`, '', 'background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5);');
       } else {
         const stepLabel = (i18n[currentLang]?.vaultStepLabel || 'Попытка {step}').replace('{step}', step);
         const enterPrompt = (i18n[currentLang]?.vaultSimultaneousNotice || 'Подберите код сейфа!');
-        turnStatus.innerHTML = `<span class="party-turn-alert my-turn-pulse" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.6);">🔓 ${stepLabel} • ${enterPrompt} (${readyCount}/${totalCount}) • ⏱️ ${secLeft}${(i18n[currentLang]?.vaultTimeLeft || '{sec}с').replace('{sec}', '')}</span>`;
+        setPartyTurnStatus('partyTurnStatus', `🔓 ${stepLabel} • ${enterPrompt} (${readyCount}/${totalCount}) • ⏱️ ${secLeft}${(i18n[currentLang]?.vaultTimeLeft || '{sec}с').replace('{sec}', '')}`, 'my-turn-pulse', 'background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.6);');
       }
     }
 
@@ -6977,6 +7136,9 @@
       const stripEl = document.getElementById('partyPlayersStrip');
       if (stripEl) stripEl.style.display = 'none';
 
+      const duelStatus = document.getElementById('duelTurnStatus');
+      if (duelStatus) duelStatus.style.display = 'none';
+
       // Отрисовываем обновленный многопользовательский интерфейс верхней половины
       renderPartyOpponents(roomData);
       updateRangesDisplay();
@@ -7038,11 +7200,11 @@
         } else if (mode === 'circle') {
           const currentTurnUid = roomData.currentTurn;
           if (currentTurnUid === myId) {
-            turnStatus.innerHTML = `<span class="party-turn-alert my-turn-pulse">⚡ ${(i18n[currentLang]?.yourTurnNotice || 'ВАШ ХОД! Назовите число')}</span>`;
+            setPartyTurnStatus('partyTurnStatus', `⚡ ${(i18n[currentLang]?.yourTurnNotice || 'ВАШ ХОД! Назовите число')}`, 'my-turn-pulse');
           } else {
             const turnPlayer = players[currentTurnUid];
             const name = turnPlayer ? turnPlayer.name : (i18n[currentLang]?.playerWord || 'Игрок');
-            turnStatus.innerHTML = `<span class="party-turn-alert" style="background: rgba(255, 255, 255, 0.08); color: var(--text-muted);">⏳ ${(i18n[currentLang]?.turnOfNotice || 'Ходит {name}...').replace('{name}', name)}</span>`;
+            setPartyTurnStatus('partyTurnStatus', `⏳ ${(i18n[currentLang]?.turnOfNotice || 'Ходит {name}...').replace('{name}', name)}`, '', 'background: rgba(255, 255, 255, 0.08); color: var(--text-muted);');
           }
         }
       }
