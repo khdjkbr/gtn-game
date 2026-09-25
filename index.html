@@ -4448,112 +4448,123 @@
       ru: {
         duel: `
           <h3>⚔️ Дуэль 1 на 1 (Классика)</h3>
-          <p>Классическое интеллектуальное противостояние двух игроков.</p>
+          <p>Интеллектуальное состязание двух игроков — против умного Бота (3 уровня сложности) или реального оппонента онлайн.</p>
           <ul>
-            <li>Каждый игрок загадывает секретное число из выбранного диапазона.</li>
-            <li>Игроки ходят по очереди, пытаясь разгадать число противника.</li>
-            <li>После каждой догадки система даёт подсказку: загаданное число <b>больше (⬆️)</b> или <b>меньше (⬇️)</b> вашей попытки.</li>
-            <li>Диапазон возможных чисел автоматически сужается с двух сторон на интерактивной шкале.</li>
-            <li>Побеждает тот, кто первым точно назовёт число соперника!</li>
+            <li><b>Выбор диапазона:</b> Перед началом матча выбирается диапазон чисел: 1–100, 1–1 000, 1–10 000 или 1–100 000.</li>
+            <li><b>Тайное число:</b> Каждый участник загадывает своё секретное число из выбранного диапазона.</li>
+            <li><b>Жеребьёвка (🎲):</b> В начале матча бросаются кубики — игрок с большим числом очков получает право первого хода.</li>
+            <li><b>Очередность ходов:</b> Соперники ходят строго по очереди, пытаясь угадать число оппонента с помощью интерактивной цифровой клавиатуры.</li>
+            <li><b>Подсказки и сужение:</b> После каждой попытки игра сообщает: число соперника <b>больше (⬆️)</b> или <b>меньше (⬇️)</b>. Доступный диапазон автоматически сужается на интерактивной шкале, а процент сужения отображается на экране.</li>
+            <li><b>Победа:</b> Выигрывает тот, кто первым безошибочно вычислит секретное число оппонента (100% сужение диапазона)!</li>
           </ul>
         `,
         vault: `
-          <h3>👑 Взлом Сейфа (Раундовая битва)</h3>
-          <p>Динамичный соревновательный режим для компании от 3 до 6 человек.</p>
+          <h3>👑 Взлом Сейфа (Королевская битва, 3–6 игроков)</h3>
+          <p>Скоростной азартный режим на выбывание для компании от 3 до 6 человек.</p>
           <ul>
-            <li>В начале каждого раунда <b>игра сама загадывает секретный код</b> сейфа.</li>
-            <li>Все игроки параллельно вводят догадки, сужая свой персональный диапазон.</li>
-            <li>Процент сужения диапазона каждого игрока виден в реальном времени на вертикальных индикаторах.</li>
-            <li>Когда один из игроков разгадывает код сейфа — текущий раунд завершается.</li>
-            <li>Игрок, показавший <b>наименьший процент сужения</b> диапазона, выбывает из матча!</li>
-            <li><b>Ничья:</b> если у нескольких игроков одинаковый наименьший показатель сужения — никто не выбывает, игра продолжается.</li>
-            <li>Игра продолжается раунд за раундом, пока не останется один абсолютный победитель!</li>
+            <li><b>Общий код сейфа:</b> В каждом раунде система сама генерирует один секретный код сейфа. Участникам не нужно загадывать числа — все одновременно взламывают один и тот же сейф!</li>
+            <li><b>Синхронный геймплей:</b> Никакого ожидания очереди! Все игроки подбирают код параллельно и одновременно в реальном времени.</li>
+            <li><b>Таймер раунда:</b> На каждый раунд отводится ограниченное время (обратный отсчёт). Оставшиеся секунды отображаются в верхней статус-панели.</li>
+            <li><b>Индикаторы соперников:</b> Прогресс и процент сужения диапазона каждого игрока обновляются в реальном времени на карточках участников.</li>
+            <li><b>Взлом и выбывание:</b> Как только один из игроков находит верный код (или истекает таймер раунда), раунд заканчивается. Участник с <b>наименьшим процентом сужения</b> диапазона выбывает из матча!</li>
+            <li><b>Правило ничьей:</b> Если у двух или более игроков зафиксирован одинаковый минимальный процент — в этом раунде никто не выбывает, и битва продолжается в полном составе!</li>
+            <li><b>Режим наблюдения (Spectator):</b> Выбывшие игроки остаются в комнате и могут в реальном времени наблюдать за ходом оставшихся раундов.</li>
+            <li><b>Королевская победа:</b> Раунды продолжаются до тех пор, пока не останется один последний участник — абсолютный победитель битвы за сейф!</li>
           </ul>
         `,
         circle: `
-          <h3>🎯 Кольцо охотников (Раунды на выбывание)</h3>
-          <p>Тактическая раундовая битва на выживание без костей и таймеров.</p>
+          <h3>🎯 Кольцо охотников (Тактическая охота, 3–6 игроков)</h3>
+          <p>Тактическая раундовая игра на выживание в замкнутом круге целей.</p>
           <ul>
-            <li>Игра автоматически рассаживает участников в случайную круговую цепочку охоты.</li>
-            <li>В каждом раунде каждый игрок <b>заново загадывает своё секретное число</b>.</li>
-            <li>Игроки ходят строго по очереди, называя числа и стараясь отгадать число своей цели.</li>
-            <li>Числа соперников скрыты — отображается только их процент сужения диапазона и чей сейчас ход.</li>
-            <li>Раунд заканчивается, когда один из игроков разгадывает число своей цели (цель выбывает).</li>
-            <li>Перед новым раундом оставшиеся игроки перемешиваются случайным образом и загадывают новые числа.</li>
-            <li>Борьба идёт до последнего выжившего игрока — чемпиона Кольца охотников!</li>
+            <li><b>Цепочка охоты:</b> Все участники объединяются в круговую цепочку: у каждого есть конкретная <b>«Цель»</b>, которую он должен разгадать, в то время как за ним самим охотится другой игрок.</li>
+            <li><b>Секретные числа:</b> В начале каждого раунда каждый участник тайно загадывает новое число из выбранного диапазона.</li>
+            <li><b>Пошаговые ходы по кругу:</b> Игроки ходят строго по очереди по цепочке. В верхней статус-панели всегда чётко указано, чей сейчас ход.</li>
+            <li><b>Подсказки по цели:</b> Ваши попытки проверяются против секретного числа вашей Цели. Вы получаете подсказки <b>«Больше» (⬆️)</b> или <b>«Меньше» (⬇️)</b>, сужая диапазон её числа.</li>
+            <li><b>Выбывание из раунда:</b> Как только любой охотник точно угадывает число своей цели, эта цель немедленно выбывает из матча, и текущий раунд завершается.</li>
+            <li><b>Новый раунд и перемешивание:</b> Оставшиеся выжившие участники случайным образом перемешиваются в новую охотничью цепочку и загадывают новые числа. Выбывшие игроки переходят в режим наблюдения.</li>
+            <li><b>Победитель:</b> Битва продолжается раунд за раундом до последнего выжившего игрока, который объявляется Чемпионом Кольца охотников!</li>
           </ul>
         `
       },
       uz: {
         duel: `
           <h3>⚔️ 1 ga 1 Duel (Klassik)</h3>
-          <p>Ikki o'yinchi o'rtasidagi aql va mantiq jangi.</p>
+          <p>Ikki o'yinchi o'rtasidagi aql va mantiq jangi — aqlli Botga qarshi (3 ta qiyinlik darajasi) yoki onlayn real raqib bilan.</p>
           <ul>
-            <li>Har bir o'yinchi tanlangan oraliqda maxfiy son o'ylaydi.</li>
-            <li>O'yinchilar navbatma-navbat raqib sonini topishga urinishadi.</li>
-            <li>Har bir urinishdan so'ng ko'rsatma beriladi: son <b>katta (⬆️)</b> yoki <b>kichik (⬇️)</b>.</li>
-            <li>Oraliq avtomatik ravishda ikki tomondan qisqarib boradi.</li>
-            <li>Raqib sonini birinchi bo'lib topgan o'yinchi g'olib bo'ladi!</li>
+            <li><b>Oraliqni tanlash:</b> O'yin boshlanishidan oldin sonlar oralig'i tanlanadi: 1–100, 1–1 000, 1–10 000 yoki 1–100 000.</li>
+            <li><b>Maxfiy son:</b> Har bir ishtirokchi tanlangan oraliqdan o'zining maxfiy sonini o'ylaydi va kiritadi.</li>
+            <li><b>Qur'a tashlash (🎲):</b> O'yin boshida zarlar tashlanadi — ko'proq ochko to'plagan o'yinchi birinchi yurish huquqini qo'lga kiritadi.</li>
+            <li><b>Navbatma-navbat yurish:</b> Raqiblar navbat bilan ekrandagi raqamli klaviatura orqali raqib sonini topishga urinadilar.</li>
+            <li><b>Ko'rsatmalar va qisqarish:</b> Har bir urinishdan so'ng tizim son <b>katta (⬆️)</b> yoki <b>kichik (⬇️)</b> ekanligini bildiradi. Qidiruv oralig'i interaktiv shkalada avtomatik torayadi va qisqarish foizi ko'rsatiladi.</li>
+            <li><b>G'alaba:</b> Raqib sonini birinchi bo'lib aniq topgan o'yinchi (100% qisqarish) g'olib deb e'lon qilinadi!</li>
           </ul>
         `,
         vault: `
-          <h3>👑 Seyfni buzish (Raundli jang)</h3>
-          <p>3 dan 6 nafargacha o'yinchilar uchun poyga rejimi.</p>
+          <h3>👑 Seyfni buzish (Qirollik jangi, 3–6 o'yinchi)</h3>
+          <p>3 nafardan 6 nafargacha ishtirokchilar uchun tezkor va qiziqarli chiqib ketish jangi.</p>
           <ul>
-            <li>Har bir raundda <b>tizim o'zi maxfiy son o'ylaydi</b>.</li>
-            <li>Barcha o'yinchilar bir vaqtda o'z taxminlarini yuborishadi.</li>
-            <li>Har bir o'yinchining oraliq qisqarish foizi vertikal indikatorlarda ko'rinib turadi.</li>
-            <li>Bir o'yinchi sonni topgach raund tugaydi va <b>eng kam qisqargan o'yinchi</b> chiqib ketadi.</li>
-            <li>Agar eng kam ko'rsatkichda durang bo'lsa — hech kim chiqmaydi, yangi raund boshlanadi!</li>
-            <li>Oxirgi bitta g'olib qolguncha o'yin davom etadi!</li>
+            <li><b>Umumiy seyf kodi:</b> Har bir raundda tizim bitta umumiy maxfiy seyf kodini yaratadi. O'yinchilar son o'ylashi shart emas — hamma bir vaqtda bitta seyfni buzadi!</li>
+            <li><b>Bir vaqtda o'yin:</b> Navbat kutish yo'q! Barcha ishtirokchilar parallel ravishda bir vaqtning o'zida kodni taxmin qilishadi.</li>
+            <li><b>Raund taymeri:</b> Har bir raund uchun cheklangan vaqt beriladi. Qolgan soniyalar va status tepa qatorda ko'rsatiladi.</li>
+            <li><b>Raqiblar ko'rsatkichlari:</b> Har bir o'yinchining oraliq qisqarish foizi va ko'rsatkichlari kartochkalarda real vaqtda yangilanadi.</li>
+            <li><b>Buzish va chiqib ketish:</b> O'yinchilardan biri kodni topishi bilanoq (yoki vaqt tugasa), raund tugaydi. Oralig'i <b>eng kam qisqargan</b> o'yinchi jangdan chiqib ketadi!</li>
+            <li><b>Durang qoidasi:</b> Agar bir nechta o'yinchida eng kam foiz bir xil bo'lsa — hech kim chiqib ketmaydi va jang to'liq tarkibda davom etadi!</li>
+            <li><b>Kuzatuvchi rejimi (Spectator):</b> Chiqib ketgan o'yinchilar xonada qoladi va qolgan raundlarni to'g'ridan-to'g'ri kuzatishi mumkin.</li>
+            <li><b>Qirollik g'alabasi:</b> Yagona oxirgi o'yinchi qolguncha raundlar davom etadi va u mutlaq g'olib bo'ladi!</li>
           </ul>
         `,
         circle: `
-          <h3>🎯 Ovchilar halqasi (Chiqib ketish raundlari)</h3>
-          <p>Taktik halqasimon raundli jang.</p>
+          <h3>🎯 Ovchilar halqasi (Taktik ov, 3–6 o'yinchi)</h3>
+          <p>Yopiq halqa bo'ylab nishonlarni topishga asoslangan taktik omon qolish o'yini.</p>
           <ul>
-            <li>O'yin avtomatik ravishda o'yinchilarni tasodifiy tartibda halqaga joylashtiradi.</li>
-            <li>Har bir raundda o'yinchilar <b>qaytadan yangi son o'ylashadi</b>.</li>
-            <li>O'yinchilar navbat bilan o'z nishonidagi raqib sonini topishga urinishadi.</li>
-            <li>Bir kishi chiqib ketishi bilan raund tugaydi va yangi raundda joylar qayta aralashtiriladi.</li>
-            <li>Yagona tirik qolgan oxirgi o'yinchi chempion bo'ladi!</li>
+            <li><b>Ov zanjiri:</b> Barcha ishtirokchilar aylanma zanjirga tiziladi: har bir o'yinchining o'z <b>«Nishoni»</b> bo'ladi, ayni paytda boshqa bir o'yinchi uning o'zini ovlaydi.</li>
+            <li><b>Maxfiy sonlar:</b> Har bir raund avvalida har bir ishtirokchi oraliqdan yangi maxfiy son o'ylaydi.</li>
+            <li><b>Aylanma tartibda yurish:</b> O'yinchilar qat'iy ravishda zanjir bo'ylab navbat bilan yurishadi. Yuqorida kimning navbati ekanligi doimo ko'rsatiladi.</li>
+            <li><b>Nishon bo'yicha maslahatlar:</b> Taxminlaringiz nishoningizning maxfiy soniga nisbatan tekshiriladi: <b>«Katta» (⬆️)</b> yoki <b>«Kichik» (⬇️)</b> ko'rsatmalari orqali oraliq torayadi.</li>
+            <li><b>Raunddan chiqib ketish:</b> Ovchi o'z nishonining sonini topgan zahoti, nishon o'yinchi darhol chiqib ketadi va raund yakunlanadi.</li>
+            <li><b>Yangi raund va aralashtirish:</b> Tirik qolgan ishtirokchilar yangi raundda tasodifiy tarzda yangi zanjirga qayta tiziladi va yangi sonlar o'ylaydi. Chiqqanlar esa kuzatuvchiga aylanadi.</li>
+            <li><b>G'olib:</b> O'yin yagona oxirgi omon qolgan ishtirokchigacha davom etadi — u Ovchilar halqasi Chempioni bo'ladi!</li>
           </ul>
         `
       },
       en: {
         duel: `
           <h3>⚔️ 1v1 Duel (Classic)</h3>
-          <p>Classic intellectual battle between two players.</p>
+          <p>An intellectual showdown between two players — battle against a smart Bot (3 difficulty levels) or challenge a real opponent online.</p>
           <ul>
-            <li>Each player secretly chooses a number within the selected range.</li>
-            <li>Players take turns guessing each other's secret number.</li>
-            <li>After each guess, hints indicate whether the target is <b>higher (⬆️)</b> or <b>lower (⬇️)</b>.</li>
-            <li>The interactive gauge narrows the search field with each attempt.</li>
-            <li>First mastermind to guess opponent's number wins!</li>
+            <li><b>Range Selection:</b> Choose the number range before starting: 1–100, 1–1,000, 1–10,000, or 1–100,000.</li>
+            <li><b>Secret Number:</b> Each participant secretly chooses a number within the selected range.</li>
+            <li><b>Dice Roll (🎲):</b> At the start, virtual dice are rolled — the player with the higher roll earns the first turn.</li>
+            <li><b>Turn-Based Gameplay:</b> Players alternate turns guessing each other's secret number using the on-screen keypad.</li>
+            <li><b>Hints & Range Narrowing:</b> After every guess, receive instant feedback: <b>Higher (⬆️)</b> or <b>Lower (⬇️)</b>. The interactive bar narrows automatically and tracks narrowing percentage in real time.</li>
+            <li><b>Victory:</b> The first player to pinpoint the opponent's secret number (100% narrowed range) wins the duel!</li>
           </ul>
         `,
         vault: `
-          <h3>👑 Vault Royale (Round Elimination)</h3>
-          <p>Exciting party race mode for 3 to 6 players.</p>
+          <h3>👑 Vault Royale (Party Elimination, 3–6 Players)</h3>
+          <p>A fast-paced, simultaneous party elimination race for 3 to 6 players.</p>
           <ul>
-            <li>The system generates <b>a new Vault passcode</b> for each round.</li>
-            <li>All players input guesses simultaneously in real-time.</li>
-            <li>Vertical indicators show each player's range narrowing percentage.</li>
-            <li>When the Vault is cracked, the player with the <b>lowest narrowing percentage</b> is eliminated!</li>
-            <li>In case of a tie for lowest percentage, nobody is eliminated and the game continues!</li>
-            <li>Rounds continue until one ultimate champion remains!</li>
+            <li><b>Shared Vault Code:</b> In each round, the game randomly generates a single Vault passcode. Players do not need to invent numbers — everyone hacks the exact same vault!</li>
+            <li><b>Real-Time Simultaneous Action:</b> No waiting for turns! All players submit guesses at the same time in parallel.</li>
+            <li><b>Round Countdown Timer:</b> Each round has a strict time limit. Remaining seconds and current status are displayed in the top header bar.</li>
+            <li><b>Live Opponent Indicators:</b> Track every player's narrowing percentage and gauge progress live on their player cards.</li>
+            <li><b>Cracking & Elimination:</b> As soon as any player discovers the exact code (or time expires), the round ends. The player with the <b>lowest narrowing percentage</b> is eliminated!</li>
+            <li><b>Tie Rule:</b> If two or more players share the lowest percentage, nobody is eliminated and everyone advances to the next round!</li>
+            <li><b>Spectator Mode:</b> Eliminated players remain in the match as spectators and can watch the remaining drama unfold in real time.</li>
+            <li><b>Royal Victory:</b> Rounds proceed until only one final champion stands and claims the Royal Victory!</li>
           </ul>
         `,
         circle: `
-          <h3>🎯 Circle Hunt (Fair Round Elimination)</h3>
-          <p>Tactical circular elimination match for 3 to 6 players.</p>
+          <h3>🎯 Circle Hunt (Tactical Elimination, 3–6 Players)</h3>
+          <p>A suspenseful circular turn-based survival match of hidden targets.</p>
           <ul>
-            <li>Players are automatically and randomly seated in a circular hunt ring.</li>
-            <li>Each round, all players <b>pick a brand new secret number</b>.</li>
-            <li>Players take turns in sequence guessing their target's number.</li>
-            <li>Opponents' numbers are hidden; their narrowing percentage and turn status are visible.</li>
-            <li>A round ends as soon as one player is eliminated.</li>
-            <li>Survivors are reshuffled randomly for each new round until only the victor remains!</li>
+            <li><b>Hunt Chain:</b> Players are seated in a circular hunt ring: each player is assigned a specific <b>"Target"</b> to crack, while another player is hunting them.</li>
+            <li><b>Secret Numbers:</b> At the start of every round, all participants secretly pick a fresh number from the range.</li>
+            <li><b>Sequential Circular Turns:</b> Turns proceed sequentially around the circle. The header status bar always indicates who is currently playing.</li>
+            <li><b>Target Clues:</b> Your guesses test your target's secret number, returning <b>Higher (⬆️)</b> or <b>Lower (⬇️)</b> clues and narrowing their range.</li>
+            <li><b>Round Elimination:</b> The round ends immediately when any hunter cracks their target's number — that target is eliminated!</li>
+            <li><b>Reshuffling & Next Round:</b> Survivors are randomly reshuffled into a new circular hunt chain and choose new secret numbers. Eliminated players switch to spectator mode.</li>
+            <li><b>Champion:</b> The match continues round by round until only one ultimate survivor remains — the Circle Hunt Champion!</li>
           </ul>
         `
       }
