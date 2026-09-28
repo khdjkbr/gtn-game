@@ -232,6 +232,27 @@
 
     .btn-secondary:active { transform: scale(0.97); }
 
+    .btn-compact {
+      padding: 11px 12px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      margin-bottom: 0;
+    }
+
+    .lobby-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .lobby-hint {
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
     /* Экран загрузки */
     .splash-wrap {
       flex: 1;
@@ -827,6 +848,22 @@
       font-weight: 800;
       letter-spacing: 0.5px;
     }
+    .player-range.range-pulse {
+      animation: rangePulse 0.42s ease-out;
+    }
+    .my-range-group .player-range.range-pulse {
+      animation: rangePulseStatic 0.42s ease-out;
+    }
+    @keyframes rangePulse {
+      0% { transform: translateX(-50%) scale(1); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35); }
+      35% { transform: translateX(-50%) scale(1.035); box-shadow: 0 0 18px rgba(56, 189, 248, 0.48); }
+      100% { transform: translateX(-50%) scale(1); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35); }
+    }
+    @keyframes rangePulseStatic {
+      0% { transform: scale(1); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35); }
+      35% { transform: scale(1.035); box-shadow: 0 0 18px rgba(56, 189, 248, 0.48); }
+      100% { transform: scale(1); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35); }
+    }
     .range-dot {
       width: 7px;
       height: 7px;
@@ -961,6 +998,14 @@
       border-radius: 4px;
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
       transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .range-track-active.range-pulse {
+      animation: trackPulse 0.45s ease-out;
+    }
+    @keyframes trackPulse {
+      0% { filter: brightness(1); box-shadow: 0 0 10px rgba(56, 189, 248, 0.7); }
+      45% { filter: brightness(1.45); box-shadow: 0 0 18px rgba(56, 189, 248, 0.95); }
+      100% { filter: brightness(1); box-shadow: 0 0 10px rgba(56, 189, 248, 0.7); }
     }
 
     /* Стилизованные поля ввода с поддержкой тем */
@@ -1415,10 +1460,22 @@
       filter: drop-shadow(0 0 12px rgba(244, 63, 94, 0.7)); 
       animation: indPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+    .indicator.result-pop {
+      animation: indPop 0.36s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .indicator.win-pop {
+      animation: winHitPop 0.58s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.75));
+    }
     @keyframes indPop {
       0% { transform: scale(0.3); opacity: 0; }
       60% { transform: scale(1.3); opacity: 1; }
       100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes winHitPop {
+      0% { transform: scale(0.45) rotate(-8deg); opacity: 0; }
+      55% { transform: scale(1.35) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
 
     @keyframes drumroll {
@@ -1468,10 +1525,26 @@
       background: rgba(244, 63, 94, 0.15);
       animation: shake 0.35s ease;
     }
+    .number-display.submit-pulse {
+      animation: submitPulse 0.32s ease-out;
+    }
+    .center-number.number-pop {
+      animation: numberPop 0.36s ease-out;
+    }
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       25% { transform: translateX(-6px); }
       75% { transform: translateX(6px); }
+    }
+    @keyframes submitPulse {
+      0% { transform: translateY(0); border-color: var(--glass-border); }
+      45% { transform: translateY(-4px); border-color: rgba(56, 189, 248, 0.8); box-shadow: 0 0 14px rgba(56, 189, 248, 0.28); }
+      100% { transform: translateY(0); border-color: var(--glass-border); }
+    }
+    @keyframes numberPop {
+      0% { transform: translateY(5px) scale(0.96); opacity: 0.72; }
+      55% { transform: translateY(-2px) scale(1.04); opacity: 1; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
     }
     .game-error-msg {
       position: absolute;
@@ -1581,6 +1654,13 @@
       padding: 24px;
     }
     .modal-overlay.active { display: flex; animation: fadeSlideIn 0.3s ease; }
+    .modal-overlay.active .modal-content {
+      animation: modalContentIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalContentIn {
+      0% { transform: translateY(8px) scale(0.98); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
     [data-theme="light"] 
     /* === Специфика Светлой темы: клавиатура, инпуты, бейджи и тексты === */
     [data-theme="light"] {
@@ -1819,6 +1899,13 @@
       font-size: 0.92rem;
     }
     .modal-secret-info span { font-weight: 800; color: #38bdf8; font-size: 1.15rem; }
+
+    .modal-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .modal-actions .btn { margin-bottom: 0; }
 
     .waiting-box {
       margin: 20px 0;
@@ -2286,11 +2373,15 @@
       background: rgba(16, 185, 129, 0.22);
       border: 1px solid rgba(16, 185, 129, 0.7);
       color: #10b981;
-      animation: pulseMyTurn 1.1s infinite ease-in-out;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
     }
-    @keyframes pulseMyTurn {
-      0%, 100% { box-shadow: 0 0 0 rgba(16, 185, 129, 0.3); transform: scale(1); }
-      50% { box-shadow: 0 0 14px rgba(16, 185, 129, 0.8); transform: scale(1.02); }
+    .party-turn-alert.turn-attention {
+      animation: turnAttention 0.58s ease-out;
+    }
+    @keyframes turnAttention {
+      0% { transform: scale(0.98); box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
+      45% { transform: scale(1.035); box-shadow: 0 0 16px rgba(16, 185, 129, 0.72); }
+      100% { transform: scale(1); box-shadow: 0 0 12px rgba(16, 185, 129, 0.35); }
     }
 
     .party-opponents-grid {
@@ -2342,6 +2433,30 @@
     .party-opp-card.is-eliminated {
       opacity: 0.4;
       filter: grayscale(1);
+    }
+    .party-opp-card.just-readied {
+      animation: readyFlash 0.45s ease-out;
+    }
+    .party-opp-card.just-eliminated {
+      animation: eliminatedFlash 0.5s ease-out;
+    }
+    .party-opp-card.range-gain {
+      animation: cardRangeGain 0.42s ease-out;
+    }
+    @keyframes readyFlash {
+      0% { box-shadow: 0 0 0 rgba(16, 185, 129, 0); border-color: rgba(255, 255, 255, 0.1); }
+      45% { box-shadow: 0 0 18px rgba(16, 185, 129, 0.72); border-color: rgba(16, 185, 129, 0.85); }
+      100% { box-shadow: inherit; }
+    }
+    @keyframes eliminatedFlash {
+      0% { opacity: 1; filter: grayscale(0); box-shadow: 0 0 0 rgba(244, 63, 94, 0); }
+      45% { opacity: 0.82; filter: grayscale(0); box-shadow: 0 0 18px rgba(244, 63, 94, 0.75); border-color: rgba(244, 63, 94, 0.85); }
+      100% { opacity: 0.4; filter: grayscale(1); }
+    }
+    @keyframes cardRangeGain {
+      0% { transform: translateY(0); }
+      45% { transform: translateY(-2px); box-shadow: 0 0 14px rgba(56, 189, 248, 0.5); }
+      100% { transform: translateY(0); }
     }
 
     /* Внутренний вертикальный индикатор заполнения с 50% прозрачностью */
@@ -3267,6 +3382,10 @@
         <div class="waiting-box">
           <div class="room-code-badge" id="displayRoomCode">0000</div>
           <p style="color: var(--text-muted); font-size: 0.85rem;" id="displayRoomRange">Диапазон: 0 — 100</p>
+          <div class="lobby-actions">
+            <button class="btn btn-secondary btn-compact" onclick="copyCurrentRoomCode()" data-i18n="copyCodeBtn">Скопировать код</button>
+            <button class="btn btn-primary btn-compact" onclick="shareCurrentRoomInvite()" data-i18n="shareInviteBtn">Пригласить</button>
+          </div>
         </div>
 
         <div style="display: flex; align-items: center; justify-content: center; gap: 10px; color: #38bdf8; font-weight: 700;">
@@ -3290,6 +3409,11 @@
           <div class="room-code-badge" id="displayPartyRoomCode" style="font-size: 2.2rem; margin: 4px 0;">0000</div>
           <div style="font-size: 0.82rem; color: #38bdf8; font-weight: 700;" id="displayPartyModeBadge">👑 Взлом Сейфа</div>
           <p style="color: var(--text-muted); font-size: 0.78rem; margin-top: 4px;" id="displayPartyRoomRange">Диапазон: 0 — 100</p>
+          <div class="lobby-actions">
+            <button class="btn btn-secondary btn-compact" onclick="copyCurrentRoomCode()" data-i18n="copyCodeBtn">Скопировать код</button>
+            <button class="btn btn-primary btn-compact" onclick="shareCurrentRoomInvite()" data-i18n="shareInviteBtn">Пригласить</button>
+          </div>
+          <div class="lobby-hint" id="partyLobbyHint" data-i18n="partyLobbyHint">Можно начинать, когда в лобби будет минимум 3 игрока.</div>
         </div>
       </div>
 
@@ -3537,8 +3661,9 @@
         <p id="winnerSub" style="color: var(--text-muted); margin-bottom: 8px;" data-i18n="winnerDefaultSub">Вы отгадали число соперника!</p>
         
         <div class="modal-secret-info" id="oppSecretReveal"></div>
-        <div style="margin-top: 20px;">
-          <button class="btn btn-primary" onclick="closeGameAndMenu()" data-i18n="backToMenu">Вернуться в меню</button>
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="startNewGameFromModal()" data-i18n="startNewGame">Новая игра</button>
+          <button class="btn btn-secondary" onclick="closeGameAndMenu()" data-i18n="backToMenu">Вернуться в меню</button>
         </div>
       </div>
     </div>
@@ -3581,6 +3706,15 @@
           <button class="btn btn-secondary" style="flex: 1;" onclick="closeSurrenderModal()" data-i18n="surrenderCancel">Продолжить</button>
           <button class="btn" style="flex: 1; background: #e11d48; color: white;" onclick="executeSurrenderAndExit()" data-i18n="surrenderConfirm">Сдаться и выйти</button>
         </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="infoModal">
+      <div class="modal-content" style="max-width: 360px;">
+        <div class="modal-icon" id="infoModalIcon" style="font-size: 3rem; margin-bottom: 8px;">ℹ️</div>
+        <h2 id="infoModalTitle" style="margin-bottom: 8px; font-weight: 800; font-size: 1.3rem;">GTN</h2>
+        <p id="infoModalMessage" style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; margin-bottom: 20px;"></p>
+        <button class="btn btn-primary" onclick="closeInfoModal()" data-i18n="done">Готово</button>
       </div>
     </div>
 
@@ -4575,17 +4709,18 @@
         createGameTitle: "Создать игру",
         selectGameFormat: "Формат матча:",
         modeDuelTitle: "Дуэль 1 на 1",
-        modeDuelDesc: "Классическая дуэль для двоих",
+        modeDuelDesc: "Угадайте число соперника раньше него",
         modeVaultTitle: "Взлом Сейфа",
-        modeVaultDesc: "Все взламывают общее число игры на выбывание",
+        modeVaultDesc: "Все одновременно взламывают общий код на выбывание",
         modeCircleTitle: "Кольцо охотников",
-        modeCircleDesc: "Каждый угадывает число соседа по кругу",
+        modeCircleDesc: "У каждого есть цель: угадайте число соседа",
         selectMaxPlayers: "Количество игроков:",
         privacyRoomTitle: "Доступ к комнате:",
         privacyPublic: "Публичная",
         privacyPrivate: "Приватная (по коду)",
         playersInRoom: "Игроки в комнате:",
         startPartyBattleBtn: "Начать битву (нужно мин. 3 игрока)",
+        startPartyBattleReady: "Начать битву",
         leavePartyBtn: "Покинуть лобби",
         gameRulesMenuTitle: "Правила игры",
         gameRulesMenuSub: "Дуэль, Взлом Сейфа и Кольцо охотников",
@@ -4694,17 +4829,18 @@
         createGameTitle: "O'yin yaratish",
         selectGameFormat: "O'yin formati:",
         modeDuelTitle: "1 ga 1 Duel",
-        modeDuelDesc: "Ikki kishi uchun klassik duel",
+        modeDuelDesc: "Raqibingizdan oldin uning sonini toping",
         modeVaultTitle: "Seyfni buzish",
-        modeVaultDesc: "Barcha o'yinchilar umumiy sonni topishadi",
+        modeVaultDesc: "Hamma bir vaqtda umumiy kodni topadi",
         modeCircleTitle: "Ovchilar halqasi",
-        modeCircleDesc: "Har bir o'yinchi navbatdagi raqib sonini topadi",
+        modeCircleDesc: "Har kimning maqsadi bor: qo'shni sonini toping",
         selectMaxPlayers: "O'yinchilar soni:",
         privacyRoomTitle: "Xonaga kirish:",
         privacyPublic: "Ommaviy",
         privacyPrivate: "Maxfiy (kod bo'yicha)",
         playersInRoom: "Xonadagi o'yinchilar:",
         startPartyBattleBtn: "Jangni boshlash (kamida 3 kishi)",
+        startPartyBattleReady: "Jangni boshlash",
         leavePartyBtn: "Lobbini tark etish",
         gameRulesMenuTitle: "O'yin qoidalari",
         gameRulesMenuSub: "Duel, Seyf va Ovchilar halqasi",
@@ -4813,17 +4949,18 @@
         createGameTitle: "Create Game",
         selectGameFormat: "Match Format:",
         modeDuelTitle: "1v1 Duel",
-        modeDuelDesc: "Classic duel for two players",
+        modeDuelDesc: "Guess the opponent's number before they find yours",
         modeVaultTitle: "Vault Royale",
-        modeVaultDesc: "Everyone decodes system secret; knockout rounds",
+        modeVaultDesc: "Everyone cracks one shared code in knockout rounds",
         modeCircleTitle: "Circle Hunt",
-        modeCircleDesc: "Each player guesses their neighbor secret in circle",
+        modeCircleDesc: "Everyone has a target: guess your neighbor's secret",
         selectMaxPlayers: "Player Count:",
         privacyRoomTitle: "Room Privacy:",
         privacyPublic: "Public",
         privacyPrivate: "Private (via code)",
         playersInRoom: "Players in Room:",
         startPartyBattleBtn: "Start Battle (min 3 players required)",
+        startPartyBattleReady: "Start Battle",
         leavePartyBtn: "Leave Lobby",
         gameRulesMenuTitle: "Game Rules",
         gameRulesMenuSub: "Duel, Vault Royale and Circle Hunt",
@@ -5020,6 +5157,15 @@
         opponentSecretWas: "Загаданное число соперника:",
         roomCreated: "Комната создана!",
         shareCodeText: "Сообщите код комнаты второму игроку:",
+        copyCodeBtn: "Скопировать код",
+        shareInviteBtn: "Пригласить",
+        inviteCopied: "Код комнаты скопирован",
+        inviteCopyFailed: "Не удалось скопировать код. Введите его вручную.",
+        inviteShareText: "Присоединяйся к моей комнате GTN. Код: {code}",
+        partyLobbyHint: "Можно начинать, когда в лобби будет минимум 3 игрока.",
+        partyStartProgress: "Ждём игроков: {count}/3",
+        startNewGame: "Новая игра",
+        roomNoticeTitle: "Комната",
         waitingForPlayer: "Ожидание подключения...",
         cancelBtn: "Отмена",
         joinBtn: "Войти",
@@ -5114,6 +5260,8 @@
         vaultCrackedTitle: "Сейф Раунда {round} взломан!",
         vaultCrackedDrawDesc: "Код взломал <b>{crackerName}</b>!<br><span style=\"color: #38bdf8; font-weight: 700;\">Ничья по наименьшему сужению ({minPercent}%)</span> — в этом раунде никто не выбывает!",
         vaultCrackedDrawSub: "Осталось участников: {survivorsCount}. Готовим новый код сейфа...",
+        vaultCrackedTieBreakDesc: "Код взломали одновременно: <b>{crackerName}</b>!<br><span style=\"color: #f59e0b; font-weight: 800;\">Тай-брейк:</span> игрок <b>{eliminatedName}</b> отправил ответ позже остальных и выбывает.",
+        vaultCrackedTieBreakSub: "Осталось участников: {survivorsCount}. Начинается Раунд {nextRound}...",
         vaultCrackedElimDesc: "Код взломал <b>{crackerName}</b>!<br>Игрок <b>{eliminatedName}</b> показал наименьшее сужение ({minPercent}%) и выбывает!",
         vaultCrackedElimSub: "Осталось участников: {survivorsCount}. Начинается Раунд {nextRound}...",
         partyWinnerSub: "{winnerName} одержал Королевскую победу!",
@@ -5208,6 +5356,15 @@
         opponentSecretWas: "Raqib yashirgan son:",
         roomCreated: "Xona yaratildi!",
         shareCodeText: "Xona kodini ikkinchi o'yinchiga yuboring:",
+        copyCodeBtn: "Kodni nusxalash",
+        shareInviteBtn: "Taklif qilish",
+        inviteCopied: "Xona kodi nusxalandi",
+        inviteCopyFailed: "Kodni nusxalab bo'lmadi. Uni qo'lda kiriting.",
+        inviteShareText: "GTN xonamga qo'shiling. Kod: {code}",
+        partyLobbyHint: "Lobbida kamida 3 o'yinchi bo'lganda boshlash mumkin.",
+        partyStartProgress: "O'yinchilar kutilmoqda: {count}/3",
+        startNewGame: "Yangi o'yin",
+        roomNoticeTitle: "Xona",
         waitingForPlayer: "O'yinchi ulanishi kutilmoqda...",
         cancelBtn: "Bekor qilish",
         joinBtn: "Kirish",
@@ -5312,6 +5469,8 @@
         vaultCrackedTitle: "{round}-raund seyfi buzildi!",
         vaultCrackedDrawDesc: "Kodni <b>{crackerName}</b> buzdi!<br><span style=\"color: #38bdf8; font-weight: 700;\">Eng kam torayish bo'yicha durang ({minPercent}%)</span> — bu raundda hech kim chiqib ketmaydi!",
         vaultCrackedDrawSub: "Qolgan ishtirokchilar: {survivorsCount}. Yangi seyf kodi tayyorlanmoqda...",
+        vaultCrackedTieBreakDesc: "Kodni bir vaqtda buzishdi: <b>{crackerName}</b>!<br><span style=\"color: #f59e0b; font-weight: 800;\">Tay-breyk:</span> <b>{eliminatedName}</b> javobni boshqalardan keyin yubordi va chiqib ketadi.",
+        vaultCrackedTieBreakSub: "Qolgan ishtirokchilar: {survivorsCount}. {nextRound}-raund boshlanmoqda...",
         vaultCrackedElimDesc: "Kodni <b>{crackerName}</b> buzdi!<br><b>{eliminatedName}</b> o'yinchida eng kam torayish ({minPercent}%) qayd etildi va u chiqib ketadi!",
         vaultCrackedElimSub: "Qolgan ishtirokchilar: {survivorsCount}. {nextRound}-raund boshlanmoqda...",
         partyWinnerSub: "{winnerName} Qirollik g'alabasiga erishdi!",
@@ -5406,6 +5565,15 @@
         opponentSecretWas: "Opponent's secret was:",
         roomCreated: "Room Created!",
         shareCodeText: "Share this code with the 2nd player:",
+        copyCodeBtn: "Copy code",
+        shareInviteBtn: "Invite",
+        inviteCopied: "Room code copied",
+        inviteCopyFailed: "Could not copy the code. Enter it manually.",
+        inviteShareText: "Join my GTN room. Code: {code}",
+        partyLobbyHint: "You can start when at least 3 players are in the lobby.",
+        partyStartProgress: "Waiting for players: {count}/3",
+        startNewGame: "New Game",
+        roomNoticeTitle: "Room",
         waitingForPlayer: "Waiting for player to connect...",
         cancelBtn: "Cancel",
         joinBtn: "Join",
@@ -5510,6 +5678,8 @@
         vaultCrackedTitle: "Round {round} Vault is cracked!",
         vaultCrackedDrawDesc: "Code cracked by <b>{crackerName}</b>!<br><span style=\"color: #38bdf8; font-weight: 700;\">Tie on lowest range reduction ({minPercent}%)</span> — no one is eliminated this round!",
         vaultCrackedDrawSub: "Remaining players: {survivorsCount}. Preparing new vault code...",
+        vaultCrackedTieBreakDesc: "Code cracked simultaneously by <b>{crackerName}</b>!<br><span style=\"color: #f59e0b; font-weight: 800;\">Tie-break:</span> player <b>{eliminatedName}</b> submitted later than the others and is eliminated.",
+        vaultCrackedTieBreakSub: "Remaining players: {survivorsCount}. Round {nextRound} is starting...",
         vaultCrackedElimDesc: "Code cracked by <b>{crackerName}</b>!<br>Player <b>{eliminatedName}</b> had the lowest range reduction ({minPercent}%) and is eliminated!",
         vaultCrackedElimSub: "Remaining players: {survivorsCount}. Round {nextRound} is starting...",
         partyWinnerSub: "{winnerName} claimed the Royal Victory!",
@@ -5986,6 +6156,104 @@
       showScreen('screenCreate');
     }
 
+    function getCurrentInviteCode() {
+      return currentRoomId || partyCurrentRoomId || document.getElementById('displayRoomCode')?.textContent || document.getElementById('displayPartyRoomCode')?.textContent || '';
+    }
+
+    function getCurrentModeLabel() {
+      if (selectedGameSubMode === 'vault') return i18n[currentLang].modeVaultTitle || 'Vault';
+      if (selectedGameSubMode === 'circle') return i18n[currentLang].modeCircleTitle || 'Circle';
+      return i18n[currentLang].modeDuelTitle || 'Duel';
+    }
+
+    function getInviteText(code) {
+      const template = i18n[currentLang].inviteShareText || 'Join my GTN room. Code: {code}';
+      const mode = getCurrentModeLabel();
+      const baseText = template.replace('{code}', code);
+      return `${baseText}\n${mode}`;
+    }
+
+    function showInfoModal(message, title, icon = 'ℹ️') {
+      const modal = document.getElementById('infoModal');
+      const titleEl = document.getElementById('infoModalTitle');
+      const msgEl = document.getElementById('infoModalMessage');
+      const iconEl = document.getElementById('infoModalIcon');
+      if (!modal || !titleEl || !msgEl) return;
+      if (iconEl) iconEl.textContent = icon;
+      titleEl.textContent = title || i18n[currentLang].roomNoticeTitle || 'GTN';
+      msgEl.textContent = message;
+      modal.classList.add('active');
+    }
+
+    function closeInfoModal() {
+      triggerHaptic('light');
+      const modal = document.getElementById('infoModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function restartAnimation(el, className) {
+      if (!el) return;
+      el.classList.remove(className);
+      void el.offsetWidth;
+      el.classList.add(className);
+    }
+
+    function animateIndicator(el, className = 'result-pop') {
+      restartAnimation(el, className);
+    }
+
+    function animateSubmittedNumber(displayId = 'inputValue') {
+      restartAnimation(document.getElementById(displayId), 'submit-pulse');
+    }
+
+    async function copyTextToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.opacity = '0';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+    }
+
+    async function copyCurrentRoomCode() {
+      const code = getCurrentInviteCode();
+      if (!code) return;
+      try {
+        await copyTextToClipboard(code);
+        triggerHaptic('success');
+        showInfoModal(i18n[currentLang].inviteCopied || 'Room code copied', i18n[currentLang].roomNoticeTitle || 'Room', '✅');
+      } catch (err) {
+        triggerHaptic('error');
+        showInfoModal(i18n[currentLang].inviteCopyFailed || 'Could not copy the code.', i18n[currentLang].roomNoticeTitle || 'Room', '⚠️');
+      }
+    }
+
+    async function shareCurrentRoomInvite() {
+      const code = getCurrentInviteCode();
+      if (!code) return;
+      const text = getInviteText(code);
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: 'GTN', text });
+        } else {
+          await copyTextToClipboard(text);
+          showInfoModal(i18n[currentLang].inviteCopied || 'Room code copied', i18n[currentLang].roomNoticeTitle || 'Room', '✅');
+        }
+        triggerHaptic('success');
+      } catch (err) {
+        if (err && err.name === 'AbortError') return;
+        triggerHaptic('error');
+        showInfoModal(i18n[currentLang].inviteCopyFailed || 'Could not copy the code.', i18n[currentLang].roomNoticeTitle || 'Room', '⚠️');
+      }
+    }
+
     let selectedMin = 0;
     let selectedMax = 100;
 
@@ -6011,7 +6279,7 @@
     function selectAiIntellect(elem, level) {
       triggerHaptic('light');
       selectedAiLevel = level;
-      document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('#aiDifficultySection .ai-chip').forEach(c => c.classList.remove('active'));
       elem.classList.add('active');
     }
 
@@ -6257,7 +6525,7 @@
         currentPartyRoomData = data;
 
         if (data.status === 'cancelled') {
-          alert(i18n[currentLang].lobbyClosedByHost || 'Лобби закрыто хостом.');
+          showInfoModal(i18n[currentLang].lobbyClosedByHost || 'Лобби закрыто хостом.', i18n[currentLang].roomNoticeTitle || 'Комната', '⚠️');
           cancelPartyRoom();
           return;
         }
@@ -6327,11 +6595,11 @@
 
       if (isPartyHost) {
         hostBox.style.display = 'block';
-        const canStart = playerList.length >= 2;
+        const canStart = playerList.length >= 3;
         startBtn.disabled = !canStart;
         startBtn.textContent = canStart 
-          ? (i18n[currentLang].startPartyBattleBtn || 'Начать битву!') 
-          : `${i18n[currentLang].startPartyBattleBtn || 'Начать битву'} (${playerList.length}/2 мин)`;
+          ? (i18n[currentLang].startPartyBattleReady || 'Начать битву!') 
+          : (i18n[currentLang].partyStartProgress || 'Ждём игроков: {count}/3').replace('{count}', playerList.length);
       } else {
         hostBox.style.display = 'none';
       }
@@ -6360,7 +6628,7 @@
 
       const players = currentPartyRoomData.players || {};
       const playerIds = Object.keys(players);
-      if (playerIds.length < 2) return;
+      if (playerIds.length < 3) return;
 
       const min = currentPartyRoomData.min;
       const max = currentPartyRoomData.max;
@@ -6378,6 +6646,7 @@
             secretNumber: null,
             hasSubmittedSecret: false,
             currentStepGuess: null,
+            stepSubmittedAt: null,
             stepStatus: 'waiting',
             lastGuess: null,
             lastHint: null,
@@ -6570,7 +6839,7 @@
         const data = snapshot.val();
         if (!data || data.status !== 'waiting') {
           triggerHaptic('error');
-          alert(i18n[currentLang].roomNotFoundOrStarted || 'Комната не найдена или игра уже началась!');
+          showInfoModal(i18n[currentLang].roomNotFoundOrStarted || 'Комната не найдена или игра уже началась!', i18n[currentLang].roomNoticeTitle || 'Комната', '⚠️');
           return;
         }
 
@@ -6594,7 +6863,7 @@
         const maxCap = data.maxPlayers || 4;
         if (count >= maxCap) {
           triggerHaptic('error');
-          alert(i18n[currentLang].roomAlreadyFull || 'Комната уже заполнена!');
+          showInfoModal(i18n[currentLang].roomAlreadyFull || 'Комната уже заполнена!', i18n[currentLang].roomNoticeTitle || 'Комната', '⚠️');
           return;
         }
 
@@ -6894,6 +7163,9 @@
       oppCurrentMin = gameMin;
       oppCurrentMax = gameMax;
       myMovesCount = 0;
+      lastRenderedMyRange = '';
+      lastRenderedOppRange = '';
+      lastRenderedTrackRange = '';
 
       document.getElementById('inputValue').textContent = "";
       document.getElementById('gameErrorMsg').textContent = "";
@@ -7010,21 +7282,24 @@
             setTimeout(() => {
               // Показываем число и результат одновременно после 3 секунд
               oppNumEl.textContent = d.lastMove.guess.toLocaleString();
+              restartAnimation(oppNumEl, 'number-pop');
               oppInd.classList.remove('drum-anim');
 
               if (d.lastMove.result === 'win') {
                 triggerHaptic('error');
-                oppInd.className = 'indicator';
+                oppInd.className = 'indicator win-pop';
                 oppInd.textContent = "🏆";
                 finishGame(false);
               } else if (d.lastMove.result === 'more') {
                 oppInd.className = 'indicator up';
                 oppInd.textContent = "⬆️";
+                animateIndicator(oppInd);
                 if (d.lastMove.guess >= oppCurrentMin) oppCurrentMin = d.lastMove.guess + 1;
                 updateRangesDisplay();
               } else {
                 oppInd.className = 'indicator down';
                 oppInd.textContent = "⬇️";
+                animateIndicator(oppInd);
                 if (d.lastMove.guess <= oppCurrentMax) oppCurrentMax = d.lastMove.guess - 1;
                 updateRangesDisplay();
               }
@@ -7036,11 +7311,25 @@
       });
     }
 
+    let lastRenderedMyRange = '';
+    let lastRenderedOppRange = '';
+    let lastRenderedTrackRange = '';
+
     function updateRangesDisplay() {
       const myEl = document.getElementById('myRange');
       const oppEl = document.getElementById('oppRange');
-      if (myEl) myEl.textContent = myCurrentMin.toLocaleString() + ' — ' + myCurrentMax.toLocaleString();
-      if (oppEl) oppEl.textContent = oppCurrentMin.toLocaleString() + ' — ' + oppCurrentMax.toLocaleString();
+      const myRangeText = myCurrentMin.toLocaleString() + ' — ' + myCurrentMax.toLocaleString();
+      const oppRangeText = oppCurrentMin.toLocaleString() + ' — ' + oppCurrentMax.toLocaleString();
+      const myRangeChanged = lastRenderedMyRange && lastRenderedMyRange !== myRangeText;
+      const oppRangeChanged = lastRenderedOppRange && lastRenderedOppRange !== oppRangeText;
+
+      if (myEl) myEl.textContent = myRangeText;
+      if (oppEl) oppEl.textContent = oppRangeText;
+
+      if (myRangeChanged) restartAnimation(document.getElementById('myRangeBadgeEl'), 'range-pulse');
+      if (oppRangeChanged) restartAnimation(document.querySelector('.opp-range-badge'), 'range-pulse');
+      lastRenderedMyRange = myRangeText;
+      lastRenderedOppRange = oppRangeText;
 
       // Динамическое обновление шкалы сужения диапазона с двух сторон
       const trackActive = document.getElementById('myRangeTrackActive');
@@ -7054,6 +7343,11 @@
 
         trackActive.style.left = leftPercent.toFixed(2) + '%';
         trackActive.style.width = widthPercent.toFixed(2) + '%';
+        const trackRange = `${leftPercent.toFixed(2)}:${widthPercent.toFixed(2)}`;
+        if (lastRenderedTrackRange && lastRenderedTrackRange !== trackRange) {
+          restartAnimation(trackActive, 'range-pulse');
+        }
+        lastRenderedTrackRange = trackRange;
       }
 
       // Бейдж процента сужения игрока (показывается во всех режимах)
@@ -7135,6 +7429,10 @@
     let partyIsAlive = true;
     let partyRoundTransitionTimer = null;
     let myCurrentNarrowPercent = 0;
+    let lastRenderedPartyHintKey = '';
+    const lastPartyReadyStates = {};
+    const lastPartyAliveStates = {};
+    const lastPartyNarrowPercents = {};
 
     function calculateNarrowPercent(min, max, currMin, currMax, isWin = false) {
       if (isWin) return 100;
@@ -7184,6 +7482,9 @@
       }
 
       updateMarqueeMetrics(alertEl, trackEl);
+      if (customClass.includes('my-turn-pulse')) {
+        restartAnimation(alertEl, 'turn-attention');
+      }
     }
 
     function updateMarqueeMetrics(alertEl, trackEl) {
@@ -7314,6 +7615,20 @@
       executeVaultStepResolution(roomData, alivePlayers, currentStep);
     }
 
+    function selectVaultTieBreakPlayer(players) {
+      return players.slice().sort((a, b) => {
+        const submittedA = typeof a.stepSubmittedAt === 'number' ? a.stepSubmittedAt : 0;
+        const submittedB = typeof b.stepSubmittedAt === 'number' ? b.stepSubmittedAt : 0;
+        if (submittedA !== submittedB) return submittedB - submittedA;
+
+        const guessesA = typeof a.guessesCount === 'number' ? a.guessesCount : 0;
+        const guessesB = typeof b.guessesCount === 'number' ? b.guessesCount : 0;
+        if (guessesA !== guessesB) return guessesB - guessesA;
+
+        return String(b.gameId || '').localeCompare(String(a.gameId || ''));
+      })[0] || null;
+    }
+
     function executeVaultStepResolution(roomData, alivePlayers, currentStep) {
       const pRef = partyRoomRef || roomRef;
       if (!pRef) {
@@ -7358,6 +7673,7 @@
         newPlayerPercents[p.gameId] = (hint === '🏆') ? 100 : narrowPct;
 
         updates[`players/${p.gameId}/currentStepGuess`] = null;
+        updates[`players/${p.gameId}/stepSubmittedAt`] = null;
         updates[`players/${p.gameId}/stepStatus`] = 'waiting';
         updates[`players/${p.gameId}/lastGuess`] = (typeof guess === 'number') ? guess : null;
         updates[`players/${p.gameId}/lastHint`] = hint;
@@ -7373,10 +7689,15 @@
         const playersWithMin = alivePlayers.filter(p => newPlayerPercents[p.gameId] === minPercent);
 
         let isDraw = false;
+        let isTieBreak = false;
         let eliminatedPlayer = null;
 
-        if (playersWithMin.length > 1) {
-          isDraw = true; // Ничья по наименьшему сужению — никто не выбывает в этом раунде
+        if (playersWithMin.length > 1 && minPercent === 100 && playersWithMin.length === alivePlayers.length) {
+          isTieBreak = true;
+          eliminatedPlayer = selectVaultTieBreakPlayer(playersWithMin);
+          if (eliminatedPlayer) updates[`players/${eliminatedPlayer.gameId}/isAlive`] = false;
+        } else if (playersWithMin.length > 1) {
+          isDraw = true; // Обычная ничья по наименьшему сужению — никто не выбывает в этом раунде
         } else {
           eliminatedPlayer = playersWithMin[0];
           updates[`players/${eliminatedPlayer.gameId}/isAlive`] = false;
@@ -7397,6 +7718,7 @@
             mode: 'vault',
             round: currentRound,
             isDraw: isDraw,
+            isTieBreak: isTieBreak,
             minPercent: minPercent,
             crackerName: crackerNames,
             eliminatedName: eliminatedPlayer ? eliminatedPlayer.name : null,
@@ -7431,6 +7753,10 @@
       currentInput = "";
       myMovesCount = 0;
       gameEnded = false;
+      lastRenderedPartyHintKey = '';
+      Object.keys(lastPartyReadyStates).forEach(k => delete lastPartyReadyStates[k]);
+      Object.keys(lastPartyAliveStates).forEach(k => delete lastPartyAliveStates[k]);
+      Object.keys(lastPartyNarrowPercents).forEach(k => delete lastPartyNarrowPercents[k]);
 
       const myId = playerProfile.gameId;
       const myPlayer = roomData.players ? roomData.players[myId] : null;
@@ -7552,6 +7878,7 @@
         const isDead = pData.isAlive === false;
         const isTurn = (mode === 'circle' && roomData.currentTurn === pId);
         const isTarget = (mode === 'circle' && roomData.targets && roomData.targets[myId] === pId);
+        const isReady = (mode === 'vault' && pData.currentStepGuess !== null && pData.currentStepGuess !== undefined);
 
         let vaultStatusHtml = '';
         if (mode === 'vault') {
@@ -7575,6 +7902,16 @@
         const pct = isMe 
           ? Math.max(0, Math.min(100, (typeof myCurrentNarrowPercent === 'number' && myCurrentNarrowPercent > 0 ? myCurrentNarrowPercent : (pData.narrowPercent || 0))))
           : Math.max(0, Math.min(100, pData.narrowPercent || 0));
+        const wasReady = lastPartyReadyStates[pId];
+        const wasAlive = lastPartyAliveStates[pId];
+        const prevPct = lastPartyNarrowPercents[pId];
+        const justReadied = mode === 'vault' && wasReady === false && isReady;
+        const justEliminated = wasAlive === true && isDead;
+        const rangeGained = typeof prevPct === 'number' && pct > prevPct && !isDead;
+
+        if (justReadied) card.classList.add('just-readied');
+        if (justEliminated) card.classList.add('just-eliminated');
+        if (rangeGained) card.classList.add('range-gain');
 
         const displayName = isMe ? `${pData.name || 'Вы'} (${i18n[currentLang]?.leaderboardPlayerTag || 'Вы'})` : (pData.name || 'Игрок');
         const initial = (pData.name || 'И').charAt(0).toUpperCase();
@@ -7601,6 +7938,9 @@
           </div>
         `;
         grid.appendChild(card);
+        lastPartyReadyStates[pId] = isReady;
+        lastPartyAliveStates[pId] = !isDead;
+        lastPartyNarrowPercents[pId] = pct;
       });
     }
 
@@ -7671,23 +8011,32 @@
               if (typeof myPlayer.narrowPercent === 'number') myCurrentNarrowPercent = myPlayer.narrowPercent;
 
               if (typeof myPlayer.lastGuess === 'number') {
-                document.getElementById('myLastNumber').textContent = myPlayer.lastGuess.toLocaleString();
+                const lastNumberEl = document.getElementById('myLastNumber');
+                const hintKey = `${d.round || 0}:${d.step || 0}:${myPlayer.lastGuess}:${myPlayer.lastHint || ''}`;
+                const shouldAnimateHint = hintKey !== lastRenderedPartyHintKey;
+                lastNumberEl.textContent = myPlayer.lastGuess.toLocaleString();
+                if (shouldAnimateHint) restartAnimation(lastNumberEl, 'number-pop');
               }
               const ind = document.getElementById('myIndicator');
               if (ind && myPlayer.lastHint) {
+                const hintKey = `${d.round || 0}:${d.step || 0}:${myPlayer.lastGuess ?? ''}:${myPlayer.lastHint}`;
+                const shouldAnimateHint = hintKey !== lastRenderedPartyHintKey;
                 if (myPlayer.lastHint === '🏆') {
-                  ind.className = 'indicator';
+                  ind.className = 'indicator win-pop';
                   ind.textContent = "🏆";
                 } else if (myPlayer.lastHint === '⬆️') {
                   ind.className = 'indicator up';
                   ind.textContent = "⬆️";
+                  if (shouldAnimateHint) animateIndicator(ind);
                 } else if (myPlayer.lastHint === '⬇️') {
                   ind.className = 'indicator down';
                   ind.textContent = "⬇️";
+                  if (shouldAnimateHint) animateIndicator(ind);
                 } else if (myPlayer.lastHint === '⏱️') {
                   ind.className = 'indicator';
                   ind.textContent = "⏱️";
                 }
+                lastRenderedPartyHintKey = hintKey;
               }
 
               const hasSubmittedThisStep = (myPlayer.currentStepGuess !== null && myPlayer.currentStepGuess !== undefined);
@@ -7723,11 +8072,13 @@
 
         myMovesCount++;
         triggerHaptic('light');
+        animateSubmittedNumber('inputValue');
 
         // Блокируем клавиатуру до завершения всеми игроками шага
         setTurn(false);
         document.getElementById('gameErrorMsg').textContent = "";
         document.getElementById('myLastNumber').textContent = guess.toLocaleString();
+        restartAnimation(document.getElementById('myLastNumber'), 'number-pop');
         document.getElementById('inputValue').textContent = "";
         currentInput = "";
 
@@ -7759,9 +8110,11 @@
 
         myMovesCount++;
         triggerHaptic('light');
+        animateSubmittedNumber('inputValue');
 
         document.getElementById('gameErrorMsg').textContent = "";
         document.getElementById('myLastNumber').textContent = guess.toLocaleString();
+        restartAnimation(document.getElementById('myLastNumber'), 'number-pop');
         document.getElementById('inputValue').textContent = "";
         currentInput = "";
 
@@ -7770,7 +8123,7 @@
         if (guess === targetSecret) {
           triggerHaptic('success');
           if (ind) {
-            ind.className = 'indicator';
+            ind.className = 'indicator win-pop';
             ind.textContent = "🏆";
           }
           handleCircleTargetEliminated(targetId, targetPlayer);
@@ -7779,12 +8132,14 @@
             if (ind) {
               ind.className = 'indicator up';
               ind.textContent = "⬆️";
+              animateIndicator(ind);
             }
             if (guess >= myCurrentMin) myCurrentMin = guess + 1;
           } else {
             if (ind) {
               ind.className = 'indicator down';
               ind.textContent = "⬇️";
+              animateIndicator(ind);
             }
             if (guess <= myCurrentMax) myCurrentMax = guess - 1;
           }
@@ -7875,10 +8230,16 @@
       updates[`players/${myId}/narrowPercent`] = 100;
 
       let isDraw = false;
+      let isTieBreak = false;
       let eliminatedPlayer = null;
 
-      if (playersWithMin.length > 1) {
-        // Ничья по наименьшему сужению — никто не выбывает
+      if (playersWithMin.length > 1 && minPercent === 100 && playersWithMin.length === alivePlayers.length) {
+        // Абсолютная ничья 100% у всех: нужен тай-брейк, иначе раунд может повторяться бесконечно
+        isTieBreak = true;
+        eliminatedPlayer = selectVaultTieBreakPlayer(playersWithMin);
+        if (eliminatedPlayer) updates[`players/${eliminatedPlayer.gameId}/isAlive`] = false;
+      } else if (playersWithMin.length > 1) {
+        // Обычная ничья по наименьшему сужению — никто не выбывает
         isDraw = true;
       } else {
         // Игрок с наименьшим сужением выбывает
@@ -7903,6 +8264,7 @@
           mode: 'vault',
           round: currentRound,
           isDraw: isDraw,
+          isTieBreak: isTieBreak,
           minPercent: minPercent,
           crackerName: playerProfile.name,
           eliminatedName: eliminatedPlayer ? eliminatedPlayer.name : null,
@@ -7984,6 +8346,7 @@
                 min: min,
                 max: max,
                 currentStepGuess: null,
+                stepSubmittedAt: null,
                 stepStatus: 'waiting',
                 lastGuess: null,
                 lastHint: null
@@ -8020,7 +8383,14 @@
       } else if (summary.mode === 'vault') {
         icon.textContent = "👑";
         title.textContent = (i18n[currentLang]?.vaultCrackedTitle || 'Сейф Раунда {round} взломан!').replace('{round}', summary.round);
-        if (summary.isDraw) {
+        if (summary.isTieBreak) {
+          desc.innerHTML = (i18n[currentLang]?.vaultCrackedTieBreakDesc || 'Код взломали одновременно: <b>{crackerName}</b>!<br><span style="color: #f59e0b; font-weight: 800;">Тай-брейк:</span> игрок <b>{eliminatedName}</b> отправил ответ позже остальных и выбывает.')
+            .replace('{crackerName}', summary.crackerName)
+            .replace('{eliminatedName}', summary.eliminatedName || (i18n[currentLang]?.playerWord || 'Игрок'));
+          sub.textContent = (i18n[currentLang]?.vaultCrackedTieBreakSub || 'Осталось участников: {survivorsCount}. Начинается Раунд {nextRound}...')
+            .replace('{survivorsCount}', summary.survivorsCount)
+            .replace('{nextRound}', summary.round + 1);
+        } else if (summary.isDraw) {
           desc.innerHTML = (i18n[currentLang]?.vaultCrackedDrawDesc || 'Код взломал <b>{crackerName}</b>!<br><span style="color: #38bdf8; font-weight: 700;">Ничья по наименьшему сужению ({minPercent}%)</span> — в этом раунде никто не выбывает!')
             .replace('{crackerName}', summary.crackerName)
             .replace('{minPercent}', summary.minPercent);
@@ -8123,8 +8493,10 @@
 
       myMovesCount++;
       triggerHaptic('light');
+      animateSubmittedNumber('inputValue');
       document.getElementById('gameErrorMsg').textContent = "";
       document.getElementById('myLastNumber').textContent = guess.toLocaleString();
+      restartAnimation(document.getElementById('myLastNumber'), 'number-pop');
       document.getElementById('inputValue').textContent = "";
       currentInput = "";
 
@@ -8135,7 +8507,7 @@
 
       if (guess === oppSecretNumber) {
         triggerHaptic('success');
-        ind.className = 'indicator';
+        ind.className = 'indicator win-pop';
         ind.textContent = "🏆";
         resultType = 'win';
         myCurrentNarrowPercent = 100;
@@ -8144,12 +8516,14 @@
       } else if (guess < oppSecretNumber) {
         ind.className = 'indicator up';
         ind.textContent = "⬆️";
+        animateIndicator(ind);
         resultType = 'more';
         if (guess >= myCurrentMin) myCurrentMin = guess + 1;
         updateRangesDisplay();
       } else {
         ind.className = 'indicator down';
         ind.textContent = "⬇️";
+        animateIndicator(ind);
         resultType = 'less';
         if (guess <= myCurrentMax) myCurrentMax = guess - 1;
         updateRangesDisplay();
@@ -8170,19 +8544,53 @@
       }
     }
 
-    function botTurn() {
-      let oppGuess;
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-      if (selectedAiLevel === 'easy') {
-        oppGuess = Math.floor(Math.random() * (oppCurrentMax - oppCurrentMin + 1)) + oppCurrentMin;
-      } else if (selectedAiLevel === 'normal') {
-        const mid = Math.floor((oppCurrentMin + oppCurrentMax) / 2);
-        const span = Math.max(1, Math.floor((oppCurrentMax - oppCurrentMin) * 0.15));
-        const delta = Math.floor(Math.random() * (span * 2 + 1)) - span;
-        oppGuess = Math.min(oppCurrentMax, Math.max(oppCurrentMin, mid + delta));
-      } else {
-        oppGuess = Math.floor((oppCurrentMin + oppCurrentMax) / 2);
+    function clampGuess(value) {
+      return Math.min(oppCurrentMax, Math.max(oppCurrentMin, Math.round(value)));
+    }
+
+    function chooseEasyBotGuess() {
+      const size = oppCurrentMax - oppCurrentMin + 1;
+      if (size <= 3) return randomInt(oppCurrentMin, oppCurrentMax);
+
+      if (Math.random() < 0.15) {
+        return randomInt(oppCurrentMin, oppCurrentMax);
       }
+
+      const edgeSize = Math.max(1, Math.floor(size * 0.22));
+      const fromLowEdge = Math.random() < 0.5;
+      if (fromLowEdge) {
+        return randomInt(oppCurrentMin, Math.min(oppCurrentMax, oppCurrentMin + edgeSize - 1));
+      }
+      return randomInt(Math.max(oppCurrentMin, oppCurrentMax - edgeSize + 1), oppCurrentMax);
+    }
+
+    function chooseNormalBotGuess() {
+      const size = oppCurrentMax - oppCurrentMin + 1;
+      if (size <= 5) return randomInt(oppCurrentMin, oppCurrentMax);
+
+      const mid = (oppCurrentMin + oppCurrentMax) / 2;
+      if (Math.random() < 0.7) {
+        const innerMin = oppCurrentMin + Math.floor(size * 0.05);
+        const innerMax = oppCurrentMax - Math.floor(size * 0.05);
+        return randomInt(Math.min(innerMin, innerMax), Math.max(innerMin, innerMax));
+      }
+
+      const noise = Math.max(1, Math.floor(size * 0.45));
+      return clampGuess(mid + randomInt(-noise, noise));
+    }
+
+    function chooseBotGuess() {
+      if (selectedAiLevel === 'easy') return chooseEasyBotGuess();
+      if (selectedAiLevel === 'normal') return chooseNormalBotGuess();
+      return Math.floor((oppCurrentMin + oppCurrentMax) / 2);
+    }
+
+    function botTurn() {
+      const oppGuess = chooseBotGuess();
 
       const oppInd = document.getElementById('oppIndicator');
       const oppNumEl = document.getElementById('oppLastNumber');
@@ -8195,22 +8603,25 @@
       setTimeout(() => {
         // Показываем число и стрелку одновременно
         oppNumEl.textContent = oppGuess.toLocaleString();
+        restartAnimation(oppNumEl, 'number-pop');
         oppInd.classList.remove('drum-anim');
 
         if (oppGuess === mySecretNumber) {
           triggerHaptic('error');
-          oppInd.className = 'indicator';
+          oppInd.className = 'indicator win-pop';
           oppInd.textContent = "🏆";
           finishGame(false);
         } else if (oppGuess < mySecretNumber) {
           oppInd.className = 'indicator up';
           oppInd.textContent = "⬆️";
+          animateIndicator(oppInd);
           if (oppGuess >= oppCurrentMin) oppCurrentMin = oppGuess + 1;
           updateRangesDisplay();
           setTurn(true);
         } else {
           oppInd.className = 'indicator down';
           oppInd.textContent = "⬇️";
+          animateIndicator(oppInd);
           if (oppGuess <= oppCurrentMax) oppCurrentMax = oppGuess - 1;
           updateRangesDisplay();
           setTurn(true);
@@ -8259,6 +8670,16 @@
       }
 
       modal.classList.add('active');
+    }
+
+    function startNewGameFromModal() {
+      const restartVsAi = isVsAI;
+      const restartMode = selectedGameSubMode;
+      closeGameAndMenu();
+      startSetup(restartVsAi);
+      if (!restartVsAi && restartMode && restartMode !== 'duel') {
+        selectGameSubMode(restartMode);
+      }
     }
 
     function closeGameAndMenu() {
